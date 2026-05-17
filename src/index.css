@@ -75,6 +75,37 @@ input {
   padding-bottom: 92px;
 }
 
+.user-info-card {
+  margin: 14px 16px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.user-info-card div {
+  background: white;
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 4px 16px rgba(15,23,42,.06);
+  min-width: 0;
+}
+
+.user-info-card span {
+  display: block;
+  color: #94a3b8;
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+
+.user-info-card b {
+  display: block;
+  color: #0f172a;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .hero-card {
   margin: 16px;
   padding: 20px;

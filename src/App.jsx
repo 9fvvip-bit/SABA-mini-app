@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Trophy,
@@ -31,14 +31,59 @@ const myBets = [
   { team: "France", flag: "🇫🇷", ticket: 5, share: 10, amount: 50, est: 2140 },
 ];
 
-function AppHeader() {
+function useTelegramUser() {
+  const [tgUser, setTgUser] = useState({
+    id: "Demo",
+    username: "aceXXX",
+    first_name: "Demo User",
+  });
+
+  useEffect(() => {
+    const tg = window.Telegram?.WebApp;
+
+    if (tg) {
+      tg.ready();
+      tg.expand();
+
+      const user = tg.initDataUnsafe?.user;
+      if (user) {
+        setTgUser(user);
+      }
+    }
+  }, []);
+
+  return tgUser;
+}
+
+
+function AppHeader({ user }) {
   return (
     <div className="app-header">
       <div>
         <div className="mini-label">Telegram Mini App Demo</div>
         <div className="app-title">SABA WORLD CUP POOL</div>
       </div>
-      <div className="user-pill">aceXXX</div>
+      <div className="user-pill">{user?.username ? `@${user.username}` : user?.first_name || "Player"}</div>
+    </div>
+  );
+}
+
+
+function UserInfoCard({ user }) {
+  return (
+    <div className="user-info-card">
+      <div>
+        <span>Telegram User</span>
+        <b>{user?.first_name || "Demo User"}</b>
+      </div>
+      <div>
+        <span>Username</span>
+        <b>{user?.username ? `@${user.username}` : "-"}</b>
+      </div>
+      <div>
+        <span>Telegram ID</span>
+        <b>{user?.id || "Demo"}</b>
+      </div>
     </div>
   );
 }
@@ -254,11 +299,13 @@ function BottomNav({ tab, setTab }) {
 export default function App() {
   const [tab, setTab] = useState("teams");
   const [betTeam, setBetTeam] = useState(null);
+  const tgUser = useTelegramUser();
 
   return (
     <div className="screen-bg">
       <div className="phone-shell">
-        <AppHeader />
+        <AppHeader user={tgUser} />
+        <UserInfoCard user={tgUser} />
         {tab === "teams" && <TeamsPage onBet={setBetTeam} />}
         {tab === "deposit" && <DepositPage />}
         {tab === "bets" && <MyBetsPage />}
