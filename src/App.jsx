@@ -39,17 +39,36 @@ function useTelegramUser() {
   });
 
   useEffect(() => {
-    const tg = window.Telegram?.WebApp;
+    const loadTelegramUser = () => {
+      const tg = window.Telegram?.WebApp;
 
-    if (tg) {
+      if (!tg) {
+        return false;
+      }
+
       tg.ready();
       tg.expand();
 
       const user = tg.initDataUnsafe?.user;
       if (user) {
         setTgUser(user);
+        return true;
       }
+
+      return false;
+    };
+
+    if (loadTelegramUser()) {
+      return;
     }
+
+    const timer = setInterval(() => {
+      if (loadTelegramUser()) {
+        clearInterval(timer);
+      }
+    }, 300);
+
+    return () => clearInterval(timer);
   }, []);
 
   return tgUser;
