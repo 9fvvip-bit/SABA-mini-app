@@ -68,7 +68,7 @@ function useTelegramUser() {
 }
 
 async function apiGet(path, initData, tgUser) {
-  const headers = {};
+  const headers = { "ngrok-skip-browser-warning": "true" };
   if (initData) headers["X-Telegram-Init-Data"] = initData;
 
   const url = new URL(`${API_BASE}${path}`);
