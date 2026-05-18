@@ -3201,3 +3201,57 @@ button:disabled {
   padding: 12px 14px !important;
   font-size: 14px !important;
 }
+
+
+/* Realtime Binance rate display */
+.rate-live-note {
+  color: #f7d24b;
+  font-size: 12px;
+  font-weight: 800;
+  margin-left: 6px;
+}
+
+.coin-rate-mini {
+  display: block;
+  margin-top: 4px;
+  color: #9fb1cc;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.coin-method.active .coin-rate-mini {
+  color: #fff1a3;
+}
+
+.rate-proof-line {
+  margin: -8px 2px 14px;
+  color: #f7d24b;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+}
+
+
+/* Strict final fix: bet modal button always visible */
+.modal-bg { align-items: flex-end !important; padding-bottom: 0 !important; }
+.premium-modal, .modal {
+  max-height: calc(100vh - 28px) !important;
+  overflow-y: auto !important;
+  padding-bottom: 110px !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+.modal-action-sticky {
+  position: sticky !important;
+  bottom: 0 !important;
+  z-index: 30 !important;
+  margin: 16px -2px -86px !important;
+  padding: 12px 0 18px !important;
+  background: linear-gradient(180deg, rgba(8,13,24,0), rgba(8,13,24,0.96) 32%, rgba(8,13,24,1)) !important;
+}
+.status, .bet-head span {
+  font-weight: 900 !important;
+}
+.bet-head span {
+  color: #5cff9d !important;
+}

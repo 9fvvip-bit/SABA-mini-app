@@ -43,7 +43,7 @@ const LANGUAGES = [
 
 const I18N = {
   en: { pool:"Pool", deposit:"Deposit", myBets:"My Bets", rewards:"Rewards", language:"Language", depositCrypto:"Deposit Crypto", selectAmount:"Select amount in USDT value", customAmount:"Custom amount (USDT value)", selectPayment:"Select payment coin / network", youEnter:"You enter", needToPay:"Need to pay", createOrder:"Create Deposit Order", creatingOrder:"Creating Order...", oneActive:"One player can only keep one active deposit order. Order expires in 30 minutes.", activeOrder:"Active Deposit Order", left:"left", youDeposit:"You deposit", youPay:"You pay", network:"Network", rate:"Rate", send:"Send", onlyThrough:"only through", wrongNetwork:"Wrong coin or wrong network may cause permanent loss. Upload receipt after sending.", cancelOrder:"Cancel Order", cancelling:"Cancelling...", uploadScreenshot:"Upload Payment Screenshot", uploadDesc:"After sending, upload your payment screenshot for admin verification.", pendingAdmin:"Pending Admin Confirmation", chooseScreenshot:"Upload Screenshot", fileLimit:"JPG, PNG up to 5MB", submitScreenshot:"Submit Screenshot", uploading:"Uploading...", orderExpired:"Order Expired", walletHistory:"Wallet History", viewAll:"View All", depositHistory:"Deposit History", withdrawHistory:"Withdraw History", betHistory:"Bet History", winHistory:"Win History", noRecords:"No records yet.", promo:"Rewards / Promotion", depositBonus:"Deposit 100 USDT, Get 20 USDT Bonus", progress:"Progress", depositMore:"Deposit {amount} USDT more to unlock 20 USDT reward.", alreadyActive:"You already have an active deposit order. Please upload receipt, cancel it, or wait until it expires.", createFirst:"Please create a deposit order first.", expiredCreateNew:"This deposit order has expired. Please create a new order.", chooseFileFirst:"Please choose a payment screenshot first.", uploadedWait:"Screenshot uploaded. Please wait for admin confirmation.", cancelConfirm:"Cancel this deposit order? You can create a new one after cancellation.", betSuccess:"Bet success: {tickets} tickets / {shares} shares" },
-  zh: { pool:"奖池", deposit:"充值", myBets:"我的下注", rewards:"奖励", language:"语言", depositCrypto:"加密货币充值", selectAmount:"选择充值金额（USDT价值）", customAmount:"自定义金额（USDT价值）", selectPayment:"选择支付币种 / 网络", youEnter:"你输入", needToPay:"需要支付", createOrder:"创建充值订单", creatingOrder:"正在创建订单...", oneActive:"每个玩家同时只能保留一张进行中的充值订单，订单30分钟后过期。", activeOrder:"进行中的充值订单", left:"剩余", youDeposit:"充值价值", youPay:"你需要支付", network:"网络", rate:"汇率", send:"请发送", onlyThrough:"仅通过", wrongNetwork:"发送错误币种或错误网络可能造成永久损失。付款后请上传收据截图。", cancelOrder:"取消订单", cancelling:"正在取消...", uploadScreenshot:"上传付款截图", uploadDesc:"付款后上传截图，等待管理员审核。", pendingAdmin:"等待管理员确认", chooseScreenshot:"上传截图", fileLimit:"JPG、PNG，最大5MB", submitScreenshot:"提交截图", uploading:"上传中...", orderExpired:"订单已过期", walletHistory:"钱包记录", viewAll:"查看全部", depositHistory:"充值记录", withdrawHistory:"提现记录", betHistory:"下注记录", winHistory:"中奖记录", noRecords:"暂无记录。", promo:"奖励 / 活动", depositBonus:"充值100 USDT，赠送20 USDT奖励", progress:"进度", depositMore:"再充值 {amount} USDT 即可解锁20 USDT奖励。", alreadyActive:"你已经有一张进行中的充值订单，请上传收据、取消订单，或等待订单过期。", createFirst:"请先创建充值订单。", expiredCreateNew:"该充值订单已过期，请重新创建订单。", chooseFileFirst:"请先选择付款截图。", uploadedWait:"截图已上传，请等待管理员确认。", cancelConfirm:"确定取消这张充值订单吗？取消后可以重新创建新订单。", betSuccess:"下注成功：{tickets} 注 / {shares} 股份" },
+  zh: { pool:"奖池", deposit:"充值", myBets:"我的下注", rewards:"奖励", language:"语言", depositCrypto:"加密货币充值", selectAmount:"选择充值金额（USDT价值）", customAmount:"自定义金额（USDT价值）", selectPayment:"选择支付币种 / 网络", youEnter:"你输入", needToPay:"需要支付", createOrder:"创建充值订单", creatingOrder:"正在创建订单...", oneActive:"每个玩家同时只能保留一张进行中的充值订单，订单30分钟后过期。", activeOrder:"进行中的充值订单", left:"剩余", youDeposit:"充值价值", youPay:"你需要支付", network:"网络", rate:"汇率", send:"请发送", onlyThrough:"仅通过", wrongNetwork:"发送错误币种或错误网络可能造成永久损失。付款后请上传收据截图。", cancelOrder:"取消订单", cancelling:"正在取消...", uploadScreenshot:"上传付款截图", uploadDesc:"付款后上传截图，等待管理员审核。", pendingAdmin:"等待管理员确认", chooseScreenshot:"上传截图", fileLimit:"JPG、PNG，最大5MB", submitScreenshot:"提交截图", uploading:"上传中...", orderExpired:"订单已过期", walletHistory:"钱包记录", viewAll:"查看全部", depositHistory:"充值记录", withdrawHistory:"提现记录", betHistory:"下注记录", winHistory:"中奖记录", noRecords:"暂无记录。", promo:"奖励 / 活动", depositBonus:"充值100 USDT，赠送20 USDT奖励", progress:"进度", depositMore:"再充值 {amount} USDT 即可解锁20 USDT奖励。", alreadyActive:"你已经有一张进行中的充值订单，请上传收据、取消订单，或等待订单过期。", createFirst:"请先创建充值订单。", expiredCreateNew:"该充值订单已过期，请重新创建订单。", chooseFileFirst:"请先选择付款截图。", uploadedWait:"截图已上传，请等待管理员确认。", cancelConfirm:"确定取消这张充值订单吗？取消后可以重新创建新订单。", betSuccess:"下注成功：{tickets} 注 / {shares} 分成" },
   es: { pool:"Pool", deposit:"Depósito", myBets:"Mis Apuestas", rewards:"Recompensas", language:"Idioma", depositCrypto:"Depósito Cripto", selectAmount:"Selecciona valor en USDT", customAmount:"Monto personalizado (USDT)", selectPayment:"Selecciona moneda / red", youEnter:"Ingresas", needToPay:"Debes pagar", createOrder:"Crear Orden", creatingOrder:"Creando...", oneActive:"Solo puedes tener una orden activa. Expira en 30 minutos.", activeOrder:"Orden Activa", left:"restante", youDeposit:"Depositas", youPay:"Pagas", network:"Red", rate:"Tasa", send:"Envía", onlyThrough:"solo por", wrongNetwork:"Moneda o red incorrecta puede causar pérdida permanente. Sube recibo después de pagar.", cancelOrder:"Cancelar Orden", cancelling:"Cancelando...", uploadScreenshot:"Subir Recibo", uploadDesc:"Después de pagar, sube tu captura para verificación.", pendingAdmin:"Pendiente de Confirmación", chooseScreenshot:"Subir Captura", fileLimit:"JPG, PNG hasta 5MB", submitScreenshot:"Enviar Captura", uploading:"Subiendo...", orderExpired:"Orden Expirada", walletHistory:"Historial", viewAll:"Ver Todo", depositHistory:"Depósitos", withdrawHistory:"Retiros", betHistory:"Apuestas", winHistory:"Ganancias", noRecords:"Sin registros.", promo:"Recompensas / Promoción", depositBonus:"Deposita 100 USDT y recibe 20 USDT", progress:"Progreso", depositMore:"Deposita {amount} USDT más para desbloquear 20 USDT.", alreadyActive:"Ya tienes una orden activa. Sube recibo, cancélala o espera.", createFirst:"Primero crea una orden.", expiredCreateNew:"Esta orden expiró. Crea una nueva.", chooseFileFirst:"Selecciona una captura primero.", uploadedWait:"Captura subida. Espera confirmación.", cancelConfirm:"¿Cancelar esta orden?", betSuccess:"Apuesta exitosa: {tickets} tickets / {shares} shares" },
   hi: { pool:"पूल", deposit:"डिपॉजिट", myBets:"मेरी बेट्स", rewards:"रिवॉर्ड्स", language:"भाषा", depositCrypto:"क्रिप्टो डिपॉजिट", selectAmount:"USDT वैल्यू चुनें", customAmount:"कस्टम राशि (USDT)", selectPayment:"कॉइन / नेटवर्क चुनें", youEnter:"आप दर्ज करते हैं", needToPay:"भुगतान करें", createOrder:"डिपॉजिट ऑर्डर बनाएं", creatingOrder:"ऑर्डर बन रहा है...", oneActive:"केवल एक सक्रिय ऑर्डर हो सकता है। 30 मिनट में एक्सपायर होगा।", activeOrder:"सक्रिय डिपॉजिट ऑर्डर", left:"बाकी", youDeposit:"डिपॉजिट", youPay:"भुगतान", network:"नेटवर्क", rate:"रेट", send:"भेजें", onlyThrough:"केवल", wrongNetwork:"गलत कॉइन या नेटवर्क से नुकसान हो सकता है। भुगतान के बाद रसीद अपलोड करें।", cancelOrder:"ऑर्डर कैंसल", cancelling:"कैंसल हो रहा है...", uploadScreenshot:"पेमेंट स्क्रीनशॉट", uploadDesc:"पेमेंट के बाद स्क्रीनशॉट अपलोड करें।", pendingAdmin:"एडमिन पुष्टि लंबित", chooseScreenshot:"स्क्रीनशॉट अपलोड", fileLimit:"JPG, PNG 5MB तक", submitScreenshot:"सबमिट", uploading:"अपलोड हो रहा है...", orderExpired:"ऑर्डर एक्सपायर", walletHistory:"वॉलेट हिस्ट्री", viewAll:"सभी देखें", depositHistory:"डिपॉजिट", withdrawHistory:"विड्रॉ", betHistory:"बेट", winHistory:"विन", noRecords:"कोई रिकॉर्ड नहीं।", promo:"रिवॉर्ड / प्रमोशन", depositBonus:"100 USDT डिपॉजिट करें, 20 USDT बोनस पाएं", progress:"प्रगति", depositMore:"20 USDT पाने के लिए {amount} USDT और जमा करें।", alreadyActive:"आपके पास सक्रिय ऑर्डर है। रसीद अपलोड करें, कैंसल करें या इंतजार करें।", createFirst:"पहले डिपॉजिट ऑर्डर बनाएं।", expiredCreateNew:"ऑर्डर एक्सपायर हो गया। नया बनाएं।", chooseFileFirst:"पहले स्क्रीनशॉट चुनें।", uploadedWait:"स्क्रीनशॉट अपलोड हो गया।", cancelConfirm:"क्या ऑर्डर कैंसल करना है?", betSuccess:"बेट सफल: {tickets} / {shares}" },
   ar: { pool:"المجمع", deposit:"إيداع", myBets:"رهاناتي", rewards:"المكافآت", language:"اللغة", depositCrypto:"إيداع العملات الرقمية", selectAmount:"اختر قيمة USDT", customAmount:"مبلغ مخصص (USDT)", selectPayment:"اختر العملة / الشبكة", youEnter:"أنت تدخل", needToPay:"يجب الدفع", createOrder:"إنشاء طلب إيداع", creatingOrder:"جارٍ الإنشاء...", oneActive:"يمكن الاحتفاظ بطلب نشط واحد فقط. ينتهي خلال 30 دقيقة.", activeOrder:"طلب إيداع نشط", left:"متبقي", youDeposit:"قيمة الإيداع", youPay:"تدفع", network:"الشبكة", rate:"السعر", send:"أرسل", onlyThrough:"فقط عبر", wrongNetwork:"عملة أو شبكة خاطئة قد تسبب فقدانًا دائمًا. ارفع الإيصال بعد الدفع.", cancelOrder:"إلغاء الطلب", cancelling:"جارٍ الإلغاء...", uploadScreenshot:"رفع إثبات الدفع", uploadDesc:"بعد الدفع، ارفع لقطة الشاشة للمراجعة.", pendingAdmin:"بانتظار التأكيد", chooseScreenshot:"رفع لقطة", fileLimit:"JPG, PNG حتى 5MB", submitScreenshot:"إرسال", uploading:"جارٍ الرفع...", orderExpired:"انتهى الطلب", walletHistory:"سجل المحفظة", viewAll:"عرض الكل", depositHistory:"الإيداعات", withdrawHistory:"السحوبات", betHistory:"الرهانات", winHistory:"الأرباح", noRecords:"لا توجد سجلات.", promo:"المكافآت / العروض", depositBonus:"أودع 100 USDT واحصل على 20 USDT", progress:"التقدم", depositMore:"أودع {amount} USDT إضافية لفتح 20 USDT.", alreadyActive:"لديك طلب نشط. ارفع الإيصال أو ألغِه أو انتظر.", createFirst:"أنشئ طلب إيداع أولاً.", expiredCreateNew:"انتهى الطلب. أنشئ طلبًا جديدًا.", chooseFileFirst:"اختر لقطة الدفع أولاً.", uploadedWait:"تم رفع اللقطة. انتظر التأكيد.", cancelConfirm:"هل تريد إلغاء هذا الطلب؟", betSuccess:"تم الرهان: {tickets} / {shares}" },
@@ -86,24 +86,24 @@ const EXTRA_I18N = {
     liveTeamBetPool: "实时球队下注池",
     btcLuckyDraw: "+ 3 BTC 幸运抽奖",
     totalPrizeFormula: "总奖金计算公式",
-    formulaBase: "基础奖池 500K × 股份",
-    formulaLive: "实时球队下注池 × 股份",
+    formulaBase: "基础奖池 500K × 分成",
+    formulaLive: "实时球队下注池 × 分成",
     formulaBtc: "BTC 抽奖",
-    yourPoolShare: "你的奖池股份",
-    drawShare: "抽奖股份",
-    extraShare: "额外股份",
+    yourPoolShare: "你的奖池分成",
+    drawShare: "抽奖分成",
+    extraShare: "额外分成",
     balance: "余额",
     usdtAvailable: "可用 USDT",
     tickets: "注数",
     ticket: "注数",
-    share: "股份",
+    share: "分成",
     bet: "下注",
     closed: "已关闭",
     loadingRealData: "正在加载真实数据...",
     apiError: "接口错误",
     searchTeam: "搜索球队",
     championMarket: "冠军市场",
-    earlyBetMoreShare: "越早下注，股份越多",
+    earlyBetMoreShare: "越早下注，分成越多",
   },
   es: {
     poolPrizeTitle: "Premio del Pool Mundial Saba",
@@ -312,15 +312,15 @@ const FINAL_EXTRA_I18N = {
     betMission:"下注任务", inviteMission:"邀请任务", dailyLoginMission:"每日登录任务",
     depositTarget:"充值 {amount} USDT", betTarget:"下注 {amount} USDT", needMore:"还需要 {amount} USDT",
     turnoverRequired:"需要 1 倍流水", claimed:"已领取", claimBonus:"领取奖励", notReady:"未完成",
-    claimBtcShare:"领取 BTC 股份", invitePlayer:"邀请玩家充值 100 USDT", validInvites:"有效邀请",
-    inviteRewardDesc:"奖励包含 10 USDT 和玩家中奖池 5% 股份奖励。",
+    claimBtcShare:"领取 BTC 分成", invitePlayer:"邀请玩家充值 100 USDT", validInvites:"有效邀请",
+    inviteRewardDesc:"奖励包含 10 USDT 和玩家中奖池 5% 分成奖励。",
     sevenDayLogin:"7天登录", totalFive:"总计 5 USDT", nextDay:"第 {day} 天",
     claimedToday:"今日已领取", claimDailyLogin:"领取每日登录奖励", rewardsCenter:"奖励中心",
     firstDepositPack:"首充礼包", referralPartner:"邀请伙伴", invited:"已邀请", copyInviteLink:"复制邀请链接",
     inviteLink:"邀请链接", withdraw:"提现", amountUsdt:"USDT 金额", trc20Address:"USDT-TRC20 地址",
     createWithdraw:"创建提现", noWalletRecords:"暂无钱包记录。", championBet:"冠军下注",
-    amountMultiple:"金额，10 的倍数", estimatedWin:"预计可赢", teamSharePercent:"球队股份占比",
-    formula:"公式", ticketRule:"1 注 = 10 USDT。球队股份倍率", confirmBet:"确认下注",
+    amountMultiple:"金额，10 的倍数", estimatedWin:"预计可赢", teamSharePercent:"球队分成占比",
+    formula:"公式", ticketRule:"1 注 = 10 USDT。球队分成倍率", confirmBet:"确认下注",
     betAmount:"下注", status:"状态",
   },
   es: {
@@ -448,6 +448,19 @@ Object.keys(FINAL_EXTRA_I18N).forEach((code) => {
   I18N[code] = { ...(I18N[code] || I18N.en), ...FINAL_EXTRA_I18N[code] };
 });
 
+const STRICT_FINAL_I18N = {
+  en: { share:"Profit Unit", shares:"Profit Units", yourPoolShare:"Your Prize Unit", drawShare:"Draw Unit", extraShare:"Extra Bonus", formulaBase:"Base Pool 500K × Prize Unit", formulaLive:"Live Team Bet Pool × Prize Unit", teamSharePercent:"Team Unit %", betSuccess:"Bet success: {tickets} tickets / {shares} profit units", active:"Active", completed:"Completed", pending:"Pending", cancelled:"Cancelled", canceled:"Cancelled", rejected:"Rejected", estimatedWin:"Estimated Win", confirmBet:"Confirm Bet", betAmount:"Bet", championBet:"Champion Bet", amountMultiple:"Amount, multiple of 10", rateRealtime:"Binance realtime", rateLoading:"Binance realtime loading...", rateFailed:"Rate load failed", shareRateLabel:"Team unit multiplier", totalPrizeFormula:"Total Prize Formula", liveTeamBetPool:"Live Team Bet Pool", depositTarget:"Deposit {amount} USDT", needMore:"Need {amount} USDT more" },
+  zh: { share:"分成", shares:"分成", yourPoolShare:"你的奖池分成", drawShare:"抽奖分成", extraShare:"额外加成", formulaBase:"基础奖池 500K × 分成", formulaLive:"实时球队下注池 × 分成", teamSharePercent:"球队分成占比", betSuccess:"下注成功：{tickets} 注 / {shares} 分成", active:"进行中", completed:"已完成", pending:"待处理", cancelled:"已取消", canceled:"已取消", rejected:"已拒绝", estimatedWin:"预计可赢", confirmBet:"确认下注", betAmount:"下注", championBet:"冠军下注", amountMultiple:"金额，10 的倍数", rateRealtime:"Binance 实时汇率", rateLoading:"Binance 实时汇率加载中...", rateFailed:"汇率加载失败", shareRateLabel:"球队分成倍率", totalPrizeFormula:"总奖金计算公式", liveTeamBetPool:"实时球队下注池", depositTarget:"充值 {amount} USDT", needMore:"还需要 {amount} USDT" },
+  es: { share:"Unidad", shares:"Unidades", active:"Activo", completed:"Completado", pending:"Pendiente", cancelled:"Cancelado", canceled:"Cancelado", rejected:"Rechazado", rateRealtime:"Binance en tiempo real", rateLoading:"Cargando tasa Binance...", rateFailed:"Error de tasa" },
+  hi: { share:"प्रॉफिट यूनिट", shares:"प्रॉफिट यूनिट", active:"सक्रिय", completed:"पूरा", pending:"लंबित", cancelled:"रद्द", canceled:"रद्द", rejected:"अस्वीकृत", rateRealtime:"Binance लाइव रेट", rateLoading:"Binance रेट लोड हो रहा है...", rateFailed:"रेट लोड विफल" },
+  ar: { share:"وحدة ربح", shares:"وحدات ربح", active:"نشط", completed:"مكتمل", pending:"قيد الانتظار", cancelled:"ملغي", canceled:"ملغي", rejected:"مرفوض", rateRealtime:"سعر Binance مباشر", rateLoading:"جارٍ تحميل سعر Binance...", rateFailed:"فشل تحميل السعر" },
+  fr: { share:"Unité", shares:"Unités", active:"Actif", completed:"Terminé", pending:"En attente", cancelled:"Annulé", canceled:"Annulé", rejected:"Rejeté", rateRealtime:"Taux Binance en direct", rateLoading:"Chargement du taux Binance...", rateFailed:"Échec du taux" },
+  ja: { share:"分配ユニット", shares:"分配ユニット", active:"進行中", completed:"完了", pending:"保留中", cancelled:"キャンセル", canceled:"キャンセル", rejected:"拒否", rateRealtime:"Binanceリアルタイム", rateLoading:"Binanceレート読み込み中...", rateFailed:"レート取得失敗" },
+  ko: { share:"분배 유닛", shares:"분배 유닛", active:"진행 중", completed:"완료", pending:"대기 중", cancelled:"취소됨", canceled:"취소됨", rejected:"거절됨", rateRealtime:"Binance 실시간", rateLoading:"Binance 시세 로딩 중...", rateFailed:"시세 로드 실패" },
+  ru: { share:"Доля", shares:"Доли", active:"Активно", completed:"Завершено", pending:"Ожидает", cancelled:"Отменено", canceled:"Отменено", rejected:"Отклонено", rateRealtime:"Binance realtime", rateLoading:"Загрузка курса Binance...", rateFailed:"Ошибка курса" },
+};
+Object.keys(STRICT_FINAL_I18N).forEach((code) => { I18N[code] = { ...(I18N[code] || I18N.en), ...STRICT_FINAL_I18N[code] }; });
+function statusLabel(t, status) { const key = String(status || "active").toLowerCase(); return t(key) || status || ""; }
 
 function tr(lang, key, vars = {}) {
   const text = (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
@@ -694,6 +707,31 @@ function fileToBase64(file) {
   });
 }
 
+
+function normalizeDepositAmount(value) {
+  const n = Number(String(value ?? "").replace(/[^\d.]/g, ""));
+  if (!Number.isFinite(n) || n <= 0) return 0;
+  return Math.round(n * 100) / 100;
+}
+
+function previewPayAmount(amountUsdt, method) {
+  const amount = normalizeDepositAmount(amountUsdt);
+  if (!amount) return "0.00";
+
+  const rate = Number(method?.rate_usdt);
+  const coin = String(method?.coin || method?.label || "USDT").toUpperCase();
+  const decimals = Number(method?.decimals ?? (coin === "BTC" || coin === "ETH" ? 8 : 6));
+
+  if (Number.isFinite(rate) && rate > 0) {
+    return (amount / rate).toLocaleString(undefined, {
+      minimumFractionDigits: coin === "USDT" || coin === "USDC" ? 2 : 2,
+      maximumFractionDigits: coin === "USDT" || coin === "USDC" ? 2 : decimals,
+    });
+  }
+
+  return "Rate loading";
+}
+
 function AppHeader({ user }) {
   return (
     <div className="brand-hero player-hero">
@@ -747,7 +785,7 @@ function UserInfoCard({ user }) {
 
 function HeroCard({ prizePool, festival, onDeposit, t }) {
   const basePool = formatCompactUSDT(prizePool?.base_pool || 500000);
-  const liveBet = formatCompactUSDT(prizePool?.total_pool || 0);
+  const liveBet = formatCompactUSDT(prizePool?.live_team_bet || prizePool?.live_team_bet_pool || prizePool?.total_pool || 0);
   const drawShare = festival?.btc_draw_share ?? 0;
   const extraShare = festival?.extra_share_boost || "0%";
 
@@ -927,7 +965,7 @@ function PoolPage({ onBet, setTab, me, teams, prizePool, festival, loading, erro
   );
 }
 
-function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, createDeposit, cancelDeposit, submitReceipt, btcDraw, depositMethods = [] }) {
+function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, createDeposit, cancelDeposit, submitReceipt, btcDraw, depositMethods = [], tgUser, initData }) {
   const [amount, setAmount] = useState("50");
   const [selectedMethod, setSelectedMethod] = useState("USDT_TRC20");
   const [currentOrder, setCurrentOrder] = useState(null);
@@ -937,6 +975,9 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
   const [cancelling, setCancelling] = useState(false);
   const [historyTab, setHistoryTab] = useState("deposit");
   const [nowTick, setNowTick] = useState(Date.now());
+  const [liveMethods, setLiveMethods] = useState([]);
+  const [ratesLoading, setRatesLoading] = useState(false);
+  const [ratesError, setRatesError] = useState("");
 
   const fallbackMethods = [
     { key: "USDT_TRC20", label: "USDT", coin: "USDT", network: "TRC20", address: DEPOSIT_ADDRESS, rate_usdt: "1", pay_amount: amount, tag: "Low fee" },
@@ -948,7 +989,38 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
     { key: "BTC", label: "BTC", coin: "BTC", network: "Bitcoin", address: "bc1qduqvj3yjg0fr42j42rytlmrl6auy3050fr38g5", rate_usdt: "—", pay_amount: "—", tag: "BTC" },
   ];
 
-  const methods = depositMethods.length ? depositMethods : fallbackMethods;
+  const methods = liveMethods.length ? liveMethods : (depositMethods.length ? depositMethods : fallbackMethods);
+
+  useEffect(() => {
+    if (currentOrder?.order_no) return;
+
+    const currentAmount = normalizeDepositAmount(amount);
+    if (!currentAmount) {
+      setLiveMethods([]);
+      return;
+    }
+
+    let alive = true;
+    setRatesLoading(true);
+    setRatesError("");
+
+    const timer = setTimeout(async () => {
+      try {
+        const data = await api(`/api/deposit/methods?amount=${encodeURIComponent(currentAmount)}`, { tgUser, initData });
+        if (alive) setLiveMethods(data.methods || []);
+      } catch (err) {
+        console.warn("Deposit realtime rate load failed:", err);
+        if (alive) setRatesError(err.message || "Rate load failed");
+      } finally {
+        if (alive) setRatesLoading(false);
+      }
+    }, 350);
+
+    return () => {
+      alive = false;
+      clearTimeout(timer);
+    };
+  }, [amount, currentOrder?.order_no, tgUser?.id, initData]);
 
   useEffect(() => {
     const timer = setInterval(() => setNowTick(Date.now()), 1000);
@@ -986,9 +1058,13 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
   const selectedAddress = currentOrder?.address || methodInfo?.address || DEPOSIT_ADDRESS;
   const selectedCoin = currentOrder?.coin_symbol || methodInfo?.coin || "USDT";
   const selectedNetwork = currentOrder?.network || `${methodInfo?.coin || "USDT"} (${methodInfo?.network || "TRC20"})`;
-  const payAmount = currentOrder?.pay_amount || methodInfo?.pay_amount || amount;
+  const cleanAmount = normalizeDepositAmount(amount);
+  const livePreviewPayAmount = methodInfo?.pay_amount || previewPayAmount(cleanAmount, methodInfo);
+  const payAmount = currentOrder?.order_no ? (currentOrder?.pay_amount || currentOrder?.amount_usdt || cleanAmount.toFixed(2)) : livePreviewPayAmount;
   const rateValue = currentOrder?.rate_usdt || methodInfo?.rate_usdt;
-  const rateText = rateValue && rateValue !== "—" ? `1 ${selectedCoin} ≈ ${Number(rateValue).toLocaleString(undefined, { maximumFractionDigits: 6 })} USDT` : "Rate from Binance after order creation";
+  const rateText = rateValue && rateValue !== "—" && Number(rateValue) > 0
+    ? `1 ${selectedCoin} ≈ ${Number(rateValue).toLocaleString(undefined, { maximumFractionDigits: 8 })} USDT`
+    : "Realtime Binance rate loading";
 
   const expireMs = currentOrder?.expires_at ? new Date(String(currentOrder.expires_at).replace(" ", "T") + "Z").getTime() : 0;
   const remainingSeconds = expireMs ? Math.max(0, Math.floor((expireMs - nowTick) / 1000)) : 0;
@@ -1010,7 +1086,7 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
     }
     setCreating(true);
     try {
-      const res = await createDeposit(amount, selectedMethod);
+      const res = await createDeposit(cleanAmount, selectedMethod);
       if (res) {
         setCurrentOrder(res);
         setReceiptFile(null);
@@ -1091,7 +1167,7 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
         date: b.created_at,
         amount: `${b.amount} USDT`,
         status: b.status,
-        remark: `${b.tickets} tickets / ${b.shares} shares`,
+        remark: `${b.tickets} ${t("tickets")} / ${b.shares} ${t("shares")}`,
         icon: Ticket,
       }));
     }
@@ -1130,17 +1206,21 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
 
           <label className="field-label">{t("customAmount")}</label>
           <div className="amount-input-shell">
-            <input value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount USDT" />
+            <input value={amount} inputMode="decimal" onChange={(e) => setAmount(e.target.value.replace(/[^0-9.]/g, ""))} placeholder="Amount USDT" />
             <span>USDT</span>
           </div>
 
-          <div className="field-label">{t("selectPayment")}</div>
+          <div className="field-label">
+            {t("selectPayment")}
+            <span className="rate-live-note">{ratesLoading ? ` · ${t("rateLoading")}` : ratesError ? ` · ${t("rateFailed")}` : ` · ${t("rateRealtime")}`}</span>
+          </div>
           <div className="coin-method-grid">
             {methods.map((m) => (
               <button key={m.key} className={selectedMethod === m.key ? "coin-method active" : "coin-method"} onClick={() => setSelectedMethod(m.key)}>
                 <b>{m.label}</b>
                 <span>{m.network}</span>
                 <em>{m.tag}</em>
+                <small className="coin-rate-mini">{m.rate_usdt && Number(m.rate_usdt) > 0 ? `1 ${m.coin}≈${Number(m.rate_usdt).toLocaleString(undefined, { maximumFractionDigits: 6 })} USDT` : "Rate loading"}</small>
               </button>
             ))}
           </div>
@@ -1148,7 +1228,7 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
           <div className="convert-preview">
             <div>
               <span>{t("youEnter")}</span>
-              <b>{fmt(amount, 2)} USDT</b>
+              <b>{fmt(cleanAmount, 2)} USDT</b>
             </div>
             <ArrowRight size={20} />
             <div>
@@ -1156,8 +1236,9 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
               <b>{payAmount} {selectedCoin}</b>
             </div>
           </div>
+          <div className="rate-proof-line">{rateText} · {methodInfo?.source || t("rateRealtime")}</div>
 
-          <button className="red-button wide-red-button" onClick={handleCreateDeposit} disabled={creating}>
+          <button className="red-button wide-red-button" onClick={handleCreateDeposit} disabled={creating || (!currentOrder?.order_no && (!rateValue || Number(rateValue) <= 0))}>
             {creating ? t("creatingOrder") : t("createOrder")}
           </button>
           <p className="help-line center-help">{t("oneActive")}</p>
@@ -1308,7 +1389,7 @@ function MyBetsPage({ bets, t }) {
           <div key={b.id} className="bet-card premium-bet-card">
             <div className="bet-head">
               <b>{b.flag} {b.team}</b>
-              <span>{b.status}</span>
+              <span>{statusLabel(t, b.status)}</span>
             </div>
             <div className="bet-grid">
               <div><small>{t("ticket")}</small><b>{b.tickets}</b></div>
@@ -1429,7 +1510,7 @@ function BetModal({ team, prizePool, onClose, placeBet, t }) {
   const teamShareAfter = currentTeamShare + newShare;
   const percent = teamShareAfter > 0 ? newShare / teamShareAfter : 0;
   const basePool = Number(prizePool?.champion_base_pool || 500000);
-  const livePool = Number(prizePool?.live_team_bet || 0);
+  const livePool = Number(prizePool?.live_team_bet || prizePool?.live_team_bet_pool || prizePool?.total_pool || 0);
   const estBase = basePool * percent;
   const estLive = livePool * percent;
   const estTotal = estBase + estLive;
@@ -1455,7 +1536,9 @@ function BetModal({ team, prizePool, onClose, placeBet, t }) {
         </div>
 
         <div className="gray-box dark-gray">{t("ticketRule")}: {Number(team.share_rate || 2).toFixed(2)}x</div>
-        <button className="red-button wide-red-button" onClick={() => placeBet(team, amount)}>{t("confirmBet")}</button>
+        <div className="modal-action-sticky">
+          <button className="red-button wide-red-button" onClick={() => placeBet(team, amount)}>{t("confirmBet")}</button>
+        </div>
       </motion.div>
     </div>
   );
@@ -1668,7 +1751,7 @@ export default function App() {
         <LanguageSwitcher lang={lang} setLang={setLang} t={t} />
         <UserInfoCard user={tgUser} />
         {tab === "pool" && <PoolPage onBet={setBetTeam} setTab={setTab} me={me} teams={teams} prizePool={prizePool} festival={festival} loading={loading} error={apiError} t={t} />}
-        {tab === "deposit" && <DepositPage t={t} festival={festival} deposits={deposits} withdraws={withdraws} myBets={myBets} walletHistory={walletHistory} createDeposit={createDeposit} cancelDeposit={cancelDeposit} submitReceipt={submitReceipt} btcDraw={btcDraw} depositMethods={depositMethods} />}
+        {tab === "deposit" && <DepositPage t={t} festival={festival} deposits={deposits} withdraws={withdraws} myBets={myBets} walletHistory={walletHistory} createDeposit={createDeposit} cancelDeposit={cancelDeposit} submitReceipt={submitReceipt} btcDraw={btcDraw} depositMethods={depositMethods} tgUser={tgUser} initData={initData} />}
         {tab === "bets" && <MyBetsPage bets={myBets} t={t} />}
         {tab === "rewards" && <RewardsPage t={t} festival={festival} referral={referral} walletHistory={walletHistory} withdraws={withdraws} missions={missions} claimDepositMission={claimDepositMission} claimBetMission={claimBetMission} claimDailyLogin={claimDailyLogin} createWithdraw={createWithdraw} />}
         <BottomNav tab={tab} setTab={setTab} t={t} />
