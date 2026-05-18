@@ -456,14 +456,75 @@ function PoolPage({ onBet, setTab, me, teams, prizePool, festival, loading, erro
   );
 }
 
-function DepositPage({ festival, deposits, withdraws, myBets, walletHistory, createDeposit, submitReceipt, btcDraw }) {
+function DepositPage({ festival, deposits, withdraws, myBets, walletHistory, createDeposit, cancelDeposit, submitReceipt, btcDraw, depositMethods = [] }) {
   const [amount, setAmount] = useState("50");
+  const [selectedMethod, setSelectedMethod] = useState("USDT_TRC20");
   const [currentOrder, setCurrentOrder] = useState(null);
   const [receiptFile, setReceiptFile] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [creating, setCreating] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
   const [historyTab, setHistoryTab] = useState("deposit");
+  const [nowTick, setNowTick] = useState(Date.now());
 
-  const selectedAddress = currentOrder?.address || DEPOSIT_ADDRESS;
+  const fallbackMethods = [
+    { key: "USDT_TRC20", label: "USDT", coin: "USDT", network: "TRC20", address: DEPOSIT_ADDRESS, rate_usdt: "1", pay_amount: amount, tag: "Low fee" },
+    { key: "USDC_ERC20", label: "USDC", coin: "USDC", network: "ERC20", address: "0xf6B8f9550E5f1674A42eF88473cB75F5f6EAC61A", rate_usdt: "1", pay_amount: amount, tag: "Stable" },
+    { key: "TRX_TRC20", label: "TRX", coin: "TRX", network: "TRC20", address: "TVk3UDQnBrT8vvgUbR3dy9Eb1ogBwvNx4G", rate_usdt: "—", pay_amount: "—", tag: "Low fee" },
+    { key: "TON", label: "TON", coin: "TON", network: "TON", address: "UQB7zGttYgXMvC7yVhg6r_GCdoAsxVKMyfV4vdbbLQrZIAD-", rate_usdt: "—", pay_amount: "—", tag: "Fast" },
+    { key: "BNB_BEP20", label: "BNB", coin: "BNB", network: "BEP20", address: "0xf6B8f9550E5f1674A42eF88473cB75F5f6EAC61A", rate_usdt: "—", pay_amount: "—", tag: "BSC" },
+    { key: "ETH_ERC20", label: "ETH", coin: "ETH", network: "ERC20", address: "0xf6B8f9550E5f1674A42eF88473cB75F5f6EAC61A", rate_usdt: "—", pay_amount: "—", tag: "ERC20" },
+    { key: "BTC", label: "BTC", coin: "BTC", network: "Bitcoin", address: "bc1qduqvj3yjg0fr42j42rytlmrl6auy3050fr38g5", rate_usdt: "—", pay_amount: "—", tag: "BTC" },
+  ];
+
+  const methods = depositMethods.length ? depositMethods : fallbackMethods;
+
+  useEffect(() => {
+    const timer = setInterval(() => setNowTick(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    if (currentOrder?.order_no) return;
+    const active = (deposits || []).find((d) => {
+      const hasReceipt = String(d.txid || "").startsWith("RECEIPT:");
+      const status = String(d.status || "").toLowerCase();
+      if (status !== "pending" || hasReceipt) return false;
+      if (!d.expires_at) return true;
+      const exp = new Date(String(d.expires_at).replace(" ", "T") + "Z").getTime();
+      return Number.isNaN(exp) ? true : exp > Date.now();
+    });
+    if (active) {
+      setCurrentOrder({
+        order_no: active.order_no,
+        amount: active.amount_usdt,
+        amount_usdt: active.amount_usdt,
+        coin_symbol: active.coin_symbol || String(active.network || "USDT").split(" ")[0],
+        pay_amount: active.pay_amount || active.amount_usdt,
+        rate_usdt: active.rate_usdt || "1",
+        network: active.network || "USDT (TRC20)",
+        address: active.address || DEPOSIT_ADDRESS,
+        status: active.status || "pending",
+        created_at: active.created_at,
+        expires_at: active.expires_at,
+      });
+    }
+  }, [deposits, currentOrder?.order_no]);
+
+  const methodInfo = methods.find((m) => m.key === selectedMethod) || methods[0] || fallbackMethods[0];
+  const selectedAddress = currentOrder?.address || methodInfo?.address || DEPOSIT_ADDRESS;
+  const selectedCoin = currentOrder?.coin_symbol || methodInfo?.coin || "USDT";
+  const selectedNetwork = currentOrder?.network || `${methodInfo?.coin || "USDT"} (${methodInfo?.network || "TRC20"})`;
+  const payAmount = currentOrder?.pay_amount || methodInfo?.pay_amount || amount;
+  const rateValue = currentOrder?.rate_usdt || methodInfo?.rate_usdt;
+  const rateText = rateValue && rateValue !== "—" ? `1 ${selectedCoin} ≈ ${Number(rateValue).toLocaleString(undefined, { maximumFractionDigits: 6 })} USDT` : "Rate from Binance after order creation";
+
+  const expireMs = currentOrder?.expires_at ? new Date(String(currentOrder.expires_at).replace(" ", "T") + "Z").getTime() : 0;
+  const remainingSeconds = expireMs ? Math.max(0, Math.floor((expireMs - nowTick) / 1000)) : 0;
+  const remainText = currentOrder?.order_no
+    ? `${String(Math.floor(remainingSeconds / 60)).padStart(2, "0")}:${String(remainingSeconds % 60).padStart(2, "0")}`
+    : "30:00";
+
   const bonusTarget = 100;
   const confirmed = Number(festival?.total_deposit || 0);
   const cycleProgress = Math.min(bonusTarget, confirmed % bonusTarget || (confirmed >= bonusTarget ? bonusTarget : confirmed));
@@ -471,16 +532,47 @@ function DepositPage({ festival, deposits, withdraws, myBets, walletHistory, cre
   const needMore = Math.max(0, bonusTarget - cycleProgress);
 
   async function handleCreateDeposit() {
-    const res = await createDeposit(amount);
-    if (res) {
-      setCurrentOrder(res);
-      setReceiptFile(null);
+    if (currentOrder?.order_no) {
+      alert("You already have an active deposit order. Please upload receipt, cancel it, or wait until it expires.");
+      setTimeout(() => document.getElementById("deposit-order-section")?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+      return;
+    }
+    setCreating(true);
+    try {
+      const res = await createDeposit(amount, selectedMethod);
+      if (res) {
+        setCurrentOrder(res);
+        setReceiptFile(null);
+        setTimeout(() => document.getElementById("deposit-order-section")?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+      }
+    } finally {
+      setCreating(false);
+    }
+  }
+
+  async function handleCancelOrder() {
+    if (!currentOrder?.order_no) return;
+    if (!window.confirm("Cancel this deposit order? You can create a new one after cancellation.")) return;
+    setCancelling(true);
+    try {
+      const res = await cancelDeposit(currentOrder.order_no);
+      if (res?.ok) {
+        setCurrentOrder(null);
+        setReceiptFile(null);
+      }
+    } finally {
+      setCancelling(false);
     }
   }
 
   async function handleReceiptUpload() {
     if (!currentOrder?.order_no) {
       alert("Please create a deposit order first.");
+      return;
+    }
+    if (remainingSeconds <= 0) {
+      alert("This deposit order has expired. Please create a new order.");
+      setCurrentOrder(null);
       return;
     }
     if (!receiptFile) {
@@ -492,6 +584,7 @@ function DepositPage({ festival, deposits, withdraws, myBets, walletHistory, cre
       await submitReceipt(currentOrder.order_no, receiptFile);
       alert("Screenshot uploaded. Please wait for admin confirmation.");
       setReceiptFile(null);
+      setCurrentOrder(null);
     } finally {
       setUploading(false);
     }
@@ -501,11 +594,11 @@ function DepositPage({ festival, deposits, withdraws, myBets, walletHistory, cre
     if (historyTab === "deposit") {
       return (deposits || []).map((d) => ({
         key: d.order_no,
-        title: `Deposit · ${d.network || "USDT-TRC20"}`,
+        title: `Deposit · ${d.network || "Crypto"}`,
         date: d.created_at,
         amount: `${d.amount_usdt} USDT`,
         status: d.status,
-        remark: d.txid || "Receipt pending",
+        remark: d.txid || `${d.pay_amount || d.amount_usdt} ${d.coin_symbol || ""}`,
         icon: Download,
       }));
     }
@@ -548,86 +641,126 @@ function DepositPage({ festival, deposits, withdraws, myBets, walletHistory, cre
 
   return (
     <div className="page premium-deposit-page">
-      <div className="premium-panel deposit-main-panel">
-        <div className="panel-title premium-title">
-          <span className="token-icon">₮</span> Deposit USDT
-        </div>
-
-        <div className="field-label">Select amount</div>
-        <div className="amount-grid premium-amount-grid">
-          {[20, 50, 100, 300, 500, 1000].map((v) => (
-            <button key={v} onClick={() => setAmount(String(v))} className={String(v) === String(amount) ? "selected" : ""}>
-              {v}
-              {String(v) === String(amount) && <CheckCircle2 size={16} />}
-            </button>
-          ))}
-        </div>
-
-        <label className="field-label">Custom amount (USDT)</label>
-        <div className="amount-input-shell">
-          <input value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount USDT" />
-          <span>USDT</span>
-        </div>
-
-        <button className="red-button wide-red-button" onClick={handleCreateDeposit}>Create Deposit Order</button>
-      </div>
-
-      <div className="premium-panel pay-panel">
-        <div className="pay-left">
-          <div className="pay-label">
-            Send USDT (TRC20) to this address <span className="network-pill">TRC20</span>
+      {!currentOrder?.order_no && (
+        <div className="premium-panel deposit-main-panel">
+          <div className="panel-title premium-title">
+            <span className="token-icon">₮</span> Deposit Crypto
           </div>
 
-          {currentOrder?.order_no && (
-            <div className="order-mini-card">
-              <span>Order</span>
-              <b>{currentOrder.order_no}</b>
-              <em>{currentOrder.amount} USDT · Pending</em>
+          <div className="field-label">Select amount in USDT value</div>
+          <div className="amount-grid premium-amount-grid">
+            {[20, 50, 100, 300, 500, 1000].map((v) => (
+              <button key={v} onClick={() => setAmount(String(v))} className={String(v) === String(amount) ? "selected" : ""}>
+                {v}
+                {String(v) === String(amount) && <CheckCircle2 size={16} />}
+              </button>
+            ))}
+          </div>
+
+          <label className="field-label">Custom amount (USDT value)</label>
+          <div className="amount-input-shell">
+            <input value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount USDT" />
+            <span>USDT</span>
+          </div>
+
+          <div className="field-label">Select payment coin / network</div>
+          <div className="coin-method-grid">
+            {methods.map((m) => (
+              <button key={m.key} className={selectedMethod === m.key ? "coin-method active" : "coin-method"} onClick={() => setSelectedMethod(m.key)}>
+                <b>{m.label}</b>
+                <span>{m.network}</span>
+                <em>{m.tag}</em>
+              </button>
+            ))}
+          </div>
+
+          <div className="convert-preview">
+            <div>
+              <span>You enter</span>
+              <b>{fmt(amount, 2)} USDT</b>
             </div>
-          )}
+            <ArrowRight size={20} />
+            <div>
+              <span>Need to pay</span>
+              <b>{payAmount} {selectedCoin}</b>
+            </div>
+          </div>
 
-          <div className="address-line">
-            <b>{selectedAddress}</b>
-            <button onClick={() => navigator.clipboard?.writeText(selectedAddress)}>
-              <Copy size={16} />
+          <button className="red-button wide-red-button" onClick={handleCreateDeposit} disabled={creating}>
+            {creating ? "Creating Order..." : "Create Deposit Order"}
+          </button>
+          <p className="help-line center-help">One player can only keep one active deposit order. Order expires in 30 minutes.</p>
+        </div>
+      )}
+
+      {currentOrder?.order_no && (
+        <div id="deposit-order-section" className="premium-panel active-order-panel">
+          <div className="order-topbar">
+            <div>
+              <span className="order-label">Active Deposit Order</span>
+              <h2>{currentOrder.order_no}</h2>
+            </div>
+            <div className={remainingSeconds <= 60 ? "order-countdown urgent" : "order-countdown"}>
+              <Clock3 size={18} />
+              <b>{remainText}</b>
+              <span>left</span>
+            </div>
+          </div>
+
+          <div className="order-summary-grid">
+            <div><span>You deposit</span><b>{currentOrder.amount || currentOrder.amount_usdt} USDT</b></div>
+            <div><span>You pay</span><b>{payAmount} {selectedCoin}</b></div>
+            <div><span>Network</span><b>{selectedNetwork}</b></div>
+            <div><span>Rate</span><b>{rateText}</b></div>
+          </div>
+
+          <div className="pay-address-card">
+            <div className="pay-label">
+              Send <b>{selectedCoin}</b> only through <span className="network-pill">{selectedNetwork}</span>
+            </div>
+            <div className="address-line">
+              <b>{selectedAddress}</b>
+              <button onClick={() => navigator.clipboard?.writeText(selectedAddress)}>
+                <Copy size={16} />
+              </button>
+            </div>
+            <div className="qr-card order-qr">
+              <QRCodeCanvas value={selectedAddress} size={170} includeMargin />
+            </div>
+            <p className="danger-help">Wrong coin or wrong network may cause permanent loss. Upload receipt after sending.</p>
+          </div>
+
+          <div className="order-actions">
+            <button className="gray-button" onClick={handleCancelOrder} disabled={cancelling || uploading}>
+              {cancelling ? "Cancelling..." : "Cancel Order"}
             </button>
           </div>
+        </div>
+      )}
 
-          <div className="pay-chips">
-            <div><span className="token-icon small">₮</span><small>Network</small><b>TRC20</b></div>
-            <div><Clock3 size={18} /><small>Min. Deposit</small><b>20 USDT</b></div>
-            <div><ShieldCheck size={18} /><small>Confirmations</small><b>1–2 min</b></div>
+      {currentOrder?.order_no && (
+        <div className="premium-panel upload-panel">
+          <div className="upload-info">
+            <div className="upload-icon"><UploadCloud size={24} /></div>
+            <div>
+              <h3>Upload Payment Screenshot</h3>
+              <p>After sending, upload your payment screenshot for admin verification.</p>
+              <span className="pending-pill">Pending Admin Confirmation</span>
+            </div>
           </div>
 
-          <p className="help-line">Send the exact amount, then upload payment screenshot for admin review.</p>
+          <label className="upload-drop">
+            <UploadCloud size={34} />
+            <b>{receiptFile ? receiptFile.name : "Upload Screenshot"}</b>
+            <span>JPG, PNG up to 5MB</span>
+            <input type="file" accept="image/png,image/jpeg,image/jpg" onChange={(e) => setReceiptFile(e.target.files?.[0] || null)} />
+          </label>
+
+          <button className="red-button upload-submit" onClick={handleReceiptUpload} disabled={uploading || remainingSeconds <= 0}>
+            {remainingSeconds <= 0 ? "Order Expired" : uploading ? "Uploading..." : "Submit Screenshot"}
+          </button>
         </div>
-
-        <div className="qr-card">
-          <QRCodeCanvas value={selectedAddress} size={150} includeMargin />
-        </div>
-      </div>
-
-      <div className="premium-panel upload-panel">
-        <div className="upload-info">
-          <div className="upload-icon"><UploadCloud size={24} /></div>
-          <div>
-            <h3>Upload Payment Screenshot</h3>
-            <p>After sending, upload your payment screenshot for admin verification.</p>
-            <span className="pending-pill">Pending Admin Confirmation</span>
-          </div>
-        </div>
-
-        <label className="upload-drop">
-          <UploadCloud size={34} />
-          <b>{receiptFile ? receiptFile.name : "Upload Screenshot"}</b>
-          <span>JPG, PNG up to 5MB</span>
-          <input type="file" accept="image/png,image/jpeg,image/jpg" onChange={(e) => setReceiptFile(e.target.files?.[0] || null)} />
-        </label>
-
-        <button className="red-button upload-submit" onClick={handleReceiptUpload} disabled={uploading}>
-          {uploading ? "Uploading..." : "Submit Screenshot"}
-        </button>
-      </div>
+      )}
 
       <div className="premium-panel history-panel">
         <div className="history-head">
@@ -692,6 +825,7 @@ function DepositPage({ festival, deposits, withdraws, myBets, walletHistory, cre
     </div>
   );
 }
+
 
 function MyBetsPage({ bets }) {
   return (
@@ -886,6 +1020,7 @@ export default function App() {
   const [walletHistory, setWalletHistory] = useState([]);
   const [btcDraw, setBtcDraw] = useState(null);
   const [missions, setMissions] = useState(null);
+  const [depositMethods, setDepositMethods] = useState([]);
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState("");
 
@@ -905,6 +1040,7 @@ export default function App() {
       ["ledger", api("/api/wallet_history", { tgUser, initData })],
       ["draw", api("/api/btc_draw", { tgUser, initData })],
       ["missions", api("/api/missions", { tgUser, initData })],
+      ["depositMethods", api("/api/deposit/methods?amount=100", { tgUser, initData })],
     ];
 
     const results = await Promise.allSettled(tasks.map(([, promise]) => promise));
@@ -931,6 +1067,7 @@ export default function App() {
       if (name === "ledger") setWalletHistory(data.items || []);
       if (name === "draw") setBtcDraw(data);
       if (name === "missions") setMissions(data);
+      if (name === "depositMethods") setDepositMethods(data.methods || []);
     });
 
     if (failed.length > 0) {
@@ -956,9 +1093,9 @@ export default function App() {
     }
   }
 
-  async function createDeposit(amount) {
+  async function createDeposit(amount, method = "USDT_TRC20") {
     try {
-      const res = await api("/api/deposit/create", { method: "POST", body: { amount }, tgUser, initData });
+      const res = await api("/api/deposit/create", { method: "POST", body: { amount, method }, tgUser, initData });
       await loadData();
       return res;
     } catch (err) {
@@ -980,6 +1117,17 @@ export default function App() {
       initData,
     });
     await loadData();
+  }
+
+  async function cancelDeposit(order_no) {
+    try {
+      const res = await api("/api/deposit/cancel", { method: "POST", body: { order_no }, tgUser, initData });
+      await loadData();
+      return res;
+    } catch (err) {
+      alert(err.message);
+      return null;
+    }
   }
 
   async function claimDepositMission(milestone) {
@@ -1028,7 +1176,7 @@ export default function App() {
         <AppHeader user={tgUser} />
         <UserInfoCard user={tgUser} />
         {tab === "pool" && <PoolPage onBet={setBetTeam} setTab={setTab} me={me} teams={teams} prizePool={prizePool} festival={festival} loading={loading} error={apiError} />}
-        {tab === "deposit" && <DepositPage festival={festival} deposits={deposits} withdraws={withdraws} myBets={myBets} walletHistory={walletHistory} createDeposit={createDeposit} submitReceipt={submitReceipt} btcDraw={btcDraw} />}
+        {tab === "deposit" && <DepositPage festival={festival} deposits={deposits} withdraws={withdraws} myBets={myBets} walletHistory={walletHistory} createDeposit={createDeposit} cancelDeposit={cancelDeposit} submitReceipt={submitReceipt} btcDraw={btcDraw} depositMethods={depositMethods} />}
         {tab === "bets" && <MyBetsPage bets={myBets} />}
         {tab === "rewards" && <RewardsPage festival={festival} referral={referral} walletHistory={walletHistory} withdraws={withdraws} missions={missions} claimDepositMission={claimDepositMission} claimBetMission={claimBetMission} claimDailyLogin={claimDailyLogin} createWithdraw={createWithdraw} />}
         <BottomNav tab={tab} setTab={setTab} />
