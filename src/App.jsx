@@ -225,15 +225,36 @@ function fileToBase64(file) {
 
 function AppHeader({ user }) {
   return (
-    <div className="brand-hero">
-      <div className="brand-bg-ball" />
-      <img src="/saba-sports-logo.png" className="brand-logo" alt="SABA SPORTS" />
-      <div className="brand-user-pill">{user?.username ? `@${user.username}` : user?.first_name || "Player"}</div>
-      <div className="brand-subtitle">World Cup Pool · Be Part of the Game</div>
+    <div className="brand-hero player-hero">
+      <div className="hero-glow hero-glow-left" />
+      <div className="hero-glow hero-glow-right" />
+
+      <img
+        src="/hero-left-player.png"
+        className="hero-player-img hero-player-left"
+        alt="France football player"
+      />
+
+      <div className="hero-logo-wrap">
+        <img
+          src="/saba-sports-logo.png"
+          className="brand-logo"
+          alt="SABA SPORTS"
+        />
+      </div>
+
+      <img
+        src="/hero-right-player.png"
+        className="hero-player-img hero-player-right"
+        alt="Spain football player"
+      />
+
+      <div className="brand-user-pill">
+        {user?.username ? `@${user.username}` : user?.first_name || "Player"}
+      </div>
     </div>
   );
 }
-
 function UserInfoCard({ user }) {
   return (
     <div className="user-info-card dark-user-card">

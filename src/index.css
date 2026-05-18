@@ -1766,3 +1766,634 @@ button:disabled {
   color: #b9c3d3;
   line-height: 1.4;
 }
+
+
+/* Hero players cover version: left France player + right Spain player */
+.player-hero {
+  height: 265px;
+  margin: 0 -18px 0;
+  padding-top: 8px;
+  border-radius: 0 0 28px 28px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 16% 34%, rgba(35, 80, 220, 0.24), transparent 28%),
+    radial-gradient(circle at 84% 24%, rgba(226, 0, 48, 0.24), transparent 30%),
+    linear-gradient(90deg, rgba(6, 12, 34, 0.98), rgba(73, 0, 38, 0.92), rgba(5, 10, 32, 0.98));
+  box-shadow:
+    inset 0 -1px 0 rgba(255,255,255,0.06),
+    0 28px 45px rgba(0,0,0,0.24);
+}
+
+.player-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.16), transparent 28%, transparent 72%, rgba(0,0,0,0.18)),
+    radial-gradient(circle at 50% 32%, rgba(255,255,255,0.08), transparent 26%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-glow {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  filter: blur(22px);
+  opacity: 0.28;
+  z-index: 1;
+}
+
+.hero-glow-left {
+  left: 0;
+  top: 6px;
+  background: #1b6cff;
+}
+
+.hero-glow-right {
+  right: -12px;
+  top: 6px;
+  background: #ff244c;
+}
+
+.hero-logo-wrap {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 174px;
+}
+
+.player-hero .brand-logo {
+  width: min(500px, 58%);
+  max-height: 144px;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 18px 28px rgba(0,0,0,0.72))
+    drop-shadow(0 0 18px rgba(255,255,255,0.08));
+}
+
+.hero-player-img {
+  position: absolute;
+  bottom: -8px;
+  z-index: 3;
+  object-fit: contain;
+  object-position: center bottom;
+  pointer-events: none;
+  user-select: none;
+  filter:
+    drop-shadow(0 22px 28px rgba(0,0,0,0.58))
+    drop-shadow(0 0 14px rgba(255,255,255,0.06));
+}
+
+.hero-player-left {
+  left: -18px;
+  height: 228px;
+}
+
+.hero-player-right {
+  right: -18px;
+  height: 228px;
+}
+
+.player-hero .brand-user-pill {
+  z-index: 6;
+  right: 22px;
+  top: 18px;
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.20);
+  backdrop-filter: blur(8px);
+}
+
+.dark-user-card {
+  margin-top: -38px;
+  position: relative;
+  z-index: 8;
+}
+
+@media (max-width: 640px) {
+  .player-hero {
+    height: 232px;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding-top: 6px;
+  }
+
+  .hero-logo-wrap {
+    min-height: 154px;
+  }
+
+  .player-hero .brand-logo {
+    width: min(330px, 62%);
+    max-height: 108px;
+  }
+
+  .hero-player-left {
+    left: -30px;
+    height: 194px;
+  }
+
+  .hero-player-right {
+    right: -30px;
+    height: 194px;
+  }
+
+  .player-hero .brand-user-pill {
+    top: 12px;
+    right: 12px;
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  .dark-user-card {
+    margin-top: -28px;
+  }
+}
+
+@media (max-width: 430px) {
+  .player-hero {
+    height: 220px;
+  }
+
+  .player-hero .brand-logo {
+    width: min(280px, 66%);
+    max-height: 92px;
+  }
+
+  .hero-player-left {
+    left: -48px;
+    height: 182px;
+  }
+
+  .hero-player-right {
+    right: -48px;
+    height: 182px;
+  }
+}
+
+
+/* =========================================================
+   FINAL HERO APPROVED VERSION
+   Left/right players + transparent SABA logo, no subtitle
+   Add at the very end so it overrides old styles.
+========================================================= */
+
+.player-hero {
+  height: 265px !important;
+  margin: 0 -18px 0 !important;
+  padding-top: 8px !important;
+  border-radius: 0 0 28px 28px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  background:
+    radial-gradient(circle at 16% 34%, rgba(35, 80, 220, 0.24), transparent 28%),
+    radial-gradient(circle at 84% 24%, rgba(226, 0, 48, 0.24), transparent 30%),
+    linear-gradient(90deg, rgba(6, 12, 34, 0.98), rgba(73, 0, 38, 0.92), rgba(5, 10, 32, 0.98)) !important;
+  box-shadow:
+    inset 0 -1px 0 rgba(255,255,255,0.06),
+    0 28px 45px rgba(0,0,0,0.24) !important;
+}
+
+.player-hero::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.16), transparent 28%, transparent 72%, rgba(0,0,0,0.18)),
+    radial-gradient(circle at 50% 32%, rgba(255,255,255,0.08), transparent 26%) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+.hero-glow {
+  position: absolute !important;
+  width: 240px !important;
+  height: 240px !important;
+  border-radius: 50% !important;
+  filter: blur(22px) !important;
+  opacity: 0.28 !important;
+  z-index: 1 !important;
+}
+
+.hero-glow-left {
+  left: 0 !important;
+  top: 6px !important;
+  background: #1b6cff !important;
+}
+
+.hero-glow-right {
+  right: -12px !important;
+  top: 6px !important;
+  background: #ff244c !important;
+}
+
+.hero-logo-wrap {
+  position: relative !important;
+  z-index: 5 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 174px !important;
+  width: 100% !important;
+}
+
+.player-hero .brand-logo,
+.brand-logo {
+  width: min(500px, 58%) !important;
+  max-height: 144px !important;
+  object-fit: contain !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter:
+    drop-shadow(0 18px 28px rgba(0,0,0,0.72))
+    drop-shadow(0 0 18px rgba(255,255,255,0.08)) !important;
+}
+
+.hero-player-img {
+  position: absolute !important;
+  bottom: -8px !important;
+  z-index: 3 !important;
+  object-fit: contain !important;
+  object-position: center bottom !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  filter:
+    drop-shadow(0 22px 28px rgba(0,0,0,0.58))
+    drop-shadow(0 0 14px rgba(255,255,255,0.06)) !important;
+}
+
+.hero-player-left {
+  left: -26px !important;
+  height: 228px !important;
+}
+
+.hero-player-right {
+  right: -18px !important;
+  height: 228px !important;
+}
+
+.player-hero .brand-user-pill {
+  z-index: 6 !important;
+  right: 22px !important;
+  top: 18px !important;
+  background: rgba(255,255,255,0.10) !important;
+  border: 1px solid rgba(255,255,255,0.20) !important;
+  color: #eaf1ff !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+  padding: 8px 12px !important;
+  border-radius: 999px !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.dark-user-card {
+  margin-top: -38px !important;
+  position: relative !important;
+  z-index: 8 !important;
+}
+
+@media (max-width: 640px) {
+  .player-hero {
+    height: 232px !important;
+    margin-left: -10px !important;
+    margin-right: -10px !important;
+    padding-top: 6px !important;
+  }
+
+  .hero-logo-wrap {
+    min-height: 154px !important;
+  }
+
+  .player-hero .brand-logo,
+  .brand-logo {
+    width: min(330px, 62%) !important;
+    max-height: 108px !important;
+  }
+
+  .hero-player-left {
+    left: -36px !important;
+    height: 194px !important;
+  }
+
+  .hero-player-right {
+    right: -28px !important;
+    height: 194px !important;
+  }
+
+  .player-hero .brand-user-pill {
+    top: 12px !important;
+    right: 12px !important;
+    font-size: 11px !important;
+    padding: 6px 10px !important;
+  }
+
+  .dark-user-card {
+    margin-top: -28px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .player-hero {
+    height: 220px !important;
+  }
+
+  .player-hero .brand-logo,
+  .brand-logo {
+    width: min(280px, 66%) !important;
+    max-height: 92px !important;
+  }
+
+  .hero-player-left {
+    left: -48px !important;
+    height: 182px !important;
+  }
+
+  .hero-player-right {
+    right: -42px !important;
+    height: 182px !important;
+  }
+}
+
+
+/* =========================================================
+   FINAL UPDATE: NEW LEFT PLAYER IMAGE (symmetry tuned)
+========================================================= */
+.hero-player-left {
+  left: -58px !important;
+  height: 244px !important;
+  bottom: -6px !important;
+}
+
+.hero-player-right {
+  right: -20px !important;
+  height: 244px !important;
+  bottom: -6px !important;
+}
+
+@media (max-width: 640px) {
+  .hero-player-left {
+    left: -66px !important;
+    height: 206px !important;
+    bottom: -6px !important;
+  }
+
+  .hero-player-right {
+    right: -34px !important;
+    height: 206px !important;
+    bottom: -6px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .hero-player-left {
+    left: -72px !important;
+    height: 190px !important;
+    bottom: -5px !important;
+  }
+
+  .hero-player-right {
+    right: -42px !important;
+    height: 190px !important;
+    bottom: -5px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE FIX: keep Share + Bet fully visible in Telegram Mini App
+========================================================= */
+
+.premium-phone-shell {
+  overflow-x: hidden !important;
+}
+
+.team-list {
+  width: 100% !important;
+  overflow: visible !important;
+}
+
+.premium-team-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  grid-template-columns: 46px minmax(0, 1fr) auto !important;
+  column-gap: 8px !important;
+  overflow: visible !important;
+}
+
+.premium-team-left {
+  min-width: 0 !important;
+  grid-template-columns: 52px 34px minmax(0, 1fr) !important;
+  gap: 8px !important;
+}
+
+.team-info,
+.team-name-line,
+.team-odds {
+  min-width: 0 !important;
+}
+
+.team-name {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.team-odds {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.premium-team-right {
+  grid-template-columns: 88px 70px !important;
+  gap: 6px !important;
+  flex-shrink: 0 !important;
+  min-width: 164px !important;
+}
+
+.premium-share-box {
+  width: 88px !important;
+  min-width: 88px !important;
+  height: 52px !important;
+  padding: 6px 5px !important;
+  border-radius: 13px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.premium-share-box b {
+  font-size: 12px !important;
+  line-height: 1.15 !important;
+  white-space: normal !important;
+  text-align: center !important;
+}
+
+.premium-bet-button {
+  width: 70px !important;
+  min-width: 70px !important;
+  height: 52px !important;
+  border-radius: 13px !important;
+  font-size: 16px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+@media (max-width: 430px) {
+  .premium-phone-shell {
+    width: 100vw !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .premium-team-card {
+    min-height: 82px !important;
+    padding: 8px 8px !important;
+    grid-template-columns: 38px minmax(0, 1fr) auto !important;
+    column-gap: 6px !important;
+    border-radius: 17px !important;
+  }
+
+  .team-rank {
+    width: 38px !important;
+    min-width: 38px !important;
+    height: 54px !important;
+    font-size: 18px !important;
+    border-radius: 13px !important;
+  }
+
+  .premium-team-left {
+    grid-template-columns: 46px 28px minmax(0, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  .flag-box {
+    width: 46px !important;
+    min-width: 46px !important;
+    height: 32px !important;
+    border-radius: 6px !important;
+  }
+
+  .team-code-box {
+    width: 28px !important;
+    min-width: 28px !important;
+  }
+
+  .team-code {
+    font-size: 13px !important;
+    letter-spacing: 0.3px !important;
+  }
+
+  .team-name {
+    font-size: 16px !important;
+  }
+
+  .team-odds {
+    font-size: 12px !important;
+  }
+
+  .hot-badge {
+    min-width: 24px !important;
+    height: 20px !important;
+    font-size: 12px !important;
+    padding: 0 5px !important;
+  }
+
+  .premium-team-right {
+    grid-template-columns: 74px 58px !important;
+    gap: 5px !important;
+    min-width: 137px !important;
+  }
+
+  .premium-share-box {
+    width: 74px !important;
+    min-width: 74px !important;
+    height: 52px !important;
+    padding: 5px 3px !important;
+  }
+
+  .premium-share-box b {
+    font-size: 11px !important;
+  }
+
+  .premium-bet-button {
+    width: 58px !important;
+    min-width: 58px !important;
+    height: 52px !important;
+    font-size: 15px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .premium-team-card {
+    grid-template-columns: 34px minmax(0, 1fr) auto !important;
+    padding: 7px 6px !important;
+    column-gap: 5px !important;
+  }
+
+  .team-rank {
+    width: 34px !important;
+    min-width: 34px !important;
+    height: 50px !important;
+    font-size: 16px !important;
+  }
+
+  .premium-team-left {
+    grid-template-columns: 40px 24px minmax(0, 1fr) !important;
+    gap: 5px !important;
+  }
+
+  .flag-box {
+    width: 40px !important;
+    min-width: 40px !important;
+    height: 28px !important;
+  }
+
+  .team-code-box {
+    width: 24px !important;
+    min-width: 24px !important;
+  }
+
+  .team-code {
+    font-size: 12px !important;
+  }
+
+  .team-name {
+    font-size: 15px !important;
+  }
+
+  .team-odds {
+    font-size: 11px !important;
+  }
+
+  .premium-team-right {
+    grid-template-columns: 66px 52px !important;
+    gap: 4px !important;
+    min-width: 122px !important;
+  }
+
+  .premium-share-box {
+    width: 66px !important;
+    min-width: 66px !important;
+    height: 48px !important;
+  }
+
+  .premium-share-box b {
+    font-size: 10px !important;
+  }
+
+  .premium-bet-button {
+    width: 52px !important;
+    min-width: 52px !important;
+    height: 48px !important;
+    font-size: 14px !important;
+  }
+}
