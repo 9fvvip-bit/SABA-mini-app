@@ -2389,7 +2389,7 @@ function TeamRow({ team, onBet, rank, t }) {
       <div className="team-left premium-team-left">
         <div className="flag-box">
           {flagSrc ? (
-            <img src={flagSrc} className="flag-img" alt={`${team.name} flag`} />
+            <img src={flagSrc} className="flag-img" alt={`${localTeamName(team.name, lang, team.names)} flag`} />
           ) : (
             <span className="flag-emoji">🏳️</span>
           )}
@@ -2401,7 +2401,7 @@ function TeamRow({ team, onBet, rank, t }) {
 
         <div className="team-info">
           <div className="team-name-line">
-            <span className="team-name">{team.name}</span>
+            <span className="team-name">{localTeamName(team.name, lang, team.names)}</span>
             {isHot && <span className="hot-badge" aria-label="Hot team">🔥</span>}
           </div>
 
@@ -2464,7 +2464,7 @@ function PoolPage({ onBet, setTab, me, teams, prizePool, festival, loading, erro
         <b>{t("championMarket")}</b>
         <span>{t("earlyBetMoreShare")}</span>
       </div>
-      <div className="team-list">{filtered.map((team, index) => <TeamRow key={team.name} team={team} rank={index + 1} onBet={onBet} t={t} />)}</div>
+      <div className="team-list">{filtered.map((team, index) => <TeamRow key={localTeamName(team.name, lang, team.names)} team={team} rank={index + 1} onBet={onBet} t={t} />)}</div>
     </div>
   );
 }
@@ -2885,6 +2885,32 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
 
 
 
+
+const TEAM_NAME_I18N_FRONT = {
+  France: { zh: "法国", tr: "Fransa", es: "Francia", ja: "フランス", ko: "프랑스", ru: "Франция", ar: "فرنسا", hi: "फ्रांस" },
+  Brazil: { zh: "巴西", tr: "Brezilya", es: "Brasil", ja: "ブラジル", ko: "브라질", ru: "Бразилия", ar: "البرازيل", hi: "ब्राजील" },
+  Portugal: { zh: "葡萄牙", tr: "Portekiz", es: "Portugal", ja: "ポルトガル", ko: "포르투갈", ru: "Португалия", ar: "البرتغال", hi: "पुर्तगाल" },
+  Spain: { zh: "西班牙", tr: "İspanya", es: "España", ja: "スペイン", ko: "스페イン", ru: "Испания", ar: "إسبانيا", hi: "स्पेन" },
+  England: { zh: "英格兰", tr: "İngiltere", es: "Inglaterra", ja: "イングランド", ko: "잉글랜드", ru: "Англия", ar: "إنجلترا", hi: "इंग्लैंड" },
+  Argentina: { zh: "阿根廷", tr: "Arjantin", es: "Argentina", ja: "アルゼンチン", ko: "아르헨티나", ru: "Аргентина", ar: "الأرجنتين", hi: "अर्जेंटीना" },
+  Germany: { zh: "德国", tr: "Almanya", es: "Alemania", ja: "ドイツ", ko: "독일", ru: "Германия", ar: "ألمانيا", hi: "जर्मनी" },
+  Italy: { zh: "意大利", tr: "İtalya", es: "Italia", ja: "イタリア", ko: "이탈리아", ru: "Италия", ar: "إيطاليا", hi: "इटली" },
+  Japan: { zh: "日本", tr: "Japonya", es: "Japón", ja: "日本", ko: "일본", ru: "Япония", ar: "اليابان", hi: "जापान" },
+  USA: { zh: "美国", tr: "ABD", es: "Estados Unidos", ja: "アメリカ", ko: "미국", ru: "США", ar: "الولايات المتحدة", hi: "अमेरिका" },
+  Canada: { zh: "加拿大", tr: "Kanada", es: "Canadá", ja: "カナダ", ko: "캐나다", ru: "Канада", ar: "كندا", hi: "कनाडा" },
+  Netherlands: { zh: "荷兰", tr: "Hollanda", es: "Países Bajos", ja: "オランダ", ko: "네덜란드", ru: "Нидерланды", ar: "هولندا", hi: "नीदरलैंड" },
+  Mexico: { zh: "墨西哥", tr: "Meksika", es: "México", ja: "メキシコ", ko: "멕시코", ru: "Мексика", ar: "المكسيك", hi: "मेक्सिको" },
+  Morocco: { zh: "摩洛哥", tr: "Fas", es: "Marruecos", ja: "モロッコ", ko: "모로코", ru: "Марокко", ar: "المغرب", hi: "मोरक्को" },
+  Croatia: { zh: "克罗地亚", tr: "Hırvatistan", es: "Croacia", ja: "クロアチア", ko: "크로아티아", ru: "Хорватия", ar: "كرواتيا", hi: "क्रोएशिया" },
+  Uruguay: { zh: "乌拉圭", tr: "Uruguay", es: "Uruguay", ja: "ウルグアイ", ko: "우루과이", ru: "Уругвай", ar: "أوروغواي", hi: "उरुग्वे" },
+  Belgium: { zh: "比利时", tr: "Belçika", es: "Bélgica", ja: "ベルギー", ko: "벨기에", ru: "Бельгия", ar: "بلجيكا", hi: "बेल्जियम" }
+};
+
+function localTeamName(team, lang, names) {
+  return names?.[lang] || TEAM_NAME_I18N_FRONT?.[team]?.[lang] || team;
+}
+
+
 function RankingsPage({ t, tgUser, initData, lang }) {
   const [kind, setKind] = useState("teams");
   const [data, setData] = useState({ items: [] });
@@ -2897,10 +2923,6 @@ function RankingsPage({ t, tgUser, initData, lang }) {
     if (num % 10 === 2) return `${num}nd`;
     if (num % 10 === 3) return `${num}rd`;
     return `${num}th`;
-  }
-
-  function teamName(x) {
-    return x?.names?.[lang] || x?.team || "-";
   }
 
   async function load(k = kind) {
@@ -2938,7 +2960,7 @@ function RankingsPage({ t, tgUser, initData, lang }) {
             <div className="ranking-main">
               {kind === "teams" ? (
                 <>
-                  <b className="team-rank-title"><span className={`flag flag-${x.flag_code || "xx"}`}></span><span className="team-rank-name">{teamName(x)}</span></b>
+                  <b className="team-rank-title"><span className={`flag flag-${x.flag_code || "xx"}`}></span><span className="team-rank-name">{localTeamName(x.team, lang, x.names)}</span></b>
                   <span>Bet Amount: <span className="metric">{x.amount || "0.00"} USDT</span> · Share: <span className="metric">{x.share || x.shares || "0.00"}</span></span>
                 </>
               ) : kind === "btc" ? (
@@ -3001,7 +3023,7 @@ function TeamDetailModal({ t, team, tgUser, initData, onClose, onBet }) {
     <div className="team-detail-bg" onClick={onClose}>
       <div className="team-detail-card" onClick={(e) => e.stopPropagation()}>
         <button className="activity-close" onClick={onClose}>×</button>
-        <h2>{team.flag} {team.name}</h2>
+        <h2>{team.flag} {localTeamName(team.name, lang, team.names)}</h2>
         <div className={`team-status ${closed ? "closed" : "open"}`}>{data?.status || "open"}</div>
         <div className="team-detail-grid">
           <div><small>{t("teamTotalBet") || "Team Total Bet"}</small><b>{data?.total_bet_amount || "0.00"} USDT</b></div>
@@ -3284,7 +3306,7 @@ function BetModal({ team, prizePool, onClose, placeBet, t }) {
         <div className="modal-head">
           <div>
             <small>{t("championBet")}</small>
-            <h2>{team.name}</h2>
+            <h2>{localTeamName(team.name, lang, team.names)}</h2>
           </div>
           <button type="button" onClick={onClose}><X size={18} /></button>
         </div>

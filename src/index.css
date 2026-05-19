@@ -4483,3 +4483,88 @@ nav.bottom-nav button svg {
   .flag-en:after { top:12px !important; height:8px !important; }
   .flag-br:after { left:18px !important; top:9px !important; }
 }
+
+
+/* Final fix: ranking ordinal is text only, flags corrected */
+.ordinal-rank {
+  min-width: 54px !important;
+  width: 54px !important;
+  height: auto !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #ffd85a !important;
+  font-size: 21px !important;
+  font-weight: 1000 !important;
+  letter-spacing: -0.4px !important;
+  text-shadow: 0 2px 10px rgba(255,216,90,.25) !important;
+}
+
+.ordinal-rank.rank-2 {
+  color: #d7e0ee !important;
+  background: transparent !important;
+}
+
+.ordinal-rank.rank-3 {
+  color: #ffbd7b !important;
+  background: transparent !important;
+}
+
+.top10-ranking-card {
+  grid-template-columns: 58px 1fr !important;
+  min-height: 92px !important;
+  background: linear-gradient(180deg, rgba(22,31,49,.94), rgba(13,20,34,.96)) !important;
+}
+
+.top10-ranking-card.top1 {
+  background: linear-gradient(90deg, rgba(255,216,90,.08), rgba(226,11,47,.08)), linear-gradient(180deg,#172034,#101827) !important;
+}
+
+.flag {
+  width: 58px !important;
+  height: 38px !important;
+  border-radius: 7px !important;
+  overflow: hidden !important;
+  flex: 0 0 58px !important;
+  display: inline-block !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,.22), inset 0 0 0 1px rgba(255,255,255,.25) !important;
+  border: 1px solid rgba(255,255,255,.28) !important;
+  background: #dfe7f2 !important;
+  position: relative !important;
+}
+
+.flag-fr { background: linear-gradient(90deg,#002654 0 33.33%,#fff 33.33% 66.66%,#ed2939 66.66%) !important; }
+.flag-br { background:#009b3a !important; }
+.flag-br:before { content:""; position:absolute; inset:6px 11px; background:#ffdf00; clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%); }
+.flag-br:after { content:""; position:absolute; width:15px; height:15px; background:#002776; border-radius:50%; top:11px; left:21px; }
+.flag-pt { background:linear-gradient(90deg,#006600 0 40%,#ff0000 40%) !important; }
+.flag-es { background:linear-gradient(180deg,#aa151b 0 25%,#f1bf00 25% 75%,#aa151b 75%) !important; }
+.flag-en { background:#fff !important; }
+.flag-en:before { content:""; position:absolute; left:24px; top:0; width:9px; height:100%; background:#ce1124; }
+.flag-en:after { content:""; position:absolute; left:0; top:14px; width:100%; height:9px; background:#ce1124; }
+.flag-ar { background:linear-gradient(180deg,#75aadb 0 33.33%,#fff 33.33% 66.66%,#75aadb 66.66%) !important; }
+.flag-de { background:linear-gradient(180deg,#000 0 33.33%,#dd0000 33.33% 66.66%,#ffce00 66.66%) !important; }
+.flag-it { background:linear-gradient(90deg,#009246 0 33.33%,#fff 33.33% 66.66%,#ce2b37 66.66%) !important; }
+.flag-jp { background:#fff !important; }
+.flag-jp:after { content:""; position:absolute; width:18px; height:18px; border-radius:50%; background:#bc002d; left:50%; top:50%; transform:translate(-50%,-50%); }
+.flag-us { background:repeating-linear-gradient(180deg,#b22234 0 3px,#fff 3px 6px) !important; }
+.flag-us:before { content:""; position:absolute; left:0; top:0; width:25px; height:20px; background:#3c3b6e; }
+.flag-ca { background:linear-gradient(90deg,#d52b1e 0 25%,#fff 25% 75%,#d52b1e 75%) !important; }
+.flag-nl { background:linear-gradient(180deg,#ae1c28 0 33.33%,#fff 33.33% 66.66%,#21468b 66.66%) !important; }
+.flag-mx { background:linear-gradient(90deg,#006847 0 33.33%,#fff 33.33% 66.66%,#ce1126 66.66%) !important; }
+.flag-ma { background:#c1272d !important; }
+.flag-hr { background:linear-gradient(180deg,#f00 0 33.33%,#fff 33.33% 66.66%,#171796 66.66%) !important; }
+.flag-uy { background:repeating-linear-gradient(180deg,#fff 0 4px,#75aadb 4px 8px) !important; }
+.flag-be { background:linear-gradient(90deg,#000 0 33.33%,#ffd90c 33.33% 66.66%,#ef3340 66.66%) !important; }
+
+@media(max-width:420px){
+  .top10-ranking-card { grid-template-columns: 52px 1fr !important; }
+  .ordinal-rank { width: 48px !important; min-width: 48px !important; font-size: 18px !important; }
+  .flag { width:50px !important; height:32px !important; flex-basis:50px !important; }
+  .flag-en:before { left:21px !important; width:8px !important; }
+  .flag-en:after { top:12px !important; height:8px !important; }
+  .flag-br:after { left:18px !important; top:9px !important; }
+}
