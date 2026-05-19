@@ -2888,16 +2888,27 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
 function RankingsPage({ t, tgUser, initData }) {
   const [kind, setKind] = useState("teams");
   const [data, setData] = useState({ items: [] });
+  const [loading, setLoading] = useState(false);
 
   async function load(k = kind) {
+    setLoading(true);
     try {
-      setData(await api(`/api/rankings?kind=${encodeURIComponent(k)}`, { tgUser, initData }));
+      const d = await api(`/api/rankings?kind=${encodeURIComponent(k)}`, { tgUser, initData });
+      setData(d || { items: [] });
     } catch (err) {
-      alert(err.message);
+      console.warn("Ranking load failed:", err);
+      setData({ kind: k, items: [], error: "Ranking data is not ready. Please update the backend API." });
+    } finally {
+      setLoading(false);
     }
   }
 
   useEffect(() => { load(kind); }, [kind]);
+
+  function rowTitle(x) {
+    if (kind === "teams") return x.team || "-";
+    return x.player || "Player";
+  }
 
   return (
     <section className="page-section rankings-page">
@@ -2907,13 +2918,24 @@ function RankingsPage({ t, tgUser, initData }) {
         <button className={kind==="btc" ? "active" : ""} onClick={() => setKind("btc")}>{t("btcRanking") || "BTC Share Ranking"}</button>
         <button className={kind==="bettors" ? "active" : ""} onClick={() => setKind("bettors")}>{t("betRanking") || "Bet Ranking"}</button>
       </div>
-      <div className="ranking-list">
-        {(data.items || []).map((x, i) => (
-          <div className="ranking-card" key={i}>
+
+      {loading && <div className="empty-history">Loading Top 10...</div>}
+      {data?.error && <div className="empty-history">{data.error}</div>}
+
+      <div className="ranking-list top10-ranking-list">
+        {!loading && !data?.error && (data.items || []).length === 0 && <div className="empty-history">No ranking data yet.</div>}
+        {(data.items || []).slice(0, 10).map((x, i) => (
+          <div className="ranking-card top10-ranking-card" key={i}>
             <strong>#{i + 1}</strong>
-            <div>
-              <b>{x.team || x.telegram_id}</b>
-              <span>{x.amount ? `${Number(x.amount).toFixed(2)} USDT` : ""} {x.btc_share ? ` · BTC Share ${x.btc_share}` : ""} {x.supporters ? ` · ${x.supporters} supporters` : ""}</span>
+            <div className="ranking-main">
+              <b>{rowTitle(x)}</b>
+              {kind === "teams" ? (
+                <span>Bet Amount: {x.amount || "0.00"} USDT · Share: {x.share || x.shares || "0.00"} · Supporters: {x.supporters || 0}</span>
+              ) : kind === "btc" ? (
+                <span>BTC Share: {x.btc_share || "0.000000"} · Bet Amount: {x.amount || "0.00"} USDT · Share: {x.share || x.shares || "0.00"}</span>
+              ) : (
+                <span>Bet Amount: {x.amount || "0.00"} USDT · Share: {x.share || x.shares || "0.00"} · BTC Share: {x.btc_share || "0.000000"}</span>
+              )}
             </div>
           </div>
         ))}
@@ -2921,6 +2943,7 @@ function RankingsPage({ t, tgUser, initData }) {
     </section>
   );
 }
+
 
 function MessagesPage({ t, tgUser, initData }) {
   const [items, setItems] = useState([]);
@@ -3312,17 +3335,18 @@ function BetModal({ team, prizePool, onClose, placeBet, t }) {
 
 
 
+
+
 function BottomNav({ tab, setTab, t }) {
   const items = [
     ["pool", Trophy, t("pool") || "Pool"],
     ["deposit", Wallet, t("deposit") || "Deposit"],
     ["bets", Ticket, t("myBets") || "My Bets"],
     ["rewards", Gift, t("rewards") || "Rewards"],
-    ["rankings", Trophy, t("rankings") || "Rankings"],
   ];
 
   return (
-    <nav className="bottom-nav premium-bottom-nav v6-main-bottom-nav" aria-label="Main navigation">
+    <nav className="bottom-nav premium-bottom-nav v6-four-bottom-nav" aria-label="Main navigation">
       {items.map(([key, Icon, label]) => (
         <button type="button" key={key} onClick={() => setTab(key)} className={tab === key ? "active" : ""} aria-label={label}>
           <Icon size={20} />
@@ -3523,6 +3547,7 @@ export default function App() {
         {tab === "rankings" && <RankingsPage t={t} tgUser={tgUser} initData={initData} />}
         {tab === "messages" && <MessagesPage t={t} tgUser={tgUser} initData={initData} />}
         {tab === "assets" && <AssetsPage t={t} tgUser={tgUser} initData={initData} />}
+        <button type="button" className="v6-floating-ranking-button" onClick={() => setTab("rankings")}>🏆 {t("rankings") || "Rankings"}</button>
         <button type="button" className="v5-floating-assets-button" onClick={() => setTab("assets")}>💰 {t("assets") || "Assets"}</button>
         <BottomNav tab={tab} setTab={setTab} t={t} />
         <TeamDetailModal t={t} team={teamDetail} tgUser={tgUser} initData={initData} onClose={() => setTeamDetail(null)} onBet={(team) => setBetTeam(team)} />

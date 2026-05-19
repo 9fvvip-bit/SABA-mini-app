@@ -4067,3 +4067,258 @@ nav.bottom-nav button svg {
     bottom: calc(82px + env(safe-area-inset-bottom)) !important;
   }
 }
+
+
+/* V6 final ranking/rewards nav:
+   Bottom four core buttons: Pool / Deposit / My Bets / Rewards.
+   Ranking is a main quick button above bottom nav.
+   Assets remains the right floating button.
+*/
+.v6-quick-actions,
+.v6-floating-rewards-button {
+  display: none !important;
+}
+
+.v6-four-bottom-nav,
+.bottom-nav.v6-four-bottom-nav,
+.premium-bottom-nav.v6-four-bottom-nav {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: 0 !important;
+  transform: translateX(-50%) !important;
+  width: min(100vw, 720px) !important;
+  max-width: 720px !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+  padding: 8px 7px calc(8px + env(safe-area-inset-bottom)) !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  z-index: 9998 !important;
+}
+
+.v6-four-bottom-nav button {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 74px !important;
+  padding: 7px 2px !important;
+  border-radius: 18px !important;
+}
+
+.v6-four-bottom-nav button span {
+  display: block !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.v6-ranking-main-button {
+  position: fixed !important;
+  left: 50% !important;
+  bottom: calc(88px + env(safe-area-inset-bottom)) !important;
+  transform: translateX(-50%) !important;
+  z-index: 9999 !important;
+  width: min(92vw, 420px) !important;
+  height: 46px !important;
+  border: 1px solid rgba(255,255,255,.15) !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, rgba(226,11,47,.96), rgba(125,18,48,.96)) !important;
+  color: #fff !important;
+  font-weight: 950 !important;
+  font-size: 16px !important;
+  box-shadow: 0 16px 36px rgba(0,0,0,.35) !important;
+}
+
+.v5-floating-assets-button {
+  right: 12px !important;
+  left: auto !important;
+  bottom: calc(142px + env(safe-area-inset-bottom)) !important;
+}
+
+.phone-shell,
+.premium-phone-shell {
+  padding-bottom: 156px !important;
+}
+
+.top10-ranking-list {
+  gap: 10px !important;
+}
+
+.top10-ranking-card {
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+}
+
+.top10-ranking-card strong {
+  min-width: 42px;
+  text-align: center;
+}
+
+.ranking-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.ranking-main b {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.ranking-main span {
+  display: block;
+  color: #aebbd0;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+@media (max-width: 430px) {
+  .v6-four-bottom-nav {
+    gap: 4px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+  .v6-four-bottom-nav button {
+    height: 68px !important;
+    border-radius: 15px !important;
+  }
+  .v6-four-bottom-nav button span {
+    font-size: 10px !important;
+  }
+  .v6-ranking-main-button {
+    bottom: calc(82px + env(safe-area-inset-bottom)) !important;
+    height: 42px !important;
+  }
+  .v5-floating-assets-button {
+    bottom: calc(130px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+
+/* V6 Ranking final UI:
+   Ranking and Assets are right-side floating pills.
+   Bottom keeps four core buttons only.
+*/
+.v6-quick-actions,
+.v6-floating-rewards-button,
+.v6-ranking-main-button {
+  display: none !important;
+}
+
+.v6-four-bottom-nav,
+.bottom-nav.v6-four-bottom-nav,
+.premium-bottom-nav.v6-four-bottom-nav {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: 0 !important;
+  transform: translateX(-50%) !important;
+  width: min(100vw, 720px) !important;
+  max-width: 720px !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+  padding: 8px 7px calc(8px + env(safe-area-inset-bottom)) !important;
+  box-sizing: border-box !important;
+  z-index: 9998 !important;
+}
+
+.v6-four-bottom-nav button {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 74px !important;
+  padding: 7px 2px !important;
+  border-radius: 18px !important;
+}
+
+.v6-four-bottom-nav button span {
+  display: block !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  white-space: nowrap !important;
+}
+
+.v6-floating-ranking-button,
+.v5-floating-assets-button {
+  position: fixed !important;
+  right: 12px !important;
+  left: auto !important;
+  z-index: 9999 !important;
+  height: 42px !important;
+  min-width: 120px !important;
+  padding: 0 14px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  color: #fff !important;
+  font-weight: 950 !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,.35) !important;
+}
+
+.v6-floating-ranking-button {
+  bottom: calc(140px + env(safe-area-inset-bottom)) !important;
+  background: linear-gradient(135deg, #e20b2f, #7d1230) !important;
+}
+
+.v5-floating-assets-button {
+  bottom: calc(90px + env(safe-area-inset-bottom)) !important;
+  background: linear-gradient(135deg, #f0b33a, #e20b2f) !important;
+}
+
+.phone-shell,
+.premium-phone-shell {
+  padding-bottom: 132px !important;
+}
+
+.top10-ranking-list {
+  gap: 10px !important;
+  padding-bottom: 150px !important;
+}
+
+.top10-ranking-card {
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  background: rgba(255,255,255,.075) !important;
+}
+
+.top10-ranking-card strong {
+  min-width: 42px;
+  text-align: center;
+  color: #ffd34d !important;
+}
+
+.ranking-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.ranking-main b {
+  display: block;
+  margin-bottom: 5px;
+  color: #ffffff !important;
+}
+
+.ranking-main span {
+  display: block;
+  color: #aebbd0;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+@media (max-width: 430px) {
+  .v6-four-bottom-nav button {
+    height: 68px !important;
+    border-radius: 15px !important;
+  }
+  .v6-four-bottom-nav button span {
+    font-size: 10px !important;
+  }
+  .v6-floating-ranking-button,
+  .v5-floating-assets-button {
+    min-width: 112px !important;
+    height: 40px !important;
+  }
+  .v6-floating-ranking-button { bottom: calc(130px + env(safe-area-inset-bottom)) !important; }
+  .v5-floating-assets-button { bottom: calc(82px + env(safe-area-inset-bottom)) !important; }
+}
