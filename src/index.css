@@ -4870,3 +4870,20 @@ nav.bottom-nav button svg {
     text-align: left;
   }
 }
+
+
+/* V7 finance/team/banner/maintenance */
+.activity-banner-card {
+  display:flex;gap:12px;align-items:center;padding:12px 14px;margin:10px 0;border-radius:18px;
+  background:linear-gradient(90deg,rgba(255,216,90,.12),rgba(255,39,81,.10));border:1px solid rgba(255,216,90,.22);
+}
+.activity-banner-card img{width:78px;height:48px;object-fit:cover;border-radius:12px}
+.activity-banner-card b{display:block;color:#ffd85a;font-size:16px}.activity-banner-card span{display:block;color:#d6deee}
+.maintenance-banner{border-color:#ffcc33!important;background:rgba(255,204,51,.12)!important;color:#ffe58a!important}
+.enhanced-team-detail .team-detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.supporter-row{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.055);margin:8px 0}
+.supporter-row span{color:#9fb0c8}
+.team-info{cursor:pointer}
+.team-status.closed{background:rgba(255,67,102,.18);color:#ff87a1}
+.team-status.open{background:rgba(44,214,130,.18);color:#49e69c}
+@media(max-width:420px){.enhanced-team-detail .team-detail-grid{grid-template-columns:1fr}}

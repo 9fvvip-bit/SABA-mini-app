@@ -2363,6 +2363,23 @@ function previewPayAmount(amountUsdt, method) {
   return "Rate loading";
 }
 
+
+const SABA_V7_FINANCE_TEAM_BANNER_I18N = {
+  en: { teamDetail:"Team Detail", teamTotalBet:"Team Total Bet", supporters:"Supporters", currentShareRate:"Current Share Rate", myTickets:"My Tickets", myShares:"My Shares", myAmount:"My Bet Amount", estWin:"Estimated Win", topSupporters:"Top Supporters", marketStatus:"Market Status", marketPaused:"Market Paused", teamPaused:"Team Paused", maintenanceNotice:"Maintenance Notice", banner:"Banner", activity:"Activity" },
+  zh: { teamDetail:"球队详情", teamTotalBet:"球队总下注", supporters:"支持人数", currentShareRate:"当前分成倍率", myTickets:"我的票数", myShares:"我的分成", myAmount:"我的下注金额", estWin:"预计可赢", topSupporters:"支持榜", marketStatus:"市场状态", marketPaused:"市场维护中", teamPaused:"球队暂停下注", maintenanceNotice:"维护公告", banner:"活动横幅", activity:"活动" },
+  ja: { teamDetail:"チーム詳細", teamTotalBet:"チーム総ベット", supporters:"サポーター数", currentShareRate:"現在シェア倍率", myTickets:"マイチケット", myShares:"マイシェア", myAmount:"自分のベット額", estWin:"予想獲得額", topSupporters:"サポーターランキング", marketStatus:"マーケット状態", marketPaused:"メンテナンス中", teamPaused:"チームベット停止中", maintenanceNotice:"メンテナンス告知", banner:"キャンペーンバナー", activity:"キャンペーン" },
+  ko: { teamDetail:"팀 상세", teamTotalBet:"팀 총 베팅", supporters:"지원자 수", currentShareRate:"현재 쉐어 배율", myTickets:"내 티켓", myShares:"내 쉐어", myAmount:"내 베팅 금액", estWin:"예상 당첨금", topSupporters:"지원 랭킹", marketStatus:"마켓 상태", marketPaused:"점검 중", teamPaused:"팀 베팅 일시중지", maintenanceNotice:"점검 공지", banner:"이벤트 배너", activity:"이벤트" },
+  tr: { teamDetail:"Takım Detayı", teamTotalBet:"Takım Toplam Bahis", supporters:"Destekçi", currentShareRate:"Güncel Pay Çarpanı", myTickets:"Biletlerim", myShares:"Payım", myAmount:"Bahis Tutarım", estWin:"Tahmini Kazanç", topSupporters:"En İyi Destekçiler", marketStatus:"Pazar Durumu", marketPaused:"Bakım Modu", teamPaused:"Takım Bahsi Durduruldu", maintenanceNotice:"Bakım Duyurusu", banner:"Kampanya Bannerı", activity:"Kampanya" },
+  es: { teamDetail:"Detalle del Equipo", teamTotalBet:"Apuesta Total del Equipo", supporters:"Seguidores", currentShareRate:"Multiplicador Actual", myTickets:"Mis Boletos", myShares:"Mi Participación", myAmount:"Mi Apuesta", estWin:"Ganancia Estimada", topSupporters:"Top Seguidores", marketStatus:"Estado del Mercado", marketPaused:"Mantenimiento", teamPaused:"Equipo Pausado", maintenanceNotice:"Aviso de Mantenimiento", banner:"Banner", activity:"Promoción" },
+  ru: { teamDetail:"Детали команды", teamTotalBet:"Ставки команды", supporters:"Участники", currentShareRate:"Текущий множитель", myTickets:"Мои билеты", myShares:"Моя доля", myAmount:"Моя сумма", estWin:"Ожидаемый выигрыш", topSupporters:"Топ участников", marketStatus:"Статус рынка", marketPaused:"Техобслуживание", teamPaused:"Команда приостановлена", maintenanceNotice:"Уведомление о техработах", banner:"Баннер", activity:"Акция" },
+  ar: { teamDetail:"تفاصيل الفريق", teamTotalBet:"إجمالي رهان الفريق", supporters:"الداعمون", currentShareRate:"مضاعف الحصة الحالي", myTickets:"تذاكري", myShares:"حصتي", myAmount:"مبلغ رهاني", estWin:"الربح المتوقع", topSupporters:"أفضل الداعمين", marketStatus:"حالة السوق", marketPaused:"وضع الصيانة", teamPaused:"تم إيقاف رهان الفريق", maintenanceNotice:"إشعار الصيانة", banner:"بانر النشاط", activity:"نشاط" },
+  hi: { teamDetail:"टीम विवरण", teamTotalBet:"टीम कुल बेट", supporters:"समर्थक", currentShareRate:"मौजूदा शेयर गुणक", myTickets:"मेरे टिकट", myShares:"मेरा शेयर", myAmount:"मेरी बेट राशि", estWin:"अनुमानित जीत", topSupporters:"टॉप समर्थक", marketStatus:"मार्केट स्थिति", marketPaused:"मेंटेनेंस मोड", teamPaused:"टीम बेट रुकी", maintenanceNotice:"मेंटेनेंस सूचना", banner:"बैनर", activity:"प्रमोशन" }
+};
+Object.keys(SABA_V7_FINANCE_TEAM_BANNER_I18N).forEach((code) => {
+  I18N[code] = { ...(I18N[code] || I18N.en), ...SABA_V7_FINANCE_TEAM_BANNER_I18N[code] };
+});
+
+
 function AppHeader({ user }) {
   return (
     <div className="brand-hero player-hero">
@@ -2396,36 +2413,37 @@ function AppHeader({ user }) {
   );
 }
 
-function AnnouncementBanners({ banners }) {
+function AnnouncementBanners({ banners, t }) {
   const items = banners?.items || [];
-  const ann = banners?.announcement || "";
+  const ann = banners?.announcement || banners?.maintenance_message || "";
+  const maintenance = Boolean(banners?.maintenance_mode);
   const [showPopup, setShowPopup] = useState(() => !sessionStorage.getItem("saba_activity_popup_seen"));
-  if (!ann && items.length === 0) return null;
+  if (!ann && items.length === 0 && !maintenance) return null;
+  const first = items[0] || null;
   return (
     <div className="announcement-wrap">
-      {showPopup && (ann || items[0]) && (
+      {maintenance && <div className="notice-card maintenance-banner">🛠 {t("maintenanceNotice")}: {ann || t("marketPaused")}</div>}
+      {items.map((b) => (
+        <div className="activity-banner-card" key={b.id} onClick={() => b.link_url && window.open(b.link_url, "_blank")}>
+          {b.image_url && <img src={b.image_url} alt={b.title || "banner"} />}
+          <div><b>{b.title || t("activity")}</b><span>{b.body}</span></div>
+        </div>
+      ))}
+      {showPopup && (ann || first) && (
         <div className="activity-popup-bg" onClick={() => { sessionStorage.setItem("saba_activity_popup_seen", "1"); setShowPopup(false); }}>
           <div className="activity-popup" onClick={(e) => e.stopPropagation()}>
             <button className="activity-close" onClick={() => { sessionStorage.setItem("saba_activity_popup_seen", "1"); setShowPopup(false); }}>×</button>
-            <h3>🎉 {items[0]?.title || "Activity"}</h3>
-            <p>{items[0]?.subtitle || ann}</p>
-            {items[0]?.image_url && <img src={items[0].image_url} alt="activity" />}
+            {first?.image_url && <img src={first.image_url} className="activity-popup-img" alt={first.title || "activity"} />}
+            <h2>{first?.title || t("activity")}</h2>
+            <p>{first?.body || ann}</p>
+            {first?.link_url && <button className="red-button wide-red-button" onClick={() => window.open(first.link_url, "_blank")}>{t("viewAll") || "View"}</button>}
           </div>
         </div>
       )}
-      {ann && <div className="announcement-bar">📢 {ann}</div>}
-      {items.map((b, i) => (
-        <a className="banner-card" href={b.link_url || "#"} key={i}>
-          {b.image_url && <img src={b.image_url} alt={b.title || "banner"} />}
-          <div>
-            <b>{b.title}</b>
-            <span>{b.subtitle}</span>
-          </div>
-        </a>
-      ))}
     </div>
   );
 }
+
 
 function UserInfoCard({ user }) {
   return (
@@ -2534,7 +2552,7 @@ function BalanceCard({ me, t }) {
   );
 }
 
-function TeamRow({ team, onBet, rank, t, lang = 'en' }) {
+function TeamRow({ team, onBet, onDetail, rank, t, lang = 'en' }) {
   const meta = teamMeta[team.name] || {};
   const isHot = Boolean(meta.hotRank);
   const code = meta.code || countryCodeMap?.[team.name] || team.name.slice(0, 2).toUpperCase();
@@ -2558,7 +2576,7 @@ function TeamRow({ team, onBet, rank, t, lang = 'en' }) {
           <span className="team-code">{code}</span>
         </div>
 
-        <div className="team-info">
+        <div className="team-info" onClick={() => onDetail && onDetail(team)}>
           <div className="team-name-line">
             <span className="team-name">{localTeamName(team.name, lang, team.names)}</span>
             {isHot && <span className="hot-badge" aria-label="Hot team">🔥</span>}
@@ -2587,7 +2605,7 @@ function TeamRow({ team, onBet, rank, t, lang = 'en' }) {
   );
 }
 
-function PoolPage({ onBet, setTab, me, teams, prizePool, festival, loading, error, t, lang = 'en'}) {
+function PoolPage({ onBet, onDetail, setTab, me, teams, prizePool, festival, loading, error, t, lang = 'en'}) {
   const [query, setQuery] = useState("");
   const filtered = useMemo(() => {
     const apiMap = new Map((teams || []).map((t) => [t.name, t]));
@@ -2623,7 +2641,7 @@ function PoolPage({ onBet, setTab, me, teams, prizePool, festival, loading, erro
         <b>{t("championMarket")}</b>
         <span>{t("earlyBetMoreShare")}</span>
       </div>
-      <div className="team-list">{filtered.map((team, index) => <TeamRow key={localTeamName(team.name, lang, team.names)} team={team} rank={index + 1} onBet={onBet} t={t} lang={lang} />)}</div>
+      <div className="team-list">{filtered.map((team, index) => <TeamRow key={localTeamName(team.name, lang, team.names)} team={team} rank={index + 1} onBet={onBet} onDetail={onDetail} t={t} lang={lang} />)}</div>
     </div>
   );
 }
@@ -3534,49 +3552,39 @@ function TeamDetailModal({ t, team, tgUser, initData, onClose, onBet, lang = 'en
     api(`/api/team_detail?team=${encodeURIComponent(team.name)}`, { tgUser, initData }).then(setData).catch((e) => alert(e.message));
   }, [team?.name]);
   if (!team) return null;
-  const closed = data?.status && data.status !== "open";
+  const closed = data?.is_open === false || (data?.status && data.status !== "open");
   return (
     <div className="team-detail-bg" onClick={onClose}>
-      <div className="team-detail-card" onClick={(e) => e.stopPropagation()}>
+      <div className="team-detail-card enhanced-team-detail" onClick={(e) => e.stopPropagation()}>
         <button className="activity-close" onClick={onClose}>×</button>
-        <h2>{team.flag} {localTeamName(team.name, lang, team.names)}</h2>
-        <div className={`team-status ${closed ? "closed" : "open"}`}>{data?.status || "open"}</div>
+        <h2>{team.flag} {localTeamName(team.name, lang, data?.names || team.names)}</h2>
+        <div className={`team-status ${closed ? "closed" : "open"}`}>{closed ? t("teamPaused") : t("active")}</div>
+        {data?.reason && <div className="notice-card">{data.reason}</div>}
         <div className="team-detail-grid">
-          <div><small>{t("teamTotalBet") || "Team Total Bet"}</small><b>{data?.total_bet_amount || "0.00"} USDT</b></div>
-          <div><small>{t("supporters") || "Supporters"}</small><b>{data?.supporters || 0}</b></div>
-          <div><small>{t("currentShareRate") || "Current Share Rate"}</small><b>{data?.share_rate || team.share_rate || "1"}x</b></div>
-          <div><small>My Tickets</small><b>{data?.my_tickets || "0.00"}</b></div>
+          <div><small>{t("teamTotalBet")}</small><b>{data?.total_bet_amount || team.total_bet || "0.00"} USDT</b></div>
+          <div><small>{t("supporters")}</small><b>{data?.supporters || 0}</b></div>
+          <div><small>{t("currentShareRate")}</small><b>{data?.share_rate || team.share_rate || "1"}x</b></div>
+          <div><small>{t("totalTickets")}</small><b>{data?.total_tickets || team.total_ticket || 0}</b></div>
+          <div><small>{t("myAmount")}</small><b>{data?.my_amount || "0.00"} USDT</b></div>
+          <div><small>{t("myTickets")}</small><b>{data?.my_tickets || "0"}</b></div>
+          <div><small>{t("myShares")}</small><b>{data?.my_shares || "0.00"}</b></div>
+          <div><small>{t("estWin")}</small><b>{data?.my_expected_win || "0.00"} USDT</b></div>
         </div>
-        <h3>Top Supporters</h3>
+        <h3>{t("topSupporters")}</h3>
         <div className="supporter-list">
           {(data?.top_supporters || []).map((x, i) => (
-            <div key={i}><span>#{i+1} {x.telegram_id}</span><b>{Number(x.amount).toFixed(2)} USDT</b></div>
+            <div className="supporter-row" key={i}><b>{i+1}. {x.player}</b><span>{x.amount} USDT · {x.shares}</span></div>
           ))}
+          {(data?.top_supporters || []).length === 0 && <div className="empty-history">{t("noRecords")}</div>}
         </div>
-        <button className="red-button wide-red-button" disabled={closed} onClick={() => { onClose(); onBet(team); }}>
-          {closed ? "Betting Closed" : (t("bet") || "Bet")}
+        <button className="red-button wide-red-button" disabled={closed} onClick={() => { onBet(team); onClose(); }}>
+          {closed ? t("closed") : t("bet")}
         </button>
       </div>
     </div>
   );
 }
 
-
-
-const SABA_WITHDRAW_ORDER_I18N_FINAL = {
-  en: { withdrawCreated:"Withdraw Created", withdrawCompleted:"Withdraw Completed", withdrawPending:"Withdraw Pending", withdrawRejected:"Withdraw Rejected", selectWithdrawCoin:"Select withdraw coin / network", chooseCoinFirst:"Choose coin / network first" },
-  zh: { withdrawCreated:"提现创建", withdrawCompleted:"提现完成", withdrawPending:"提现审核中", withdrawRejected:"提现已拒绝", selectWithdrawCoin:"选择提现币种 / 网络", chooseCoinFirst:"请先选择币种 / 网络" },
-  ja: { withdrawCreated:"出金申請済み", withdrawCompleted:"出金完了", withdrawPending:"出金審査中", withdrawRejected:"出金拒否", selectWithdrawCoin:"出金币種 / ネットワークを選択", chooseCoinFirst:"先に币種 / ネットワークを選択してください" },
-  ko: { withdrawCreated:"출금 생성됨", withdrawCompleted:"출금 완료", withdrawPending:"출금 심사 중", withdrawRejected:"출금 거절됨", selectWithdrawCoin:"출금 코인 / 네트워크 선택", chooseCoinFirst:"코인 / 네트워크를 먼저 선택하세요" },
-  tr: { withdrawCreated:"Çekim Oluşturuldu", withdrawCompleted:"Çekim Tamamlandı", withdrawPending:"Çekim Beklemede", withdrawRejected:"Çekim Reddedildi", selectWithdrawCoin:"Çekim coin / ağ seç", chooseCoinFirst:"Önce coin / ağ seçin" },
-  es: { withdrawCreated:"Retiro Creado", withdrawCompleted:"Retiro Completado", withdrawPending:"Retiro Pendiente", withdrawRejected:"Retiro Rechazado", selectWithdrawCoin:"Seleccionar moneda / red", chooseCoinFirst:"Elige moneda / red primero" },
-  ru: { withdrawCreated:"Вывод создан", withdrawCompleted:"Вывод завершен", withdrawPending:"Вывод ожидает", withdrawRejected:"Вывод отклонен", selectWithdrawCoin:"Выберите монету / сеть", chooseCoinFirst:"Сначала выберите монету / сеть" },
-  ar: { withdrawCreated:"تم إنشاء السحب", withdrawCompleted:"اكتمل السحب", withdrawPending:"السحب قيد المراجعة", withdrawRejected:"تم رفض السحب", selectWithdrawCoin:"اختر عملة / شبكة السحب", chooseCoinFirst:"اختر العملة / الشبكة أولاً" },
-  hi: { withdrawCreated:"निकासी बनाई गई", withdrawCompleted:"निकासी पूरी हुई", withdrawPending:"निकासी लंबित", withdrawRejected:"निकासी अस्वीकृत", selectWithdrawCoin:"निकासी कॉइन / नेटवर्क चुनें", chooseCoinFirst:"पहले कॉइन / नेटवर्क चुनें" }
-};
-Object.keys(SABA_WITHDRAW_ORDER_I18N_FINAL).forEach((code) => {
-  I18N[code] = { ...(I18N[code] || I18N.en), ...SABA_WITHDRAW_ORDER_I18N_FINAL[code] };
-});
 
 function localWithdrawStatusText(t, status) {
   const s = String(status || "").toLowerCase();
@@ -4293,8 +4301,8 @@ export default function App() {
         <AppHeader user={tgUser} />
         <LanguageSwitcher lang={lang} setLang={setLang} t={t} />
         <UserInfoCard user={tgUser} />
-        <AnnouncementBanners banners={banners} />
-        {tab === "pool" && <PoolPage onBet={setBetTeam} setTab={setTab} me={me} teams={teams} prizePool={prizePool} festival={festival} loading={loading} error={apiError} t={t} lang={lang} />}
+        <AnnouncementBanners banners={banners} t={t} />
+        {tab === "pool" && <PoolPage onBet={setBetTeam} onDetail={setTeamDetail} setTab={setTab} me={me} teams={teams} prizePool={prizePool} festival={festival} loading={loading} error={apiError} t={t} lang={lang} />}
         {tab === "deposit" && <DepositPage t={t} festival={festival} deposits={deposits} withdraws={withdraws} myBets={myBets} walletHistory={walletHistory} createDeposit={createDeposit} cancelDeposit={cancelDeposit} submitReceipt={submitReceipt} btcDraw={btcDraw} depositMethods={depositMethods} tgUser={tgUser} initData={initData} lang={lang} />}
         {tab === "bets" && <MyBetsPage bets={myBets} t={t} lang={lang} />}
         {tab === "rewards" && <RewardsPage t={t} festival={festival} referral={referral} walletHistory={walletHistory} missions={missions} claimDepositMission={claimDepositMission} claimBetMission={claimBetMission} claimDailyLogin={claimDailyLogin} />}
