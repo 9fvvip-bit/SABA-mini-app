@@ -3083,6 +3083,26 @@ const TEAM_CODE_ALIAS = {
 
 Object.assign(TEAM_NAME_I18N_FRONT, {"Uzbekistan": {"zh": "乌兹别克斯坦", "ja": "ウズベキスタン", "ko": "우즈베키스탄", "tr": "Özbekistan", "es": "Uzbekistán", "ru": "Узбекистан", "ar": "أوزبكستان", "hi": "उज़्बेकिस्तान", "en": "Uzbekistan"}, "Panama": {"zh": "巴拿马", "ja": "パナマ", "ko": "파나마", "tr": "Panama", "es": "Panamá", "ru": "Панама", "ar": "بنما", "hi": "पनामा", "en": "Panama"}, "Iraq": {"zh": "伊拉克", "ja": "イラク", "ko": "이라크", "tr": "Irak", "es": "Irak", "ru": "Ирак", "ar": "العراق", "hi": "इराक", "en": "Iraq"}, "South Africa": {"zh": "南非", "ja": "南アフリカ", "ko": "남아프리카", "tr": "Güney Afrika", "es": "Sudáfrica", "ru": "ЮАР", "ar": "جنوب أفريقيا", "hi": "दक्षिण अफ्रीका", "en": "South Africa"}, "Congo DR": {"zh": "刚果（金）", "ja": "コンゴ民主共和国", "ko": "콩고민주공화국", "tr": "Kongo DC", "es": "RD Congo", "ru": "ДР Конго", "ar": "الكونغو الديمقراطية", "hi": "कांगो DR", "en": "Congo DR"}, "Turkiye": {"zh": "土耳其", "ja": "トルコ", "ko": "튀르키예", "tr": "Türkiye", "es": "Turquía", "ru": "Турция", "ar": "تركيا", "hi": "तुर्की", "en": "Türkiye"}, "South Korea": {"zh": "韩国", "ja": "韓国", "ko": "대한민국", "tr": "Güney Kore", "es": "Corea del Sur", "ru": "Южная Корея", "ar": "كوريا الجنوبية", "hi": "दक्षिण कोरिया", "en": "South Korea"}, "Ecuador": {"zh": "厄瓜多尔", "ja": "エクアドル", "ko": "에콰도르", "tr": "Ekvador", "es": "Ecuador", "ru": "Эквадор", "ar": "الإكوادور", "hi": "इक्वाडोर", "en": "Ecuador"}});
 
+// ABSOLUTE_ALL_POOL_TEAM_TRANSLATIONS
+Object.assign(TEAM_NAME_I18N_FRONT, {"Norway": {"en": "Norway", "zh": "挪威", "ja": "ノルウェー", "ko": "노르웨이", "tr": "Norveç", "es": "Noruega", "ru": "Норвегия", "ar": "النرويج", "hi": "नॉर्वे"}, "Colombia": {"en": "Colombia", "zh": "哥伦比亚", "ja": "コロンビア", "ko": "콜롬비아", "tr": "Kolombiya", "es": "Colombia", "ru": "Колумбия", "ar": "كولومبيا", "hi": "कोलंबिया"}, "Austria": {"en": "Austria", "zh": "奥地利", "ja": "オーストリア", "ko": "오스트리아", "tr": "Avusturya", "es": "Austria", "ru": "Австрия", "ar": "النمسا", "hi": "ऑस्ट्रिया"}, "Sweden": {"en": "Sweden", "zh": "瑞典", "ja": "スウェーデン", "ko": "스웨덴", "tr": "İsveç", "es": "Suecia", "ru": "Швеция", "ar": "السويد", "hi": "स्वीडन"}, "Algeria": {"en": "Algeria", "zh": "阿尔及利亚", "ja": "アルジェリア", "ko": "알제리", "tr": "Cezayir", "es": "Argelia", "ru": "Алжир", "ar": "الجزائر", "hi": "अल्जीरिया"}, "Paraguay": {"en": "Paraguay", "zh": "巴拉圭", "ja": "パラグアイ", "ko": "파라과이", "tr": "Paraguay", "es": "Paraguay", "ru": "Парагвай", "ar": "باراغواي", "hi": "पैराग्वे"}, "Scotland": {"en": "Scotland", "zh": "苏格兰", "ja": "スコットランド", "ko": "스코틀랜드", "tr": "İskoçya", "es": "Escocia", "ru": "Шотландия", "ar": "اسكتلندا", "hi": "स्कॉटलैंड"}, "Ivory Coast": {"en": "Ivory Coast", "zh": "科特迪瓦", "ja": "コートジボワール", "ko": "코트디부아르", "tr": "Fildişi Sahili", "es": "Costa de Marfil", "ru": "Кот-д’Ивуар", "ar": "ساحل العاج", "hi": "आइवरी कोस्ट"}, "Czechia": {"en": "Czechia", "zh": "捷克", "ja": "チェコ", "ko": "체코", "tr": "Çekya", "es": "Chequia", "ru": "Чехия", "ar": "التشيك", "hi": "चेकिया"}, "Egypt": {"en": "Egypt", "zh": "埃及", "ja": "エジプト", "ko": "이집트", "tr": "Mısır", "es": "Egipto", "ru": "Египет", "ar": "مصر", "hi": "मिस्र"}, "Ghana": {"en": "Ghana", "zh": "加纳", "ja": "ガーナ", "ko": "가나", "tr": "Gana", "es": "Ghana", "ru": "Гана", "ar": "غانا", "hi": "घाना"}, "Bosnia-Herzegovina": {"en": "Bosnia-Herzegovina", "zh": "波黑", "ja": "ボスニア・ヘルツェゴビナ", "ko": "보스니아 헤르체고비나", "tr": "Bosna-Hersek", "es": "Bosnia y Herzegovina", "ru": "Босния и Герцеговина", "ar": "البوسنة والهرسك", "hi": "बोस्निया और हर्जेगोविना"}, "Tunisia": {"en": "Tunisia", "zh": "突尼斯", "ja": "チュニジア", "ko": "튀니지", "tr": "Tunus", "es": "Túnez", "ru": "Тунис", "ar": "تونس", "hi": "ट्यूनीशिया"}, "Australia": {"en": "Australia", "zh": "澳大利亚", "ja": "オーストラリア", "ko": "호주", "tr": "Avustralya", "es": "Australia", "ru": "Австралия", "ar": "أستراليا", "hi": "ऑस्ट्रेलिया"}, "New Zealand": {"en": "New Zealand", "zh": "新西兰", "ja": "ニュージーランド", "ko": "뉴질랜드", "tr": "Yeni Zelanda", "es": "Nueva Zelanda", "ru": "Новая Зеландия", "ar": "نيوزيلندا", "hi": "न्यूज़ीलैंड"}, "Haiti": {"en": "Haiti", "zh": "海地", "ja": "ハイチ", "ko": "아이티", "tr": "Haiti", "es": "Haití", "ru": "Гаити", "ar": "هايتي", "hi": "हैती"}, "Jordan": {"en": "Jordan", "zh": "约旦", "ja": "ヨルダン", "ko": "요르단", "tr": "Ürdün", "es": "Jordania", "ru": "Иордания", "ar": "الأردن", "hi": "जॉर्डन"}, "Curaçao": {"en": "Curaçao", "zh": "库拉索", "ja": "キュラソー", "ko": "퀴라소", "tr": "Curaçao", "es": "Curazao", "ru": "Кюрасао", "ar": "كوراساو", "hi": "कुराकाओ"}, "Iran": {"en": "Iran", "zh": "伊朗", "ja": "イラン", "ko": "이란", "tr": "İran", "es": "Irán", "ru": "Иран", "ar": "إيران", "hi": "ईरान"}, "Uzbekistan": {"en": "Uzbekistan", "zh": "乌兹别克斯坦", "ja": "ウズベキスタン", "ko": "우즈베키스탄", "tr": "Özbekistan", "es": "Uzbekistán", "ru": "Узбекистан", "ar": "أوزبكستان", "hi": "उज़्बेकिस्तान"}, "Panama": {"en": "Panama", "zh": "巴拿马", "ja": "パナマ", "ko": "파나마", "tr": "Panama", "es": "Panamá", "ru": "Панама", "ar": "بنما", "hi": "पनामा"}, "Iraq": {"en": "Iraq", "zh": "伊拉克", "ja": "イラク", "ko": "이라크", "tr": "Irak", "es": "Irak", "ru": "Ирак", "ar": "العراق", "hi": "इराक"}, "South Africa": {"en": "South Africa", "zh": "南非", "ja": "南アフリカ", "ko": "남아프리카", "tr": "Güney Afrika", "es": "Sudáfrica", "ru": "ЮАР", "ar": "جنوب أفريقيا", "hi": "दक्षिण अफ्रीका"}, "Congo DR": {"en": "Congo DR", "zh": "刚果（金）", "ja": "コンゴ民主共和国", "ko": "콩고민주공화국", "tr": "Kongo DC", "es": "RD Congo", "ru": "ДР Конго", "ar": "الكونغو الديمقراطية", "hi": "कांगो DR"}, "Cape Verde": {"en": "Cape Verde", "zh": "佛得角", "ja": "カーボベルデ", "ko": "카보베르데", "tr": "Yeşil Burun Adaları", "es": "Cabo Verde", "ru": "Кабо-Верде", "ar": "الرأس الأخضر", "hi": "केप वर्डे"}, "Turkiye": {"en": "Türkiye", "zh": "土耳其", "ja": "トルコ", "ko": "튀르키예", "tr": "Türkiye", "es": "Turquía", "ru": "Турция", "ar": "تركيا", "hi": "तुर्की"}, "South Korea": {"en": "South Korea", "zh": "韩国", "ja": "韓国", "ko": "대한민국", "tr": "Güney Kore", "es": "Corea del Sur", "ru": "Южная Корея", "ar": "كوريا الجنوبية", "hi": "दक्षिण कोरिया"}, "Ecuador": {"en": "Ecuador", "zh": "厄瓜多尔", "ja": "エクアドル", "ko": "에콰도르", "tr": "Ekvador", "es": "Ecuador", "ru": "Эквадор", "ar": "الإكوادور", "hi": "इक्वाडोर"}});
+
+
+// ABSOLUTE_FINAL_TRANSLATION_OVERRIDE_LAST
+const ABSOLUTE_FINAL_TRANSLATION_OVERRIDE_LAST = {
+  zh: { bet:"下注", deposit:"入金", withdraw:"提现", win:"派奖", tickets:"票", shares:"分成", ticket:"总票数", share:"总分成", confirmed:"已确认", pending:"待审核", completed:"已完成", rejected:"已拒绝", cancelled:"已取消", championBet:"冠军下注", depositConfirmed:"入金已确认", betRecord:"下注", depositRecord:"入金", withdrawRecord:"提现", winRecord:"派奖", totalTickets:"总票数", totalShare:"总分成", betAmount:"下注金额", btcShare:"BTC 分成" },
+  ja: { bet:"ベット", deposit:"入金", withdraw:"出金", win:"配当", tickets:"チケット", shares:"シェア", ticket:"総チケット数", share:"総シェア", confirmed:"確認済み", pending:"審査中", completed:"完了", rejected:"拒否", cancelled:"取消済み", championBet:"優勝ベット", depositConfirmed:"入金確認済み", betRecord:"ベット", depositRecord:"入金", withdrawRecord:"出金", winRecord:"配当", totalTickets:"総チケット数", totalShare:"総シェア", betAmount:"ベット額", btcShare:"BTCシェア" },
+  ko: { bet:"베팅", deposit:"입금", withdraw:"출금", win:"지급", tickets:"티켓", shares:"쉐어", ticket:"총 티켓", share:"총 쉐어", confirmed:"확인됨", pending:"심사 중", completed:"완료", rejected:"거절됨", cancelled:"취소됨", championBet:"우승 베팅", depositConfirmed:"입금 확인됨", betRecord:"베팅", depositRecord:"입금", withdrawRecord:"출금", winRecord:"지급", totalTickets:"총 티켓", totalShare:"총 쉐어", betAmount:"베팅 금액", btcShare:"BTC 쉐어" },
+  tr: { bet:"Bahis", deposit:"Yatırım", withdraw:"Çekim", win:"Kazanç", tickets:"Bilet", shares:"Pay", ticket:"Toplam Bilet", share:"Toplam Pay", confirmed:"Onaylandı", pending:"Beklemede", completed:"Tamamlandı", rejected:"Reddedildi", cancelled:"İptal", championBet:"Şampiyon bahsi", depositConfirmed:"Yatırım onaylandı", betRecord:"Bahis", depositRecord:"Yatırım", withdrawRecord:"Çekim", winRecord:"Kazanç", totalTickets:"Toplam Bilet", totalShare:"Toplam Pay", betAmount:"Bahis Tutarı", btcShare:"BTC Payı" },
+  es: { bet:"Apuesta", deposit:"Depósito", withdraw:"Retiro", win:"Premio", tickets:"Boletos", shares:"Participación", ticket:"Boletos Totales", share:"Participación Total", confirmed:"Confirmado", pending:"Pendiente", completed:"Completado", rejected:"Rechazado", cancelled:"Cancelado", championBet:"Apuesta campeón", depositConfirmed:"Depósito confirmado", betRecord:"Apuesta", depositRecord:"Depósito", withdrawRecord:"Retiro", winRecord:"Premio", totalTickets:"Boletos Totales", totalShare:"Participación Total", betAmount:"Monto Apostado", btcShare:"BTC Share" },
+  ru: { bet:"Ставка", deposit:"Депозит", withdraw:"Вывод", win:"Выплата", tickets:"билетов", shares:"долей", ticket:"Всего билетов", share:"Общая доля", confirmed:"Подтверждено", pending:"Ожидает", completed:"Завершено", rejected:"Отклонено", cancelled:"Отменено", championBet:"Ставка на чемпиона", depositConfirmed:"Депозит подтвержден", betRecord:"Ставка", depositRecord:"Депозит", withdrawRecord:"Вывод", winRecord:"Выплата", totalTickets:"Всего билетов", totalShare:"Общая доля", betAmount:"Сумма ставки", btcShare:"BTC доля" },
+  ar: { bet:"رهان", deposit:"إيداع", withdraw:"سحب", win:"جائزة", tickets:"تذاكر", shares:"حصص", ticket:"إجمالي التذاكر", share:"إجمالي الحصة", confirmed:"مؤكد", pending:"قيد المراجعة", completed:"مكتمل", rejected:"مرفوض", cancelled:"ملغي", championBet:"رهان البطل", depositConfirmed:"تم تأكيد الإيداع", betRecord:"رهان", depositRecord:"إيداع", withdrawRecord:"سحب", winRecord:"جائزة", totalTickets:"إجمالي التذاكر", totalShare:"إجمالي الحصة", betAmount:"مبلغ الرهان", btcShare:"حصة BTC" },
+  en: { championBet:"Champion bet", depositConfirmed:"Deposit confirmed", betRecord:"Bet", depositRecord:"Deposit", withdrawRecord:"Withdraw", winRecord:"Win", totalTickets:"Total Tickets", totalShare:"Total Share", betAmount:"Bet Amount", btcShare:"BTC Share" }
+};
+Object.keys(ABSOLUTE_FINAL_TRANSLATION_OVERRIDE_LAST).forEach((code) => {
+  I18N[code] = { ...(I18N[code] || I18N.en), ...ABSOLUTE_FINAL_TRANSLATION_OVERRIDE_LAST[code] };
+});
+
+
 function normalizeTeamKey(team) {
   const raw = String(team || "").trim();
   return TEAM_CODE_ALIAS[raw] || TEAM_CODE_ALIAS[raw.replace(/\s+/g, "")] || raw;
@@ -3194,25 +3214,30 @@ Object.keys(SABA_V6_FINAL_LANGUAGE_CLEANUP).forEach((code) => {
 
 function localTxTypeLabel(t, type) {
   const key = String(type || "").toLowerCase();
-  if (key.includes("deposit")) return t("depositRecord");
-  if (key.includes("withdraw")) return t("withdrawRecord");
-  if (key.includes("bet")) return t("betRecord");
-  if (key.includes("win") || key.includes("settle")) return t("winRecord");
+  if (key.includes("deposit")) return t("depositRecord") || t("deposit");
+  if (key.includes("withdraw")) return t("withdrawRecord") || t("withdraw");
+  if (key.includes("bet")) return t("betRecord") || t("bet");
+  if (key.includes("win") || key.includes("settle") || key.includes("payout")) return t("winRecord") || t("win");
   return type || "";
 }
 
 function localRemarkText(text, lang, t) {
   let s = String(text || "");
+  if (!s || s === "-") return s || "-";
   s = s.replace(/^RECEIPT:/i, `${t("receipt")}: `);
-  s = s.replace(/Champion bet\s+([A-Za-z ]+)\s*\/\s*([0-9.]+)\s*tickets?\s*\/\s*([0-9.]+)\s*shares?/i, (_, team, tk, sh) =>
+  s = s.replace(/\bDeposit confirmed\b/gi, t("depositConfirmed") || t("confirmed"));
+  s = s.replace(/Champion bet\s+([A-Za-zÀ-ÿ\s\-\(\)]+?)\s*\/\s*([0-9.]+)\s*tickets?\s*\/\s*([0-9.]+)\s*shares?/gi, (_, team, tk, sh) =>
     `${t("championBet")} ${localTeamName(team.trim(), lang)} / ${tk} ${t("tickets")} / ${sh} ${t("shares")}`
   );
-  s = s.replace(/Champion bet\s+([A-Za-z ]+)\s+([0-9.]+)\s*tickets?/i, (_, team, tk) =>
+  s = s.replace(/Champion bet\s+([A-Za-zÀ-ÿ\s\-\(\)]+?)\s*\/\s*([0-9.]+)\s*tickets?/gi, (_, team, tk) =>
     `${t("championBet")} ${localTeamName(team.trim(), lang)} / ${tk} ${t("tickets")}`
   );
+  s = s.replace(/Champion bet\s+([A-Za-zÀ-ÿ\s\-\(\)]+?)\s+([0-9.]+)\s*tickets?/gi, (_, team, tk) =>
+    `${t("championBet")} ${localTeamName(team.trim(), lang)} / ${tk} ${t("tickets")}`
+  );
+  s = s.replace(/\bChampion bet\b/gi, t("championBet"));
   s = s.replace(/\btickets\b/gi, t("tickets"));
   s = s.replace(/\bshares\b/gi, t("shares"));
-  s = s.replace(/\bChampion bet\b/gi, t("championBet"));
   return s;
 }
 
@@ -3612,12 +3637,12 @@ function AssetsPage({ t, tgUser, initData, lang = 'en'}) {
           return (
             <div className="wallet-history-card" key={i}>
               <div className="wallet-history-top">
-                <b>{x.display_type || localTxTypeLabel(t, x.tx_type || x.type || "Record")}</b>
+                <b>{localTxTypeLabel(t, x.tx_type || x.type || x.display_type || "Record")}</b>
                 <strong className={positive ? "amount-plus" : "amount-minus"}>
                   {x.display_amount || x.amount_usdt || x.amount || "0"} USDT
                 </strong>
               </div>
-              <p>{x.display_remark ? localRemarkText(x.display_remark, lang, t) : localRemarkText(x.remark || x.note || "-", lang, t)}</p>
+              <p>{localRemarkText(x.remark || x.note || x.display_remark || "-", lang, t)}</p>
               <small>{x.display_time || x.created_at || ""}</small>
             </div>
           );

@@ -4683,3 +4683,18 @@ nav.bottom-nav button svg {
   overflow-wrap: anywhere !important;
   line-height: 1.35 !important;
 }
+
+/* Absolute language fix: rank text-only */
+.ordinal-rank,
+.ordinal-rank.rank-1,
+.ordinal-rank.rank-2,
+.ordinal-rank.rank-3,
+.top10-ranking-card .ordinal-rank {
+  background: transparent !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
