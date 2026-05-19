@@ -2885,7 +2885,7 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
 
 
 
-function RankingsPage({ t, tgUser, initData }) {
+function RankingsPage({ t, tgUser, initData, lang }) {
   const [kind, setKind] = useState("teams");
   const [data, setData] = useState({ items: [] });
   const [loading, setLoading] = useState(false);
@@ -2897,6 +2897,10 @@ function RankingsPage({ t, tgUser, initData }) {
     if (num % 10 === 2) return `${num}nd`;
     if (num % 10 === 3) return `${num}rd`;
     return `${num}th`;
+  }
+
+  function teamName(x) {
+    return x?.names?.[lang] || x?.team || "-";
   }
 
   async function load(k = kind) {
@@ -2914,11 +2918,6 @@ function RankingsPage({ t, tgUser, initData }) {
 
   useEffect(() => { load(kind); }, [kind]);
 
-  function rowTitle(x) {
-    if (kind === "teams") return `${x.flag || "🏳️"} ${x.team || "-"}`;
-    return x.player || "Player";
-  }
-
   return (
     <section className="page-section rankings-page">
       <h2>{t("rankings") || "Rankings"}</h2>
@@ -2934,16 +2933,24 @@ function RankingsPage({ t, tgUser, initData }) {
       <div className="ranking-list top10-ranking-list">
         {!loading && !data?.error && (data.items || []).length === 0 && <div className="empty-history">No ranking data yet.</div>}
         {(data.items || []).slice(0, 10).map((x, i) => (
-          <div className="ranking-card top10-ranking-card" key={i}>
+          <div className={`ranking-card top10-ranking-card ${i < 3 ? `top${i+1}` : ""}`} key={i}>
             <strong className={`ordinal-rank rank-${i+1}`}>{ordinal(i + 1)}</strong>
             <div className="ranking-main">
-              <b>{rowTitle(x)}</b>
               {kind === "teams" ? (
-                <span>Bet Amount: {x.amount || "0.00"} USDT · Share: {x.share || x.shares || "0.00"}</span>
+                <>
+                  <b className="team-rank-title"><span className={`flag flag-${x.flag_code || "xx"}`}></span><span className="team-rank-name">{teamName(x)}</span></b>
+                  <span>Bet Amount: <span className="metric">{x.amount || "0.00"} USDT</span> · Share: <span className="metric">{x.share || x.shares || "0.00"}</span></span>
+                </>
               ) : kind === "btc" ? (
-                <span>BTC Share: {x.btc_share || "0.000000"} · Bet Amount: {x.amount || "0.00"} USDT · Share: {x.share || x.shares || "0.00"}</span>
+                <>
+                  <b className="player-rank-title">{x.player || "Player"}</b>
+                  <span>BTC Share: <span className="metric">{x.btc_share || "0.000000"}</span> · Bet Amount: <span className="metric">{x.amount || "0.00"} USDT</span> · Share: <span className="metric">{x.share || x.shares || "0.00"}</span></span>
+                </>
               ) : (
-                <span>Bet Amount: {x.amount || "0.00"} USDT · Share: {x.share || x.shares || "0.00"} · BTC Share: {x.btc_share || "0.000000"}</span>
+                <>
+                  <b className="player-rank-title">{x.player || "Player"}</b>
+                  <span>Bet Amount: <span className="metric">{x.amount || "0.00"} USDT</span> · Share: <span className="metric">{x.share || x.shares || "0.00"}</span> · BTC Share: <span className="metric">{x.btc_share || "0.000000"}</span></span>
+                </>
               )}
             </div>
           </div>
@@ -3553,7 +3560,7 @@ export default function App() {
         {tab === "deposit" && <DepositPage t={t} festival={festival} deposits={deposits} withdraws={withdraws} myBets={myBets} walletHistory={walletHistory} createDeposit={createDeposit} cancelDeposit={cancelDeposit} submitReceipt={submitReceipt} btcDraw={btcDraw} depositMethods={depositMethods} tgUser={tgUser} initData={initData} />}
         {tab === "bets" && <MyBetsPage bets={myBets} t={t} />}
         {tab === "rewards" && <RewardsPage t={t} festival={festival} referral={referral} walletHistory={walletHistory} withdraws={withdraws} missions={missions} claimDepositMission={claimDepositMission} claimBetMission={claimBetMission} claimDailyLogin={claimDailyLogin} createWithdraw={createWithdraw} />}
-        {tab === "rankings" && <RankingsPage t={t} tgUser={tgUser} initData={initData} />}
+        {tab === "rankings" && <RankingsPage t={t} tgUser={tgUser} initData={initData} lang={lang} />}
         {tab === "messages" && <MessagesPage t={t} tgUser={tgUser} initData={initData} />}
         {tab === "assets" && <AssetsPage t={t} tgUser={tgUser} initData={initData} />}
         <button type="button" className="v6-floating-ranking-button" onClick={() => setTab("rankings")}>🏆 {t("rankings") || "Rankings"}</button>

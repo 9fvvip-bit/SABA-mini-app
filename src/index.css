@@ -4366,3 +4366,120 @@ nav.bottom-nav button svg {
   font-size: 13px !important;
   color: #b8c4d8 !important;
 }
+
+
+/* Final ranking cover style */
+.top10-ranking-card {
+  min-height: 92px !important;
+  display: grid !important;
+  grid-template-columns: 70px 1fr !important;
+  gap: 14px !important;
+  align-items: center !important;
+  padding: 13px 16px !important;
+  border-radius: 22px !important;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.075), rgba(255,255,255,.035)),
+    linear-gradient(180deg,#151e2f,#101827) !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,.20) !important;
+}
+
+.top10-ranking-card.top1 {
+  background:
+    linear-gradient(90deg,rgba(255,212,75,.10),rgba(226,11,47,.08)),
+    linear-gradient(180deg,#172034,#101827) !important;
+  border-color: rgba(255,213,79,.28) !important;
+}
+
+.ordinal-rank {
+  min-width: 60px !important;
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 20px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 17px !important;
+  font-weight: 1000 !important;
+  color: #1a1420 !important;
+  letter-spacing: -0.5px !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.45) !important;
+  background: linear-gradient(135deg,#fff2a6,#f4c744 52%,#926b18) !important;
+  box-shadow: inset 0 1px 3px rgba(255,255,255,.70), inset 0 -5px 12px rgba(0,0,0,.14), 0 8px 20px rgba(244,199,68,.22) !important;
+}
+
+.ordinal-rank.rank-2 { background: linear-gradient(135deg,#ffffff,#c8d1de 58%,#7d8796) !important; }
+.ordinal-rank.rank-3 { background: linear-gradient(135deg,#ffe1bf,#f0a35d 56%,#9b531d) !important; }
+
+.ranking-main b,
+.team-rank-title,
+.player-rank-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-size: 22px !important;
+  line-height: 1.1 !important;
+  margin-bottom: 8px !important;
+  font-weight: 1000 !important;
+  color: #f7f9ff !important;
+  letter-spacing: .2px !important;
+}
+
+.player-rank-title {
+  display: block !important;
+}
+
+.ranking-main span {
+  display: block !important;
+  color: #b5c2d7 !important;
+  font-size: 14.5px !important;
+  line-height: 1.35 !important;
+  font-weight: 650 !important;
+}
+
+.ranking-main .metric {
+  display: inline !important;
+  color: #ffffff !important;
+  font-weight: 950 !important;
+}
+
+.flag {
+  width: 58px !important;
+  height: 38px !important;
+  border-radius: 7px !important;
+  overflow: hidden !important;
+  flex: 0 0 58px !important;
+  display: inline-grid !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,.22), inset 0 0 0 1px rgba(255,255,255,.25) !important;
+  border: 1px solid rgba(255,255,255,.28) !important;
+  background: #dfe7f2 !important;
+  position: relative !important;
+}
+
+.flag-fr { grid-template-columns: 1fr 1fr 1fr !important; background: linear-gradient(90deg,#002654 0 33.33%,#fff 33.33% 66.66%,#ed2939 66.66%) !important; }
+.flag-es { background: linear-gradient(180deg,#aa151b 0 25%,#f1bf00 25% 75%,#aa151b 75%) !important; }
+.flag-pt { grid-template-columns:40% 60% !important; background:linear-gradient(90deg,#006600 0 40%,#ff0000 40%) !important; }
+.flag-de { background:linear-gradient(180deg,#000 0 33.33%,#dd0000 33.33% 66.66%,#ffce00 66.66%) !important; }
+.flag-it { background:linear-gradient(90deg,#009246 0 33.33%,#fff 33.33% 66.66%,#ce2b37 66.66%) !important; }
+.flag-ar { background:linear-gradient(180deg,#75aadb 0 33.33%,#fff 33.33% 66.66%,#75aadb 66.66%) !important; }
+.flag-jp { background:#fff !important; }
+.flag-jp:after { content:""; position:absolute; width:18px; height:18px; border-radius:50%; background:#bc002d; left:50%; top:50%; transform:translate(-50%,-50%); }
+.flag-en { background:#fff !important; }
+.flag-en:before { content:""; position:absolute; left:24px; top:0; width:9px; height:100%; background:#ce1124; }
+.flag-en:after { content:""; position:absolute; left:0; top:14px; width:100%; height:9px; background:#ce1124; }
+.flag-us { background: repeating-linear-gradient(180deg,#b22234 0 3px,#fff 3px 6px) !important; }
+.flag-us:before { content:""; position:absolute; left:0; top:0; width:25px; height:20px; background:#3c3b6e; }
+.flag-ca { background:linear-gradient(90deg,#d52b1e 0 25%,#fff 25% 75%,#d52b1e 75%) !important; }
+.flag-br { background:#009b3a !important; }
+.flag-br:before { content:""; position:absolute; inset:6px 11px; background:#ffdf00; clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%); }
+.flag-br:after { content:""; position:absolute; width:15px; height:15px; background:#002776; border-radius:50%; top:11px; left:21px; }
+
+@media(max-width:420px){
+  .top10-ranking-card { grid-template-columns: 62px 1fr !important; padding: 12px !important; gap: 12px !important; }
+  .ordinal-rank { width: 54px !important; min-width: 54px !important; height: 54px !important; border-radius: 18px !important; font-size: 16px !important; }
+  .ranking-main b, .team-rank-title, .player-rank-title { font-size: 19px !important; }
+  .flag { width: 50px !important; height: 32px !important; flex-basis: 50px !important; }
+  .flag-en:before { left:21px !important; width:8px !important; }
+  .flag-en:after { top:12px !important; height:8px !important; }
+  .flag-br:after { left:18px !important; top:9px !important; }
+}
