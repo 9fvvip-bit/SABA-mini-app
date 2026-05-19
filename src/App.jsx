@@ -2375,7 +2375,7 @@ function BalanceCard({ me, t }) {
   );
 }
 
-function TeamRow({ team, onBet, rank, t }) {
+function TeamRow({ team, onBet, rank, t, lang = 'en' }) {
   const meta = teamMeta[team.name] || {};
   const isHot = Boolean(meta.hotRank);
   const code = meta.code || countryCodeMap?.[team.name] || team.name.slice(0, 2).toUpperCase();
@@ -2428,7 +2428,7 @@ function TeamRow({ team, onBet, rank, t }) {
   );
 }
 
-function PoolPage({ onBet, setTab, me, teams, prizePool, festival, loading, error, t }) {
+function PoolPage({ onBet, setTab, me, teams, prizePool, festival, loading, error, t, lang = 'en'}) {
   const [query, setQuery] = useState("");
   const filtered = useMemo(() => {
     const apiMap = new Map((teams || []).map((t) => [t.name, t]));
@@ -2464,7 +2464,7 @@ function PoolPage({ onBet, setTab, me, teams, prizePool, festival, loading, erro
         <b>{t("championMarket")}</b>
         <span>{t("earlyBetMoreShare")}</span>
       </div>
-      <div className="team-list">{filtered.map((team, index) => <TeamRow key={localTeamName(team.name, lang, team.names)} team={team} rank={index + 1} onBet={onBet} t={t} />)}</div>
+      <div className="team-list">{filtered.map((team, index) => <TeamRow key={localTeamName(team.name, lang, team.names)} team={team} rank={index + 1} onBet={onBet} t={t} lang={lang} />)}</div>
     </div>
   );
 }
@@ -2890,7 +2890,7 @@ const TEAM_NAME_I18N_FRONT = {
   France: { zh: "法国", tr: "Fransa", es: "Francia", ja: "フランス", ko: "프랑스", ru: "Франция", ar: "فرنسا", hi: "फ्रांस" },
   Brazil: { zh: "巴西", tr: "Brezilya", es: "Brasil", ja: "ブラジル", ko: "브라질", ru: "Бразилия", ar: "البرازيل", hi: "ब्राजील" },
   Portugal: { zh: "葡萄牙", tr: "Portekiz", es: "Portugal", ja: "ポルトガル", ko: "포르투갈", ru: "Португалия", ar: "البرتغال", hi: "पुर्तगाल" },
-  Spain: { zh: "西班牙", tr: "İspanya", es: "España", ja: "スペイン", ko: "스페イン", ru: "Испания", ar: "إسبانيا", hi: "स्पेन" },
+  Spain: { zh: "西班牙", tr: "İspanya", es: "España", ja: "スペイン", ko: "스페인", ru: "Испания", ar: "إسبانيا", hi: "स्पेन" },
   England: { zh: "英格兰", tr: "İngiltere", es: "Inglaterra", ja: "イングランド", ko: "잉글랜드", ru: "Англия", ar: "إنجلترا", hi: "इंग्लैंड" },
   Argentina: { zh: "阿根廷", tr: "Arjantin", es: "Argentina", ja: "アルゼンチン", ko: "아르헨티나", ru: "Аргентина", ar: "الأرجنتين", hi: "अर्जेंटीना" },
   Germany: { zh: "德国", tr: "Almanya", es: "Alemania", ja: "ドイツ", ko: "독일", ru: "Германия", ar: "ألمانيا", hi: "जर्मनी" },
@@ -2907,11 +2907,13 @@ const TEAM_NAME_I18N_FRONT = {
 };
 
 function localTeamName(team, lang, names) {
-  return names?.[lang] || TEAM_NAME_I18N_FRONT?.[team]?.[lang] || team;
+  const code = lang || "en";
+  if (!team) return "";
+  return names?.[code] || TEAM_NAME_I18N_FRONT?.[team]?.[code] || TEAM_NAME_I18N_FRONT?.[String(team).trim()]?.[code] || team;
 }
 
 
-function RankingsPage({ t, tgUser, initData, lang }) {
+function RankingsPage({ t, tgUser, initData, lang = 'en' }) {
   const [kind, setKind] = useState("teams");
   const [data, setData] = useState({ items: [] });
   const [loading, setLoading] = useState(false);
@@ -3011,7 +3013,7 @@ function MessagesPage({ t, tgUser, initData }) {
   );
 }
 
-function TeamDetailModal({ t, team, tgUser, initData, onClose, onBet }) {
+function TeamDetailModal({ t, team, tgUser, initData, onClose, onBet, lang = 'en'}) {
   const [data, setData] = useState(null);
   useEffect(() => {
     if (!team?.name) return;
@@ -3578,7 +3580,7 @@ export default function App() {
         <LanguageSwitcher lang={lang} setLang={setLang} t={t} />
         <UserInfoCard user={tgUser} />
         <AnnouncementBanners banners={banners} />
-        {tab === "pool" && <PoolPage onBet={setBetTeam} setTab={setTab} me={me} teams={teams} prizePool={prizePool} festival={festival} loading={loading} error={apiError} t={t} />}
+        {tab === "pool" && <PoolPage onBet={setBetTeam} setTab={setTab} me={me} teams={teams} prizePool={prizePool} festival={festival} loading={loading} error={apiError} t={t} lang={lang} />}
         {tab === "deposit" && <DepositPage t={t} festival={festival} deposits={deposits} withdraws={withdraws} myBets={myBets} walletHistory={walletHistory} createDeposit={createDeposit} cancelDeposit={cancelDeposit} submitReceipt={submitReceipt} btcDraw={btcDraw} depositMethods={depositMethods} tgUser={tgUser} initData={initData} />}
         {tab === "bets" && <MyBetsPage bets={myBets} t={t} />}
         {tab === "rewards" && <RewardsPage t={t} festival={festival} referral={referral} walletHistory={walletHistory} withdraws={withdraws} missions={missions} claimDepositMission={claimDepositMission} claimBetMission={claimBetMission} claimDailyLogin={claimDailyLogin} createWithdraw={createWithdraw} />}
@@ -3588,7 +3590,7 @@ export default function App() {
         <button type="button" className="v6-floating-ranking-button" onClick={() => setTab("rankings")}>🏆 {t("rankings") || "Rankings"}</button>
         <button type="button" className="v5-floating-assets-button" onClick={() => setTab("assets")}>💰 {t("assets") || "Assets"}</button>
         <BottomNav tab={tab} setTab={setTab} t={t} />
-        <TeamDetailModal t={t} team={teamDetail} tgUser={tgUser} initData={initData} onClose={() => setTeamDetail(null)} onBet={(team) => setBetTeam(team)} />
+        <TeamDetailModal t={t} lang={lang} team={teamDetail} tgUser={tgUser} initData={initData} onClose={() => setTeamDetail(null)} onBet={(team) => setBetTeam(team)} />
         <BetModal team={betTeam} prizePool={prizePool} onClose={() => setBetTeam(null)} placeBet={(team, amount) => setConfirmBetData({ team, amount })} t={t} />
         {confirmBetData && (
           <div className="confirm-bet-bg">
