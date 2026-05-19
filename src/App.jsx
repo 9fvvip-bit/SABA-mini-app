@@ -3586,11 +3586,44 @@ function localWithdrawStatusText(t, status) {
   return localStatusLabel ? localStatusLabel(t, status) : (status || "");
 }
 
-function AssetsPage({ t, tgUser, initData, lang = 'en'}) {
+
+const SABA_ORDER_LIST_I18N_FINAL = {
+  en: { depositOrder:"Deposit Order", withdrawOrder:"Withdraw Order", betId:"Bet ID", copied:"Copied", copy:"Copy", orderList:"Order List", selectOrderType:"Select order type", noOrderRecords:"No order records yet.", clickToView:"Tap a record to view details", supportTip:"Copy the ID and send it to support if needed." },
+  zh: { depositOrder:"充值订单", withdrawOrder:"提现订单", betId:"下注 ID", copied:"已复制", copy:"复制", orderList:"订单列表", selectOrderType:"选择订单类型", noOrderRecords:"暂无订单记录。", clickToView:"点击记录查看详情", supportTip:"需要客服协助时，可复制 ID 发给客服。" },
+  ja: { depositOrder:"入金注文", withdrawOrder:"出金注文", betId:"ベットID", copied:"コピー済み", copy:"コピー", orderList:"注文リスト", selectOrderType:"注文タイプを選択", noOrderRecords:"注文記録はありません。", clickToView:"記録をタップして詳細を確認", supportTip:"必要な場合はIDをコピーしてサポートへ送信してください。" },
+  ko: { depositOrder:"입금 주문", withdrawOrder:"출금 주문", betId:"베팅 ID", copied:"복사됨", copy:"복사", orderList:"주문 목록", selectOrderType:"주문 유형 선택", noOrderRecords:"주문 기록이 없습니다.", clickToView:"기록을 눌러 상세 확인", supportTip:"필요하면 ID를 복사해 고객지원에 보내세요." },
+  tr: { depositOrder:"Yatırım Emri", withdrawOrder:"Çekim Emri", betId:"Bahis ID", copied:"Kopyalandı", copy:"Kopyala", orderList:"Emir Listesi", selectOrderType:"Emir türü seç", noOrderRecords:"Emir kaydı yok.", clickToView:"Detay için kayda dokun", supportTip:"Gerekirse ID'yi kopyalayıp desteğe gönderin." },
+  es: { depositOrder:"Orden de Depósito", withdrawOrder:"Orden de Retiro", betId:"ID de Apuesta", copied:"Copiado", copy:"Copiar", orderList:"Lista de Órdenes", selectOrderType:"Seleccionar tipo de orden", noOrderRecords:"Sin registros.", clickToView:"Toca un registro para ver detalles", supportTip:"Copia el ID y envíalo a soporte si hace falta." },
+  ru: { depositOrder:"Ордер депозита", withdrawOrder:"Ордер вывода", betId:"ID ставки", copied:"Скопировано", copy:"Копировать", orderList:"Список ордеров", selectOrderType:"Выберите тип ордера", noOrderRecords:"Записей нет.", clickToView:"Нажмите запись для деталей", supportTip:"Скопируйте ID и отправьте в поддержку при необходимости." },
+  ar: { depositOrder:"طلب الإيداع", withdrawOrder:"طلب السحب", betId:"معرّف الرهان", copied:"تم النسخ", copy:"نسخ", orderList:"قائمة الطلبات", selectOrderType:"اختر نوع الطلب", noOrderRecords:"لا توجد سجلات.", clickToView:"اضغط على السجل لعرض التفاصيل", supportTip:"انسخ المعرّف وأرسله للدعم عند الحاجة." },
+  hi: { depositOrder:"डिपॉजिट ऑर्डर", withdrawOrder:"निकासी ऑर्डर", betId:"बेट ID", copied:"कॉपी हुआ", copy:"कॉपी", orderList:"ऑर्डर सूची", selectOrderType:"ऑर्डर प्रकार चुनें", noOrderRecords:"कोई ऑर्डर रिकॉर्ड नहीं.", clickToView:"विवरण देखने के लिए रिकॉर्ड टैप करें", supportTip:"जरूरत हो तो ID कॉपी करके सपोर्ट को भेजें." }
+};
+Object.keys(SABA_ORDER_LIST_I18N_FINAL).forEach((code) => {
+  I18N[code] = { ...(I18N[code] || I18N.en), ...SABA_ORDER_LIST_I18N_FINAL[code] };
+});
+
+function copyTextValue(text, t) {
+  const value = String(text || "");
+  if (!value) return;
+  try {
+    navigator.clipboard?.writeText(value);
+    if (window.Telegram?.WebApp?.showAlert) window.Telegram.WebApp.showAlert(t("copied"));
+  } catch (_) {}
+}
+
+function orderTypeTitle(t, type) {
+  if (type === "deposit") return t("depositOrder");
+  if (type === "withdraw") return t("withdrawOrder");
+  if (type === "bet") return t("betId");
+  return type;
+}
+
+
+function AssetsPage({ t, tgUser, initData, lang = 'en', deposits = [], withdraws = [], myBets = [] }) {
   const [data, setData] = useState(null);
   const [support, setSupport] = useState({ support_url: "https://t.me/SabaCs_Reena", button_text: "Live Support" });
   const [detail, setDetail] = useState(null);
-  const [detailInput, setDetailInput] = useState({ type: "deposit", no: "" });
+  const [detailInput, setDetailInput] = useState({ type: "deposit" });
   const [withdrawAmount, setWithdrawAmount] = useState("20");
   const [withdrawAddress, setWithdrawAddress] = useState("");
   const [withdrawMethod, setWithdrawMethod] = useState("USDT_TRC20");
@@ -3665,15 +3698,45 @@ function AssetsPage({ t, tgUser, initData, lang = 'en'}) {
   }
 
 
-  async function loadOrderDetail() {
-    if (!detailInput.no) return alert("Enter order no / bet id");
+  async function loadOrderDetail(orderType, orderNo) {
+    if (!orderNo) return;
     try {
-      const d = await api(`/api/order_detail?order_type=${encodeURIComponent(detailInput.type)}&order_no=${encodeURIComponent(detailInput.no)}`, { tgUser, initData });
+      const d = await api(`/api/order_detail?order_type=${encodeURIComponent(orderType)}&order_no=${encodeURIComponent(orderNo)}`, { tgUser, initData });
       setDetail(d);
     } catch (err) {
       alert(err.message);
     }
   }
+
+  const visibleOrders = detailInput.type === "deposit"
+    ? (deposits || []).map((d) => ({
+        type: "deposit",
+        id: d.order_no,
+        title: t("depositOrder"),
+        amount: `${d.amount_usdt || d.amount || "0.00"} USDT`,
+        status: localStatusLabel(t, d.status),
+        time: d.created_at || d.confirmed_at || "",
+        extra: d.network || d.coin_symbol || "",
+      }))
+    : detailInput.type === "withdraw"
+      ? (withdraws || []).map((w) => ({
+          type: "withdraw",
+          id: w.order_no,
+          title: t("withdrawOrder"),
+          amount: `${w.amount_usdt || w.amount || "0.00"} USDT`,
+          status: localWithdrawStatusText(t, w.status),
+          time: w.created_at || w.processed_at || "",
+          extra: w.network || w.coin_symbol || "",
+        }))
+      : (myBets || []).map((b) => ({
+          type: "bet",
+          id: b.id,
+          title: `${t("betId")}: ${b.id}`,
+          amount: `${b.amount || b.amount_usdt || "0.00"} USDT`,
+          status: statusLabel(t, b.status),
+          time: b.created_at || "",
+          extra: `${localTeamName(b.team, lang, b.names)} · ${b.tickets || 0} ${t("tickets")} · ${b.shares || "0.00"} ${t("shares")}`,
+        }));
 
   function openLiveSupport() {
     const url = support?.support_url || "https://t.me/SabaCs_Reena";
@@ -3756,14 +3819,32 @@ function AssetsPage({ t, tgUser, initData, lang = 'en'}) {
 
       <div className="order-detail-card">
         <h3>{t("orderDetail") || "Order Detail"}</h3>
-        <div className="order-detail-row">
-          <select value={detailInput.type} onChange={(e)=>setDetailInput({...detailInput, type:e.target.value})}>
-            <option value="deposit">Deposit</option>
-            <option value="withdraw">Withdraw</option>
-            <option value="bet">Bet ID</option>
+        <p className="order-help-text">{t("supportTip")}</p>
+        <div className="order-detail-row single-select">
+          <select value={detailInput.type} onChange={(e)=>{ setDetailInput({ type:e.target.value }); setDetail(null); }}>
+            <option value="deposit">{t("depositOrder")}</option>
+            <option value="withdraw">{t("withdrawOrder")}</option>
+            <option value="bet">{t("betId")}</option>
           </select>
-          <input value={detailInput.no} onChange={(e)=>setDetailInput({...detailInput, no:e.target.value})} placeholder="Order No / Bet ID" />
-          <button onClick={loadOrderDetail}>Search</button>
+        </div>
+        <div className="order-list-panel">
+          <h4>{orderTypeTitle(t, detailInput.type)}</h4>
+          {(visibleOrders || []).length === 0 && <div className="empty-history">{t("noOrderRecords")}</div>}
+          {(visibleOrders || []).map((o) => (
+            <div className="order-list-card" key={`${o.type}-${o.id}`} onClick={() => loadOrderDetail(o.type, o.id)}>
+              <div>
+                <b>{o.title}</b>
+                <strong>{o.id}</strong>
+                <small>{o.extra}</small>
+                <small>{o.time}</small>
+              </div>
+              <div className="order-list-side">
+                <span>{o.amount}</span>
+                <em>{o.status}</em>
+                <button type="button" onClick={(ev) => { ev.stopPropagation(); copyTextValue(o.id, t); }}>{t("copy")}</button>
+              </div>
+            </div>
+          ))}
         </div>
         {detail && <pre className="detail-pre">{JSON.stringify(detail, null, 2)}</pre>}
       </div>
@@ -3804,6 +3885,10 @@ function MyBetsPage({ bets, t, lang = 'en'}) {
             <div className="bet-head">
               <b>{b.flag} {localTeamName(b.team, lang, b.names)}</b>
               <span>{statusLabel(t, b.status)}</span>
+            </div>
+            <div className="order-id-row bet-id-row">
+              <span>{t("betId")}: <b>{b.id}</b></span>
+              <button type="button" onClick={() => copyTextValue(b.id, t)}>{t("copy")}</button>
             </div>
             <div className="bet-grid">
               <div><small>{t("ticket")}</small><b>{b.tickets}</b></div>
@@ -4215,7 +4300,7 @@ export default function App() {
         {tab === "rewards" && <RewardsPage t={t} festival={festival} referral={referral} walletHistory={walletHistory} missions={missions} claimDepositMission={claimDepositMission} claimBetMission={claimBetMission} claimDailyLogin={claimDailyLogin} />}
         {tab === "rankings" && <RankingsPage t={t} tgUser={tgUser} initData={initData} lang={lang} />}
         {tab === "messages" && <MessagesPage t={t} tgUser={tgUser} initData={initData} />}
-        {tab === "assets" && <AssetsPage t={t} tgUser={tgUser} initData={initData} lang={lang} />}
+        {tab === "assets" && <AssetsPage t={t} tgUser={tgUser} initData={initData} lang={lang} deposits={deposits} withdraws={withdraws} myBets={myBets} />}
         <button type="button" className="v6-floating-ranking-button" onClick={() => setTab("rankings")}>🏆 {t("rankings") || "Rankings"}</button>
         <button type="button" className="v5-floating-assets-button" onClick={() => setTab("assets")}>💰 {t("assets") || "Assets"}</button>
         <BottomNav tab={tab} setTab={setTab} t={t} />
@@ -4226,8 +4311,8 @@ export default function App() {
             <div className="confirm-bet-card">
               <h3>{t("confirmBetTitle")}</h3>
               <p>{t("confirmBetDesc")}</p>
-              <div className="confirm-line"><span>Team</span><b>{confirmBetData.team?.name}</b></div>
-              <div className="confirm-line"><span>Amount</span><b>{confirmBetData.amount} USDT</b></div>
+              <div className="confirm-line"><span>{t("team") || "Team"}</span><b>{localTeamName(confirmBetData.team?.name, lang, confirmBetData.team?.names)}</b></div>
+              <div className="confirm-line"><span>{t("betAmount")}</span><b>{confirmBetData.amount} USDT</b></div>
               <div className="confirm-actions">
                 <button onClick={() => setConfirmBetData(null)}>{t("cancel")}</button>
                 <button className="red-button" onClick={async () => { const d = confirmBetData; setConfirmBetData(null); await placeBet(d.team, d.amount); }}>{t("confirm")}</button>

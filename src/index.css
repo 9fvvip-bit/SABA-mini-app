@@ -4778,3 +4778,95 @@ nav.bottom-nav button svg {
   font-size: 13px;
   font-weight: 800;
 }
+
+/* Order list + copyable IDs */
+.order-help-text {
+  color: #9fb0c8;
+  margin: 0 0 12px;
+  line-height: 1.35;
+}
+.order-detail-row.single-select {
+  grid-template-columns: 1fr !important;
+}
+.order-list-panel {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+.order-list-panel h4 {
+  margin: 0 0 4px;
+  color: #ffd85a;
+  font-size: 16px;
+}
+.order-list-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.1);
+}
+.order-list-card b,
+.order-list-card strong,
+.order-list-card small {
+  display: block;
+}
+.order-list-card strong {
+  color: #fff;
+  font-size: 18px;
+  margin-top: 4px;
+}
+.order-list-card small {
+  color: #9fb0c8;
+  margin-top: 3px;
+}
+.order-list-side {
+  text-align: right;
+  display: grid;
+  gap: 5px;
+  justify-items: end;
+}
+.order-list-side span {
+  color: #fff;
+  font-weight: 900;
+}
+.order-list-side em {
+  color: #43e58b;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 12px;
+}
+.order-list-side button,
+.order-id-row button {
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #1d8bff, #2bd1ff);
+  color: white;
+  padding: 7px 12px;
+  font-weight: 900;
+}
+.order-id-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.055);
+  color: #c9d4e7;
+}
+.order-id-row b {
+  color: #ffd85a;
+}
+@media(max-width: 420px) {
+  .order-list-card {
+    grid-template-columns: 1fr;
+  }
+  .order-list-side {
+    justify-items: start;
+    text-align: left;
+  }
+}
