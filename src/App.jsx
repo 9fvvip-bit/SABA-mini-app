@@ -2557,7 +2557,7 @@ function TeamRow({ team, onBet, onDetail, rank, t, lang = 'en' }) {
   const isHot = Boolean(meta.hotRank);
   const code = meta.code || countryCodeMap?.[team.name] || team.name.slice(0, 2).toUpperCase();
   const flagSrc = meta.flag;
-  const shareRate = meta.rate || team.share_rate || "7.00";
+  const shareRate = team.share_rate || meta.rate || "7.00"; // SABA_V8_FRONT_SHARE_ODD_SYNC_FIX
 
   return (
     <div className={`team-row premium-team-card ${isHot ? "hot-team-card" : ""}`}>
