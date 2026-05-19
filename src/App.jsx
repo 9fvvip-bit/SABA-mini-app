@@ -3545,14 +3545,57 @@ function MessagesPage({ t, tgUser, initData }) {
   );
 }
 
-function TeamDetailModal({ t, team, tgUser, initData, onClose, onBet, lang = 'en'}) {
+
+const SABA_V7_TEAM_DETAIL_FIX_I18N = {
+  en: { topSupporters:"Top Players" },
+  zh: { topSupporters:"下注用户榜" },
+  ja: { topSupporters:"ベットユーザーランキング" },
+  ko: { topSupporters:"베팅 유저 랭킹" },
+  tr: { topSupporters:"Bahis Oyuncu Sıralaması" },
+  es: { topSupporters:"Top Apostadores" },
+  ru: { topSupporters:"Топ игроков" },
+  ar: { topSupporters:"أفضل المراهنين" },
+  hi: { topSupporters:"टॉप बेटर्स" }
+};
+Object.keys(SABA_V7_TEAM_DETAIL_FIX_I18N).forEach((code) => {
+  I18N[code] = { ...(I18N[code] || I18N.en), ...SABA_V7_TEAM_DETAIL_FIX_I18N[code] };
+});
+
+function TeamDetailModal({ t, team, tgUser, initData, onClose, onBet, myBets = [], lang = 'en'}) {
   const [data, setData] = useState(null);
+  const [loadError, setLoadError] = useState("");
+
+  const localMine = useMemo(() => {
+    const items = (myBets || []).filter((b) => String(b.team || "").toLowerCase() === String(team?.name || "").toLowerCase());
+    const amount = items.reduce((s, b) => s + Number(b.amount || b.amount_usdt || 0), 0);
+    const tickets = items.reduce((s, b) => s + Number(b.tickets || 0), 0);
+    const shares = items.reduce((s, b) => s + Number(b.shares || 0), 0);
+    return { amount, tickets, shares };
+  }, [myBets, team?.name]);
+
   useEffect(() => {
     if (!team?.name) return;
-    api(`/api/team_detail?team=${encodeURIComponent(team.name)}`, { tgUser, initData }).then(setData).catch((e) => alert(e.message));
-  }, [team?.name]);
+    setLoadError("");
+    api(`/api/team_detail?team=${encodeURIComponent(team.name)}`, { tgUser, initData })
+      .then(setData)
+      .catch((e) => {
+        console.warn("team_detail failed:", e);
+        setLoadError(e.message || "Failed to fetch");
+      });
+  }, [team?.name, tgUser?.id, initData]);
+
   if (!team) return null;
+
   const closed = data?.is_open === false || (data?.status && data.status !== "open");
+  const myAmount = data?.my_amount ?? localMine.amount.toFixed(2);
+  const myTickets = data?.my_tickets ?? String(localMine.tickets || 0);
+  const myShares = data?.my_shares ?? localMine.shares.toFixed(2);
+  const totalTickets = data?.total_tickets ?? team.total_ticket ?? 0;
+  const totalShare = data?.total_share ?? team.total_share ?? "0.00";
+  const totalBet = data?.total_bet_amount ?? team.total_bet ?? "0.00";
+  const rate = data?.share_rate ?? team.share_rate ?? "1.50";
+  const estWin = data?.my_expected_win ?? "0.00";
+
   return (
     <div className="team-detail-bg" onClick={onClose}>
       <div className="team-detail-card enhanced-team-detail" onClick={(e) => e.stopPropagation()}>
@@ -3560,16 +3603,19 @@ function TeamDetailModal({ t, team, tgUser, initData, onClose, onBet, lang = 'en
         <h2>{team.flag} {localTeamName(team.name, lang, data?.names || team.names)}</h2>
         <div className={`team-status ${closed ? "closed" : "open"}`}>{closed ? t("teamPaused") : t("active")}</div>
         {data?.reason && <div className="notice-card">{data.reason}</div>}
-        <div className="team-detail-grid">
-          <div><small>{t("teamTotalBet")}</small><b>{data?.total_bet_amount || team.total_bet || "0.00"} USDT</b></div>
-          <div><small>{t("supporters")}</small><b>{data?.supporters || 0}</b></div>
-          <div><small>{t("currentShareRate")}</small><b>{data?.share_rate || team.share_rate || "1"}x</b></div>
-          <div><small>{t("totalTickets")}</small><b>{data?.total_tickets || team.total_ticket || 0}</b></div>
-          <div><small>{t("myAmount")}</small><b>{data?.my_amount || "0.00"} USDT</b></div>
-          <div><small>{t("myTickets")}</small><b>{data?.my_tickets || "0"}</b></div>
-          <div><small>{t("myShares")}</small><b>{data?.my_shares || "0.00"}</b></div>
-          <div><small>{t("estWin")}</small><b>{data?.my_expected_win || "0.00"} USDT</b></div>
+        {loadError && <div className="notice-card soft-error">{t("teamDetail")} API: {loadError}</div>}
+
+        <div className="team-detail-grid no-supporters-grid">
+          <div><small>{t("teamTotalBet")}</small><b>{totalBet} USDT</b></div>
+          <div><small>{t("currentShareRate")}</small><b>{rate}x</b></div>
+          <div><small>{t("totalTickets")}</small><b>{totalTickets}</b></div>
+          <div><small>{t("totalShare")}</small><b>{totalShare}</b></div>
+          <div><small>{t("myAmount")}</small><b>{myAmount} USDT</b></div>
+          <div><small>{t("myTickets")}</small><b>{myTickets}</b></div>
+          <div><small>{t("myShares")}</small><b>{myShares}</b></div>
+          <div><small>{t("estWin")}</small><b>{estWin} USDT</b></div>
         </div>
+
         <h3>{t("topSupporters")}</h3>
         <div className="supporter-list">
           {(data?.top_supporters || []).map((x, i) => (
@@ -3577,6 +3623,7 @@ function TeamDetailModal({ t, team, tgUser, initData, onClose, onBet, lang = 'en
           ))}
           {(data?.top_supporters || []).length === 0 && <div className="empty-history">{t("noRecords")}</div>}
         </div>
+
         <button className="red-button wide-red-button" disabled={closed} onClick={() => { onBet(team); onClose(); }}>
           {closed ? t("closed") : t("bet")}
         </button>
@@ -4312,7 +4359,7 @@ export default function App() {
         <button type="button" className="v6-floating-ranking-button" onClick={() => setTab("rankings")}>🏆 {t("rankings") || "Rankings"}</button>
         <button type="button" className="v5-floating-assets-button" onClick={() => setTab("assets")}>💰 {t("assets") || "Assets"}</button>
         <BottomNav tab={tab} setTab={setTab} t={t} />
-        <TeamDetailModal t={t} lang={lang} team={teamDetail} tgUser={tgUser} initData={initData} onClose={() => setTeamDetail(null)} onBet={(team) => setBetTeam(team)} />
+        <TeamDetailModal t={t} lang={lang} myBets={myBets} team={teamDetail} tgUser={tgUser} initData={initData} onClose={() => setTeamDetail(null)} onBet={(team) => setBetTeam(team)} />
         <BetModal team={betTeam} prizePool={prizePool} onClose={() => setBetTeam(null)} placeBet={(team, amount) => setConfirmBetData({ team, amount })} t={t} />
         {confirmBetData && (
           <div className="confirm-bet-bg">

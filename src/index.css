@@ -4887,3 +4887,19 @@ nav.bottom-nav button svg {
 .team-status.closed{background:rgba(255,67,102,.18);color:#ff87a1}
 .team-status.open{background:rgba(44,214,130,.18);color:#49e69c}
 @media(max-width:420px){.enhanced-team-detail .team-detail-grid{grid-template-columns:1fr}}
+
+/* Team detail no supporters-count tile */
+.soft-error {
+  background: rgba(255, 94, 123, .10) !important;
+  border-color: rgba(255, 94, 123, .28) !important;
+  color: #ffd0da !important;
+  font-size: 12px;
+}
+.no-supporters-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+@media(max-width: 420px) {
+  .no-supporters-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
