@@ -1915,6 +1915,15 @@ const V5_EXTRA_I18N = {
 };
 Object.keys(V5_EXTRA_I18N).forEach((code) => { I18N[code] = { ...(I18N[code] || I18N.en), ...V5_EXTRA_I18N[code] }; });
 
+
+const V5_SUPPORT_FIX_I18N = {
+  en: { liveSupport: "Live Support" },
+  zh: { liveSupport: "在线客服" },
+  tr: { liveSupport: "Canlı Destek" }
+};
+Object.keys(V5_SUPPORT_FIX_I18N).forEach((code) => { I18N[code] = { ...(I18N[code] || I18N.en), ...V5_SUPPORT_FIX_I18N[code] }; });
+
+
 function tr(lang, key, vars = {}) {
   const text = (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
   return Object.entries(vars).reduce((s, [k, v]) => s.replaceAll(`{${k}}`, String(v)), text);
@@ -2868,18 +2877,24 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
 
 function AssetsPage({ t, tgUser, initData }) {
   const [data, setData] = useState(null);
-  const [support, setSupport] = useState(null);
+  const [support, setSupport] = useState({ support_url: "https://t.me/SabaCs_Reena", button_text: "Live Support" });
   const [detail, setDetail] = useState(null);
   const [detailInput, setDetailInput] = useState({ type: "deposit", no: "" });
 
   async function loadAssets() {
     try {
       const a = await api("/api/assets", { tgUser, initData });
-      const s = await api("/api/contact_support", { tgUser, initData });
       setData(a);
+    } catch (err) {
+      console.warn("Assets load failed:", err);
+      setData({ summary: {}, wallet_history: [] });
+    }
+    try {
+      const s = await api("/api/contact_support", { tgUser, initData });
       setSupport(s);
     } catch (err) {
-      alert(err.message);
+      console.warn("Support config load failed:", err);
+      setSupport({ support_url: "https://t.me/SabaCs_Reena", button_text: "Live Support", text: "Contact official support if you need help with deposit, withdraw, or bets." });
     }
   }
 
@@ -2893,28 +2908,44 @@ function AssetsPage({ t, tgUser, initData }) {
     }
   }
 
+  function openLiveSupport() {
+    const url = support?.support_url || "https://t.me/SabaCs_Reena";
+    try {
+      if (window.Telegram?.WebApp?.openTelegramLink) {
+        window.Telegram.WebApp.openTelegramLink(url);
+        return;
+      }
+    } catch (_) {}
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
   useEffect(() => { loadAssets(); }, []);
 
   const s = data?.summary || {};
+  const history = data?.wallet_history || [];
+
   return (
     <section className="page-section assets-page">
-      <h2>{t("assets")}</h2>
+      <h2>{t("assets") || "Assets"}</h2>
       <div className="asset-grid">
-        <div><small>{t("availableBalance")}</small><b>{s.available_balance || "0.00"} USDT</b></div>
-        <div><small>{t("bonus")}</small><b>{s.bonus || "0.00"} USDT</b></div>
-        <div><small>{t("totalBetAmount")}</small><b>{s.total_bet_amount || "0.00"} USDT</b></div>
-        <div><small>{t("poolShare")}</small><b>{s.pool_share || "0.00"}</b></div>
-        <div><small>{t("btcShare")}</small><b>{s.btc_share || "0.000000"}</b></div>
+        <div><small>{t("availableBalance") || "Available Balance"}</small><b>{s.available_balance || "0.00"} USDT</b></div>
+        <div><small>{t("bonus") || "Bonus"}</small><b>{s.bonus || "0.00"} USDT</b></div>
+        <div><small>{t("totalBetAmount") || "Total Bet Amount"}</small><b>{s.total_bet_amount || "0.00"} USDT</b></div>
+        <div><small>{t("poolShare") || "Pool Share"}</small><b>{s.pool_share || "0.00"}</b></div>
+        <div><small>{t("btcShare") || "BTC Share"}</small><b>{s.btc_share || "0.000000"}</b><em>{s.btc_share_rule || "1 ticket = 1 BTC draw share"}</em></div>
       </div>
 
       <div className="support-card">
-        <h3>{t("contactSupport")}</h3>
-        <p>{support?.text || "Contact official support if you need help."}</p>
-        <a className="red-button support-button" href={support?.support_url || "https://t.me/SabaWorldCup2026PoolBot"}>Telegram Support</a>
+        <h3>{t("contactSupport") || "Contact Support"}</h3>
+        <p>{support?.text || "Contact official support if you need help with deposit, withdraw, or bets."}</p>
+        <button type="button" className="telegram-support-button blue-only" onClick={openLiveSupport}>
+          <Send size={20} />
+          <span>{support?.button_text || "Live Support"}</span>
+        </button>
       </div>
 
       <div className="order-detail-card">
-        <h3>{t("orderDetail")}</h3>
+        <h3>{t("orderDetail") || "Order Detail"}</h3>
         <div className="order-detail-row">
           <select value={detailInput.type} onChange={(e)=>setDetailInput({...detailInput, type:e.target.value})}>
             <option value="deposit">Deposit</option>
@@ -2927,15 +2958,25 @@ function AssetsPage({ t, tgUser, initData }) {
         {detail && <pre className="detail-pre">{JSON.stringify(detail, null, 2)}</pre>}
       </div>
 
-      <h3>{t("walletHistory")}</h3>
-      <div className="history-list">
-        {(data?.wallet_history || []).map((x, i) => (
-          <div className="history-row" key={i}>
-            <b>{x.type}</b>
-            <span>{x.amount}</span>
-            <small>{x.created_at}</small>
-          </div>
-        ))}
+      <h3>{t("walletHistory") || "Wallet History"}</h3>
+      <div className="wallet-history-list">
+        {history.length === 0 && <div className="empty-history">{t("noWalletRecords") || "No wallet records."}</div>}
+        {history.map((x, i) => {
+          const rawAmount = String(x.display_amount || x.amount_usdt || x.amount || "0");
+          const positive = rawAmount.trim().startsWith("+") || Number(rawAmount) > 0;
+          return (
+            <div className="wallet-history-card" key={i}>
+              <div className="wallet-history-top">
+                <b>{x.display_type || x.tx_type || x.type || "Record"}</b>
+                <strong className={positive ? "amount-plus" : "amount-minus"}>
+                  {x.display_amount || x.amount_usdt || x.amount || "0"} USDT
+                </strong>
+              </div>
+              <p>{x.display_remark || x.remark || x.note || "-"}</p>
+              <small>{x.display_time || x.created_at || ""}</small>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

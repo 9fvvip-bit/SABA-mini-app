@@ -3657,3 +3657,116 @@ nav.bottom-nav button svg {
     font-size: 9px !important;
   }
 }
+
+
+/* V5 fix: BTC share rule, wallet history visible, Telegram live support button */
+.asset-grid em {
+  display: block;
+  margin-top: 4px;
+  color: #9aa6b9;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.telegram-support-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 0 22px;
+  border-radius: 18px;
+  border: 1px solid rgba(83, 172, 255, .45);
+  background: linear-gradient(135deg, #229ED9 0%, #1379b8 48%, #e20b2f 100%);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 950;
+  box-shadow: 0 14px 34px rgba(34,158,217,.26);
+}
+
+.telegram-support-button svg {
+  flex: 0 0 auto;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
+}
+
+.support-username {
+  display: block;
+  margin-top: 9px;
+  color: #9ccfff;
+  font-weight: 900;
+}
+
+.wallet-history-list {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 120px;
+}
+
+.wallet-history-card {
+  border-radius: 18px;
+  background: rgba(255,255,255,.065);
+  border: 1px solid rgba(255,255,255,.11);
+  padding: 14px;
+  color: #fff;
+}
+
+.wallet-history-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.wallet-history-top b {
+  font-size: 15px;
+  color: #f1f5ff;
+}
+
+.wallet-history-top strong {
+  white-space: nowrap;
+  font-size: 15px;
+}
+
+.amount-plus {
+  color: #59ff9f;
+}
+
+.amount-minus {
+  color: #ff8090;
+}
+
+.wallet-history-card p {
+  margin: 8px 0 5px;
+  color: #cbd6ea;
+  font-size: 13px;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.wallet-history-card small {
+  color: #8998b4;
+  font-weight: 800;
+}
+
+.empty-history {
+  border-radius: 16px;
+  padding: 16px;
+  color: #9aa6b9;
+  background: rgba(255,255,255,.05);
+  border: 1px dashed rgba(255,255,255,.14);
+}
+
+
+/* V5 hotfix: pure blue live support button, no username line */
+.telegram-support-button.blue-only,
+.telegram-support-button {
+  background: linear-gradient(135deg, #2AABEE 0%, #168ACD 100%) !important;
+  border: 1px solid rgba(120, 210, 255, .55) !important;
+  box-shadow: 0 14px 34px rgba(42, 171, 238, .28) !important;
+  color: #ffffff !important;
+}
+
+.support-username {
+  display: none !important;
+}
