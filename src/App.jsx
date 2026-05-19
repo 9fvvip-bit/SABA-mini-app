@@ -2628,7 +2628,7 @@ function PoolPage({ onBet, setTab, me, teams, prizePool, festival, loading, erro
   );
 }
 
-function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, createDeposit, cancelDeposit, submitReceipt, btcDraw, depositMethods = [], tgUser, initData }) {
+function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, createDeposit, cancelDeposit, submitReceipt, btcDraw, depositMethods = [], tgUser, initData, lang = 'en'}) {
   const [amount, setAmount] = useState("50");
   const [selectedMethod, setSelectedMethod] = useState("USDT_TRC20");
   const [currentOrder, setCurrentOrder] = useState(null);
@@ -2804,18 +2804,18 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
     if (historyTab === "deposit") {
       return (deposits || []).map((d) => ({
         key: d.order_no,
-        title: `Deposit · ${d.network || "Crypto"}`,
+        title: `${t("depositRecord")} · ${d.network || t("crypto")}`,
         date: d.created_at,
         amount: `${d.amount_usdt} USDT`,
         status: d.status,
-        remark: d.txid || `${d.pay_amount || d.amount_usdt} ${d.coin_symbol || ""}`,
+        remark: String(d.txid || "").startsWith("RECEIPT:") ? `${t("receipt")}: ${String(d.txid).replace("RECEIPT:", "")}` : (d.txid || `${d.pay_amount || d.amount_usdt} ${d.coin_symbol || ""}`),
         icon: Download,
       }));
     }
     if (historyTab === "withdraw") {
       return (withdraws || []).map((w) => ({
         key: w.order_no,
-        title: `Withdraw · ${w.network || "USDT-TRC20"}`,
+        title: `${t("withdrawRecord")} · ${w.network || "USDT-TRC20"}`,
         date: w.created_at,
         amount: `${w.amount_usdt} USDT`,
         status: w.status,
@@ -2826,7 +2826,7 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
     if (historyTab === "bet") {
       return (myBets || []).map((b) => ({
         key: b.id,
-        title: `Bet · ${b.team}`,
+        title: `${t("betRecord")} · ${localTeamName(b.team, lang, b.names)}`,
         date: b.created_at,
         amount: `${b.amount} USDT`,
         status: b.status,
@@ -2838,7 +2838,7 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
       .filter((x) => String(x.tx_type || "").includes("win") || String(x.tx_type || "").includes("settle"))
       .map((x, i) => ({
         key: i,
-        title: x.tx_type || "Win",
+        title: t("winRecord"),
         date: x.created_at,
         amount: `${x.amount_usdt} USDT`,
         status: "completed",
@@ -2854,7 +2854,7 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
       {!currentOrder?.order_no && (
         <div className="premium-panel deposit-main-panel">
           <div className="panel-title premium-title">
-            <span className="token-icon">₮</span> Deposit Crypto
+            <span className="token-icon">₮</span> {t("depositCrypto")}
           </div>
 
           <div className="field-label">{t("selectAmount")}</div>
@@ -3011,7 +3011,7 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
                 </div>
                 <div className="history-amount">
                   <b>{r.amount}</b>
-                  <span className={okStatus ? "status-ok" : "status-pending"}>{r.status}</span>
+                  <span className={okStatus ? "status-ok" : "status-pending"}>{localStatusLabel(t, r.status)}</span>
                 </div>
               </div>
             );
@@ -3093,6 +3093,149 @@ function formatUsdFull(value, fallback = 0) {
   return `${Math.round(n).toLocaleString("en-US")} USD`;
 }
 
+
+
+const SABA_V6_REWARDS_DEPOSIT_I18N = {
+  en: {
+    inviteMission:"Invite Mission", invitePlayer:"Invite player with 100 USDT deposit", validInvites:"Valid Invites",
+    inviteRewardDesc:"Reward includes 10 USDT and 5% of winner pool share.",
+    dailyLoginMission:"Daily Login Mission", sevenDayLogin:"7-Day Login", totalFive:"Total 5 USDT",
+    claimedToday:"Claimed Today", depositMission:"Deposit Mission", depositTarget:"Deposit {amount} USDT",
+    needMore:"Need {amount} USDT more", turnoverRequired:"1x turnover required", claimed:"Claimed",
+    platformPromotion:"Platform Promotion", missionCenter:"Mission Center", depositBonus:"Deposit 100 USDT, get 20 USDT bonus",
+    progress:"Progress", depositHistory:"Deposit History", withdrawHistory:"Withdraw History", betHistory:"Bet History",
+    winHistory:"Win History", depositRecord:"Deposit", withdrawRecord:"Withdraw", betRecord:"Bet", winRecord:"Win",
+    confirmed:"Confirmed", pending:"Pending", completed:"Completed", rejected:"Rejected", cancelled:"Cancelled",
+    receipt:"Receipt", crypto:"Crypto", depositCrypto:"Deposit Crypto", selectAmount:"Select deposit amount",
+    chooseScreenshot:"Upload Screenshot", submitScreenshot:"Submit Screenshot", pendingAdmin:"Pending Admin Confirmation",
+    walletHistory:"Wallet History", noWalletRecords:"No wallet records."
+  },
+  zh: {
+    inviteMission:"邀请任务", invitePlayer:"邀请玩家完成 100 USDT 充值", validInvites:"有效邀请",
+    inviteRewardDesc:"奖励包含 10 USDT，以及赢家奖池 5% 分成。",
+    dailyLoginMission:"每日登录任务", sevenDayLogin:"7 天登录", totalFive:"总计 5 USDT",
+    claimedToday:"今日已领取", depositMission:"入金任务", depositTarget:"入金 {amount} USDT",
+    needMore:"还差 {amount} USDT", turnoverRequired:"需要 1 倍流水", claimed:"已领取",
+    platformPromotion:"平台活动", missionCenter:"任务中心", depositBonus:"入金 100 USDT，领取 20 USDT 奖励",
+    progress:"进度", depositHistory:"入金记录", withdrawHistory:"提现记录", betHistory:"下注记录",
+    winHistory:"派奖记录", depositRecord:"入金", withdrawRecord:"提现", betRecord:"下注", winRecord:"派奖",
+    confirmed:"已确认", pending:"待审核", completed:"已完成", rejected:"已拒绝", cancelled:"已取消",
+    receipt:"凭证", crypto:"加密货币", depositCrypto:"加密货币入金", selectAmount:"选择入金金额",
+    chooseScreenshot:"上传付款截图", submitScreenshot:"提交截图", pendingAdmin:"等待管理员审核",
+    walletHistory:"钱包记录", noWalletRecords:"暂无钱包记录。"
+  },
+  ja: {
+    inviteMission:"招待ミッション", invitePlayer:"100 USDT入金するプレイヤーを招待", validInvites:"有効招待",
+    inviteRewardDesc:"報酬は10 USDTと勝者プール5%シェアです。",
+    dailyLoginMission:"デイリーログインミッション", sevenDayLogin:"7日間ログイン", totalFive:"合計 5 USDT",
+    claimedToday:"本日受取済み", depositMission:"入金ミッション", depositTarget:"{amount} USDT 入金",
+    needMore:"あと {amount} USDT", turnoverRequired:"1倍の賭け条件が必要", claimed:"受取済み",
+    platformPromotion:"プロモーション", missionCenter:"ミッションセンター", depositBonus:"100 USDT入金で20 USDTボーナス",
+    progress:"進捗", depositHistory:"入金履歴", withdrawHistory:"出金履歴", betHistory:"ベット履歴",
+    winHistory:"配当履歴", depositRecord:"入金", withdrawRecord:"出金", betRecord:"ベット", winRecord:"配当",
+    confirmed:"確認済み", pending:"審査中", completed:"完了", rejected:"拒否", cancelled:"取消済み",
+    receipt:"領収書", crypto:"暗号資産", depositCrypto:"暗号資産入金", selectAmount:"入金額を選択",
+    chooseScreenshot:"支払い画像をアップロード", submitScreenshot:"画像を提出", pendingAdmin:"管理者確認待ち",
+    walletHistory:"ウォレット履歴", noWalletRecords:"ウォレット履歴はありません。"
+  },
+  ko: {
+    inviteMission:"초대 미션", invitePlayer:"100 USDT 입금 플레이어 초대", validInvites:"유효 초대",
+    inviteRewardDesc:"보상은 10 USDT와 우승자 풀 5% 쉐어입니다.",
+    dailyLoginMission:"일일 로그인 미션", sevenDayLogin:"7일 로그인", totalFive:"총 5 USDT",
+    claimedToday:"오늘 수령 완료", depositMission:"입금 미션", depositTarget:"{amount} USDT 입금",
+    needMore:"{amount} USDT 더 필요", turnoverRequired:"1배 롤오버 필요", claimed:"수령 완료",
+    platformPromotion:"플랫폼 이벤트", missionCenter:"미션 센터", depositBonus:"100 USDT 입금 시 20 USDT 보너스",
+    progress:"진행도", depositHistory:"입금 내역", withdrawHistory:"출금 내역", betHistory:"베팅 내역",
+    winHistory:"지급 내역", depositRecord:"입금", withdrawRecord:"출금", betRecord:"베팅", winRecord:"지급",
+    confirmed:"확인됨", pending:"심사 중", completed:"완료", rejected:"거절됨", cancelled:"취소됨",
+    receipt:"영수증", crypto:"암호화폐", depositCrypto:"암호화폐 입금", selectAmount:"입금 금액 선택",
+    chooseScreenshot:"결제 스크린샷 업로드", submitScreenshot:"스크린샷 제출", pendingAdmin:"관리자 확인 대기",
+    walletHistory:"지갑 내역", noWalletRecords:"지갑 내역이 없습니다."
+  },
+  tr: {
+    inviteMission:"Davet Görevi", invitePlayer:"100 USDT yatıran oyuncu davet et", validInvites:"Geçerli Davet",
+    inviteRewardDesc:"Ödül 10 USDT ve kazanan havuzundan %5 pay içerir.",
+    dailyLoginMission:"Günlük Giriş Görevi", sevenDayLogin:"7 Gün Giriş", totalFive:"Toplam 5 USDT",
+    claimedToday:"Bugün Alındı", depositMission:"Yatırım Görevi", depositTarget:"{amount} USDT yatır",
+    needMore:"{amount} USDT daha gerekli", turnoverRequired:"1x çevrim gerekli", claimed:"Alındı",
+    platformPromotion:"Platform Kampanyası", missionCenter:"Görev Merkezi", depositBonus:"100 USDT yatır, 20 USDT bonus al",
+    progress:"İlerleme", depositHistory:"Yatırım Geçmişi", withdrawHistory:"Çekim Geçmişi", betHistory:"Bahis Geçmişi",
+    winHistory:"Kazanç Geçmişi", depositRecord:"Yatırım", withdrawRecord:"Çekim", betRecord:"Bahis", winRecord:"Kazanç",
+    confirmed:"Onaylandı", pending:"Beklemede", completed:"Tamamlandı", rejected:"Reddedildi", cancelled:"İptal",
+    receipt:"Dekont", crypto:"Kripto", depositCrypto:"Kripto Yatırma", selectAmount:"Yatırım tutarı seç",
+    chooseScreenshot:"Ödeme ekran görüntüsü yükle", submitScreenshot:"Ekran görüntüsünü gönder", pendingAdmin:"Admin onayı bekleniyor",
+    walletHistory:"Cüzdan Geçmişi", noWalletRecords:"Cüzdan kaydı yok."
+  },
+  es: {
+    inviteMission:"Misión de Invitación", invitePlayer:"Invita a un jugador con depósito de 100 USDT", validInvites:"Invitaciones Válidas",
+    inviteRewardDesc:"La recompensa incluye 10 USDT y 5% del pool de ganadores.",
+    dailyLoginMission:"Misión de Login Diario", sevenDayLogin:"Login de 7 días", totalFive:"Total 5 USDT",
+    claimedToday:"Cobrado Hoy", depositMission:"Misión de Depósito", depositTarget:"Deposita {amount} USDT",
+    needMore:"Faltan {amount} USDT", turnoverRequired:"Requiere 1x de rollover", claimed:"Cobrado",
+    platformPromotion:"Promoción", missionCenter:"Centro de Misiones", depositBonus:"Deposita 100 USDT y recibe 20 USDT",
+    progress:"Progreso", depositHistory:"Historial de Depósitos", withdrawHistory:"Historial de Retiros", betHistory:"Historial de Apuestas",
+    winHistory:"Historial de Premios", depositRecord:"Depósito", withdrawRecord:"Retiro", betRecord:"Apuesta", winRecord:"Premio",
+    confirmed:"Confirmado", pending:"Pendiente", completed:"Completado", rejected:"Rechazado", cancelled:"Cancelado",
+    receipt:"Recibo", crypto:"Cripto", depositCrypto:"Depósito Cripto", selectAmount:"Selecciona monto",
+    chooseScreenshot:"Subir captura de pago", submitScreenshot:"Enviar captura", pendingAdmin:"Pendiente de revisión",
+    walletHistory:"Historial de Wallet", noWalletRecords:"Sin registros."
+  },
+  ru: {
+    inviteMission:"Задание приглашения", invitePlayer:"Пригласите игрока с депозитом 100 USDT", validInvites:"Действительные приглашения",
+    inviteRewardDesc:"Награда включает 10 USDT и 5% доли пула победителей.",
+    dailyLoginMission:"Ежедневный вход", sevenDayLogin:"Вход 7 дней", totalFive:"Всего 5 USDT",
+    claimedToday:"Получено сегодня", depositMission:"Задание депозита", depositTarget:"Пополнить {amount} USDT",
+    needMore:"Нужно еще {amount} USDT", turnoverRequired:"Требуется 1x оборот", claimed:"Получено",
+    platformPromotion:"Акция платформы", missionCenter:"Центр заданий", depositBonus:"Пополните 100 USDT и получите 20 USDT",
+    progress:"Прогресс", depositHistory:"История депозитов", withdrawHistory:"История выводов", betHistory:"История ставок",
+    winHistory:"История выплат", depositRecord:"Депозит", withdrawRecord:"Вывод", betRecord:"Ставка", winRecord:"Выплата",
+    confirmed:"Подтверждено", pending:"Ожидает", completed:"Завершено", rejected:"Отклонено", cancelled:"Отменено",
+    receipt:"Квитанция", crypto:"Крипто", depositCrypto:"Крипто депозит", selectAmount:"Выберите сумму",
+    chooseScreenshot:"Загрузить скрин оплаты", submitScreenshot:"Отправить скрин", pendingAdmin:"Ожидает проверки",
+    walletHistory:"История кошелька", noWalletRecords:"Записей нет."
+  },
+  ar: {
+    inviteMission:"مهمة الدعوة", invitePlayer:"ادعُ لاعبًا يودع 100 USDT", validInvites:"دعوات صالحة",
+    inviteRewardDesc:"المكافأة تشمل 10 USDT و5% من حصة مجمع الفائزين.",
+    dailyLoginMission:"مهمة تسجيل الدخول اليومية", sevenDayLogin:"تسجيل 7 أيام", totalFive:"الإجمالي 5 USDT",
+    claimedToday:"تم الاستلام اليوم", depositMission:"مهمة الإيداع", depositTarget:"إيداع {amount} USDT",
+    needMore:"تحتاج {amount} USDT إضافية", turnoverRequired:"مطلوب دوران 1x", claimed:"تم الاستلام",
+    platformPromotion:"عرض المنصة", missionCenter:"مركز المهام", depositBonus:"أودع 100 USDT واحصل على 20 USDT",
+    progress:"التقدم", depositHistory:"سجل الإيداع", withdrawHistory:"سجل السحب", betHistory:"سجل الرهانات",
+    winHistory:"سجل الجوائز", depositRecord:"إيداع", withdrawRecord:"سحب", betRecord:"رهان", winRecord:"جائزة",
+    confirmed:"مؤكد", pending:"قيد المراجعة", completed:"مكتمل", rejected:"مرفوض", cancelled:"ملغي",
+    receipt:"إيصال", crypto:"كريبتو", depositCrypto:"إيداع كريبتو", selectAmount:"اختر مبلغ الإيداع",
+    chooseScreenshot:"ارفع لقطة الدفع", submitScreenshot:"إرسال اللقطة", pendingAdmin:"بانتظار مراجعة الإدارة",
+    walletHistory:"سجل المحفظة", noWalletRecords:"لا توجد سجلات."
+  },
+  hi: {
+    inviteMission:"इनवाइट मिशन", invitePlayer:"100 USDT जमा करने वाले खिलाड़ी को आमंत्रित करें", validInvites:"मान्य इनवाइट",
+    inviteRewardDesc:"रिवॉर्ड में 10 USDT और विनर पूल का 5% शेयर शामिल है।",
+    dailyLoginMission:"डेली लॉगिन मिशन", sevenDayLogin:"7-दिन लॉगिन", totalFive:"कुल 5 USDT",
+    claimedToday:"आज क्लेम हो गया", depositMission:"डिपॉजिट मिशन", depositTarget:"{amount} USDT जमा करें",
+    needMore:"{amount} USDT और चाहिए", turnoverRequired:"1x टर्नओवर जरूरी", claimed:"क्लेम हो गया",
+    platformPromotion:"प्लेटफॉर्म प्रमोशन", missionCenter:"मिशन सेंटर", depositBonus:"100 USDT जमा करें, 20 USDT बोनस पाएं",
+    progress:"प्रगति", depositHistory:"डिपॉजिट इतिहास", withdrawHistory:"निकासी इतिहास", betHistory:"बेट इतिहास",
+    winHistory:"विन इतिहास", depositRecord:"डिपॉजिट", withdrawRecord:"निकासी", betRecord:"बेट", winRecord:"विन",
+    confirmed:"पुष्टि हुई", pending:"लंबित", completed:"पूरा", rejected:"अस्वीकृत", cancelled:"रद्द",
+    receipt:"रसीद", crypto:"क्रिप्टो", depositCrypto:"क्रिप्टो डिपॉजिट", selectAmount:"डिपॉजिट राशि चुनें",
+    chooseScreenshot:"पेमेंट स्क्रीनशॉट अपलोड करें", submitScreenshot:"स्क्रीनशॉट जमा करें", pendingAdmin:"एडमिन समीक्षा बाकी",
+    walletHistory:"वॉलेट इतिहास", noWalletRecords:"कोई रिकॉर्ड नहीं."
+  }
+};
+Object.keys(SABA_V6_REWARDS_DEPOSIT_I18N).forEach((code) => {
+  I18N[code] = { ...(I18N[code] || I18N.en), ...SABA_V6_REWARDS_DEPOSIT_I18N[code] };
+});
+
+function localStatusLabel(t, status) {
+  const key = String(status || "").toLowerCase();
+  if (key === "confirmed") return t("confirmed");
+  if (key === "pending") return t("pending");
+  if (key === "completed") return t("completed");
+  if (key === "rejected") return t("rejected");
+  if (key === "cancelled" || key === "canceled") return t("cancelled");
+  return status || "";
+}
 
 function localTeamName(team, lang, names) {
   const code = lang || "en";
@@ -3780,7 +3923,7 @@ export default function App() {
         <UserInfoCard user={tgUser} />
         <AnnouncementBanners banners={banners} />
         {tab === "pool" && <PoolPage onBet={setBetTeam} setTab={setTab} me={me} teams={teams} prizePool={prizePool} festival={festival} loading={loading} error={apiError} t={t} lang={lang} />}
-        {tab === "deposit" && <DepositPage t={t} festival={festival} deposits={deposits} withdraws={withdraws} myBets={myBets} walletHistory={walletHistory} createDeposit={createDeposit} cancelDeposit={cancelDeposit} submitReceipt={submitReceipt} btcDraw={btcDraw} depositMethods={depositMethods} tgUser={tgUser} initData={initData} />}
+        {tab === "deposit" && <DepositPage t={t} festival={festival} deposits={deposits} withdraws={withdraws} myBets={myBets} walletHistory={walletHistory} createDeposit={createDeposit} cancelDeposit={cancelDeposit} submitReceipt={submitReceipt} btcDraw={btcDraw} depositMethods={depositMethods} tgUser={tgUser} initData={initData} lang={lang} />}
         {tab === "bets" && <MyBetsPage bets={myBets} t={t} />}
         {tab === "rewards" && <RewardsPage t={t} festival={festival} referral={referral} walletHistory={walletHistory} withdraws={withdraws} missions={missions} claimDepositMission={claimDepositMission} claimBetMission={claimBetMission} claimDailyLogin={claimDailyLogin} createWithdraw={createWithdraw} />}
         {tab === "rankings" && <RankingsPage t={t} tgUser={tgUser} initData={initData} lang={lang} />}
