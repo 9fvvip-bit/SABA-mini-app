@@ -2842,7 +2842,7 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
         date: x.created_at,
         amount: `${x.amount_usdt} USDT`,
         status: "completed",
-        remark: x.remark || "",
+        remark: localRemarkText(x.remark || "", lang, t),
         icon: Medal,
       }));
   }
@@ -3081,9 +3081,139 @@ const TEAM_CODE_ALIAS = {
   Korea: "South Korea"
 };
 
+Object.assign(TEAM_NAME_I18N_FRONT, {"Uzbekistan": {"zh": "乌兹别克斯坦", "ja": "ウズベキスタン", "ko": "우즈베키스탄", "tr": "Özbekistan", "es": "Uzbekistán", "ru": "Узбекистан", "ar": "أوزبكستان", "hi": "उज़्बेकिस्तान", "en": "Uzbekistan"}, "Panama": {"zh": "巴拿马", "ja": "パナマ", "ko": "파나마", "tr": "Panama", "es": "Panamá", "ru": "Панама", "ar": "بنما", "hi": "पनामा", "en": "Panama"}, "Iraq": {"zh": "伊拉克", "ja": "イラク", "ko": "이라크", "tr": "Irak", "es": "Irak", "ru": "Ирак", "ar": "العراق", "hi": "इराक", "en": "Iraq"}, "South Africa": {"zh": "南非", "ja": "南アフリカ", "ko": "남아프리카", "tr": "Güney Afrika", "es": "Sudáfrica", "ru": "ЮАР", "ar": "جنوب أفريقيا", "hi": "दक्षिण अफ्रीका", "en": "South Africa"}, "Congo DR": {"zh": "刚果（金）", "ja": "コンゴ民主共和国", "ko": "콩고민주공화국", "tr": "Kongo DC", "es": "RD Congo", "ru": "ДР Конго", "ar": "الكونغو الديمقراطية", "hi": "कांगो DR", "en": "Congo DR"}, "Turkiye": {"zh": "土耳其", "ja": "トルコ", "ko": "튀르키예", "tr": "Türkiye", "es": "Turquía", "ru": "Турция", "ar": "تركيا", "hi": "तुर्की", "en": "Türkiye"}, "South Korea": {"zh": "韩国", "ja": "韓国", "ko": "대한민국", "tr": "Güney Kore", "es": "Corea del Sur", "ru": "Южная Корея", "ar": "كوريا الجنوبية", "hi": "दक्षिण कोरिया", "en": "South Korea"}, "Ecuador": {"zh": "厄瓜多尔", "ja": "エクアドル", "ko": "에콰도르", "tr": "Ekvador", "es": "Ecuador", "ru": "Эквадор", "ar": "الإكوادور", "hi": "इक्वाडोर", "en": "Ecuador"}});
+
 function normalizeTeamKey(team) {
   const raw = String(team || "").trim();
   return TEAM_CODE_ALIAS[raw] || TEAM_CODE_ALIAS[raw.replace(/\s+/g, "")] || raw;
+}
+
+
+
+const SABA_V6_FINAL_LANGUAGE_CLEANUP = {
+  en: {
+    pool:"Pool", deposit:"Deposit", myBets:"My Bets", rewards:"Rewards", assets:"Assets", rankings:"Rankings",
+    bet:"Bet", ticket:"Total Tickets", tickets:"Tickets", share:"Total Share", shares:"Shares",
+    betAmount:"Bet Amount", btcShare:"BTC Share", totalShare:"Total Share", totalTickets:"Total Tickets",
+    depositMission:"Deposit Mission", betMission:"Bet Mission", inviteMission:"Invite Mission", dailyLoginMission:"Daily Login Mission",
+    invitePlayer:"Invite player with 100 USDT deposit", validInvites:"Valid Invites", inviteRewardDesc:"Reward includes 10 USDT and 5% of winner pool share.",
+    sevenDayLogin:"7-Day Login", totalFive:"Total 5 USDT", claimedToday:"Claimed Today", claimed:"Claimed",
+    depositTarget:"Deposit {amount} USDT", betTarget:"Bet {amount} USDT", needMore:"Need {amount} USDT more", turnoverRequired:"1x turnover required",
+    platformPromotion:"Platform Promotion", depositBonus:"Deposit 100 USDT, get 20 USDT bonus", progress:"Progress", missionCenter:"Mission Center",
+    firstDepositPack:"First Deposit Pack", referralPartner:"Referral Partner", invited:"Invited", copyInviteLink:"Copy Invite Link", inviteLink:"Invite Link",
+    depositRecord:"Deposit", withdrawRecord:"Withdraw", betRecord:"Bet", winRecord:"Win", walletHistory:"Wallet History",
+    depositHistory:"Deposit History", withdrawHistory:"Withdraw History", betHistory:"Bet History", winHistory:"Win History",
+    confirmed:"Confirmed", pending:"Pending", completed:"Completed", rejected:"Rejected", cancelled:"Cancelled", active:"Active",
+    receipt:"Receipt", crypto:"Crypto", depositCrypto:"Deposit Crypto", selectAmount:"Select deposit amount", chooseScreenshot:"Upload Screenshot",
+    fileLimit:"JPG/PNG up to 5MB", submitScreenshot:"Submit Screenshot", uploading:"Uploading...", pendingAdmin:"Pending Admin Confirmation",
+    noRecords:"No records yet.", noWalletRecords:"No wallet records.", lockedTurnover:"Locked turnover before withdraw:",
+    availableBalance:"Available Balance", bonus:"Bonus", totalBetAmount:"Total Bet Amount", poolShare:"Pool Share", contactSupport:"Contact Support",
+    liveSupport:"Live Support", orderDetail:"Order Detail", championBet:"Champion bet"
+  },
+  zh: {
+    pool:"奖池", deposit:"入金", myBets:"我的下注", rewards:"奖励", assets:"我的资产", rankings:"排行榜",
+    bet:"下注", ticket:"总票数", tickets:"票", share:"总分成", shares:"分成",
+    betAmount:"下注金额", btcShare:"BTC 分成", totalShare:"总分成", totalTickets:"总票数",
+    depositMission:"入金任务", betMission:"下注任务", inviteMission:"邀请任务", dailyLoginMission:"每日登录任务",
+    invitePlayer:"邀请玩家完成 100 USDT 入金", validInvites:"有效邀请", inviteRewardDesc:"奖励包含 10 USDT，以及赢家奖池 5% 分成。",
+    sevenDayLogin:"7 天登录", totalFive:"总计 5 USDT", claimedToday:"今日已领取", claimed:"已领取",
+    depositTarget:"入金 {amount} USDT", betTarget:"下注 {amount} USDT", needMore:"还差 {amount} USDT", turnoverRequired:"需要 1 倍流水",
+    platformPromotion:"平台活动", depositBonus:"入金 100 USDT，领取 20 USDT 奖励", progress:"进度", missionCenter:"任务中心",
+    firstDepositPack:"首充礼包", referralPartner:"邀请伙伴", invited:"已邀请", copyInviteLink:"复制邀请链接", inviteLink:"邀请链接",
+    depositRecord:"入金", withdrawRecord:"提现", betRecord:"下注", winRecord:"派奖", walletHistory:"钱包记录",
+    depositHistory:"入金记录", withdrawHistory:"提现记录", betHistory:"下注记录", winHistory:"派奖记录",
+    confirmed:"已确认", pending:"待审核", completed:"已完成", rejected:"已拒绝", cancelled:"已取消", active:"进行中",
+    receipt:"付款凭证", crypto:"加密货币", depositCrypto:"加密货币入金", selectAmount:"选择入金金额", chooseScreenshot:"上传付款截图",
+    fileLimit:"JPG/PNG，最大 5MB", submitScreenshot:"提交截图", uploading:"上传中...", pendingAdmin:"等待管理员审核",
+    noRecords:"暂无记录。", noWalletRecords:"暂无钱包记录。", lockedTurnover:"提现前还需完成流水：",
+    availableBalance:"可用余额", bonus:"已领奖金", totalBetAmount:"累计下注", poolShare:"奖池分成", contactSupport:"联系客服",
+    liveSupport:"在线客服", orderDetail:"订单详情", championBet:"冠军下注"
+  },
+  ja: {
+    pool:"プール", deposit:"入金", myBets:"マイベット", rewards:"報酬", assets:"資産", rankings:"ランキング",
+    bet:"ベット", ticket:"総チケット数", tickets:"チケット", share:"総シェア", shares:"シェア",
+    betAmount:"ベット額", btcShare:"BTCシェア", totalShare:"総シェア", totalTickets:"総チケット数",
+    depositMission:"入金ミッション", betMission:"ベットミッション", inviteMission:"招待ミッション", dailyLoginMission:"デイリーログインミッション",
+    invitePlayer:"100 USDTを入金するプレイヤーを招待", validInvites:"有効招待", inviteRewardDesc:"報酬は10 USDTと勝者プール5%シェアです。",
+    sevenDayLogin:"7日間ログイン", totalFive:"合計 5 USDT", claimedToday:"本日受取済み", claimed:"受取済み",
+    depositTarget:"{amount} USDT 入金", betTarget:"{amount} USDT ベット", needMore:"あと {amount} USDT", turnoverRequired:"1倍の賭け条件が必要",
+    platformPromotion:"プロモーション", depositBonus:"100 USDT入金で20 USDTボーナス", progress:"進捗", missionCenter:"ミッションセンター",
+    firstDepositPack:"初回入金パック", referralPartner:"紹介パートナー", invited:"招待済み", copyInviteLink:"招待リンクをコピー", inviteLink:"招待リンク",
+    depositRecord:"入金", withdrawRecord:"出金", betRecord:"ベット", winRecord:"配当", walletHistory:"ウォレット履歴",
+    depositHistory:"入金履歴", withdrawHistory:"出金履歴", betHistory:"ベット履歴", winHistory:"配当履歴",
+    confirmed:"確認済み", pending:"審査中", completed:"完了", rejected:"拒否", cancelled:"取消済み", active:"進行中",
+    receipt:"領収書", crypto:"暗号資産", depositCrypto:"暗号資産入金", selectAmount:"入金額を選択", chooseScreenshot:"支払い画像をアップロード",
+    fileLimit:"JPG/PNG 最大5MB", submitScreenshot:"画像を提出", uploading:"アップロード中...", pendingAdmin:"管理者確認待ち",
+    noRecords:"記録はありません。", noWalletRecords:"ウォレット履歴はありません。", lockedTurnover:"出金前に必要な賭け条件：",
+    availableBalance:"利用可能残高", bonus:"獲得ボーナス", totalBetAmount:"総ベット額", poolShare:"プールシェア", contactSupport:"サポート",
+    liveSupport:"ライブサポート", orderDetail:"注文詳細", championBet:"優勝ベット"
+  },
+  ko: {
+    pool:"풀", deposit:"입금", myBets:"내 베팅", rewards:"보상", assets:"내 자산", rankings:"랭킹",
+    bet:"베팅", ticket:"총 티켓", tickets:"티켓", share:"총 쉐어", shares:"쉐어",
+    betAmount:"베팅 금액", btcShare:"BTC 쉐어", totalShare:"총 쉐어", totalTickets:"총 티켓",
+    depositMission:"입금 미션", betMission:"베팅 미션", inviteMission:"초대 미션", dailyLoginMission:"일일 로그인 미션",
+    invitePlayer:"100 USDT 입금 플레이어 초대", validInvites:"유효 초대", inviteRewardDesc:"보상은 10 USDT와 우승자 풀 5% 쉐어입니다.",
+    sevenDayLogin:"7일 로그인", totalFive:"총 5 USDT", claimedToday:"오늘 수령 완료", claimed:"수령 완료",
+    depositTarget:"{amount} USDT 입금", betTarget:"{amount} USDT 베팅", needMore:"{amount} USDT 더 필요", turnoverRequired:"1배 롤오버 필요",
+    platformPromotion:"플랫폼 이벤트", depositBonus:"100 USDT 입금 시 20 USDT 보너스", progress:"진행도", missionCenter:"미션 센터",
+    firstDepositPack:"첫 입금 패키지", referralPartner:"추천 파트너", invited:"초대됨", copyInviteLink:"초대 링크 복사", inviteLink:"초대 링크",
+    depositRecord:"입금", withdrawRecord:"출금", betRecord:"베팅", winRecord:"지급", walletHistory:"지갑 내역",
+    depositHistory:"입금 내역", withdrawHistory:"출금 내역", betHistory:"베팅 내역", winHistory:"지급 내역",
+    confirmed:"확인됨", pending:"심사 중", completed:"완료", rejected:"거절됨", cancelled:"취소됨", active:"진행 중",
+    receipt:"영수증", crypto:"암호화폐", depositCrypto:"암호화폐 입금", selectAmount:"입금 금액 선택", chooseScreenshot:"결제 스크린샷 업로드",
+    fileLimit:"JPG/PNG 최대 5MB", submitScreenshot:"스크린샷 제출", uploading:"업로드 중...", pendingAdmin:"관리자 확인 대기",
+    noRecords:"기록이 없습니다.", noWalletRecords:"지갑 내역이 없습니다.", lockedTurnover:"출금 전 필요한 롤오버:",
+    availableBalance:"사용 가능 잔액", bonus:"수령 보너스", totalBetAmount:"총 베팅 금액", poolShare:"풀 쉐어", contactSupport:"고객지원",
+    liveSupport:"실시간 지원", orderDetail:"주문 상세", championBet:"우승 베팅"
+  },
+  tr: {
+    pool:"Havuz", deposit:"Yatır", myBets:"Bahislerim", rewards:"Ödüller", assets:"Varlıklarım", rankings:"Sıralamalar",
+    bet:"Bahis", ticket:"Toplam Bilet", tickets:"Bilet", share:"Toplam Pay", shares:"Pay",
+    betAmount:"Bahis Tutarı", btcShare:"BTC Payı", totalShare:"Toplam Pay", totalTickets:"Toplam Bilet",
+    depositMission:"Yatırım Görevi", betMission:"Bahis Görevi", inviteMission:"Davet Görevi", dailyLoginMission:"Günlük Giriş Görevi",
+    invitePlayer:"100 USDT yatıran oyuncu davet et", validInvites:"Geçerli Davet", inviteRewardDesc:"Ödül 10 USDT ve kazanan havuzundan %5 pay içerir.",
+    sevenDayLogin:"7 Gün Giriş", totalFive:"Toplam 5 USDT", claimedToday:"Bugün Alındı", claimed:"Alındı",
+    depositTarget:"{amount} USDT yatır", betTarget:"{amount} USDT bahis yap", needMore:"{amount} USDT daha gerekli", turnoverRequired:"1x çevrim gerekli",
+    platformPromotion:"Platform Kampanyası", depositBonus:"100 USDT yatır, 20 USDT bonus al", progress:"İlerleme", missionCenter:"Görev Merkezi",
+    firstDepositPack:"İlk Yatırım Paketi", referralPartner:"Davet Ortağı", invited:"Davet Edildi", copyInviteLink:"Davet Linkini Kopyala", inviteLink:"Davet Linki",
+    depositRecord:"Yatırım", withdrawRecord:"Çekim", betRecord:"Bahis", winRecord:"Kazanç", walletHistory:"Cüzdan Geçmişi",
+    depositHistory:"Yatırım Geçmişi", withdrawHistory:"Çekim Geçmişi", betHistory:"Bahis Geçmişi", winHistory:"Kazanç Geçmişi",
+    confirmed:"Onaylandı", pending:"Beklemede", completed:"Tamamlandı", rejected:"Reddedildi", cancelled:"İptal", active:"Aktif",
+    receipt:"Dekont", crypto:"Kripto", depositCrypto:"Kripto Yatırma", selectAmount:"Yatırım tutarı seç", chooseScreenshot:"Ödeme ekran görüntüsü yükle",
+    fileLimit:"JPG/PNG en fazla 5MB", submitScreenshot:"Ekran görüntüsünü gönder", uploading:"Yükleniyor...", pendingAdmin:"Admin onayı bekleniyor",
+    noRecords:"Kayıt yok.", noWalletRecords:"Cüzdan kaydı yok.", lockedTurnover:"Çekimden önce gereken çevrim:",
+    availableBalance:"Kullanılabilir Bakiye", bonus:"Alınan Bonus", totalBetAmount:"Toplam Bahis", poolShare:"Havuz Payı", contactSupport:"Destek",
+    liveSupport:"Canlı Destek", orderDetail:"Emir Detayı", championBet:"Şampiyon bahsi"
+  }
+};
+Object.keys(SABA_V6_FINAL_LANGUAGE_CLEANUP).forEach((code) => {
+  I18N[code] = { ...(I18N[code] || I18N.en), ...SABA_V6_FINAL_LANGUAGE_CLEANUP[code] };
+});
+
+
+function localTxTypeLabel(t, type) {
+  const key = String(type || "").toLowerCase();
+  if (key.includes("deposit")) return t("depositRecord");
+  if (key.includes("withdraw")) return t("withdrawRecord");
+  if (key.includes("bet")) return t("betRecord");
+  if (key.includes("win") || key.includes("settle")) return t("winRecord");
+  return type || "";
+}
+
+function localRemarkText(text, lang, t) {
+  let s = String(text || "");
+  s = s.replace(/^RECEIPT:/i, `${t("receipt")}: `);
+  s = s.replace(/Champion bet\s+([A-Za-z ]+)\s*\/\s*([0-9.]+)\s*tickets?\s*\/\s*([0-9.]+)\s*shares?/i, (_, team, tk, sh) =>
+    `${t("championBet")} ${localTeamName(team.trim(), lang)} / ${tk} ${t("tickets")} / ${sh} ${t("shares")}`
+  );
+  s = s.replace(/Champion bet\s+([A-Za-z ]+)\s+([0-9.]+)\s*tickets?/i, (_, team, tk) =>
+    `${t("championBet")} ${localTeamName(team.trim(), lang)} / ${tk} ${t("tickets")}`
+  );
+  s = s.replace(/\btickets\b/gi, t("tickets"));
+  s = s.replace(/\bshares\b/gi, t("shares"));
+  s = s.replace(/\bChampion bet\b/gi, t("championBet"));
+  return s;
 }
 
 
@@ -3390,7 +3520,7 @@ function TeamDetailModal({ t, team, tgUser, initData, onClose, onBet, lang = 'en
 }
 
 
-function AssetsPage({ t, tgUser, initData }) {
+function AssetsPage({ t, tgUser, initData, lang = 'en'}) {
   const [data, setData] = useState(null);
   const [support, setSupport] = useState({ support_url: "https://t.me/SabaCs_Reena", button_text: "Live Support" });
   const [detail, setDetail] = useState(null);
@@ -3482,12 +3612,12 @@ function AssetsPage({ t, tgUser, initData }) {
           return (
             <div className="wallet-history-card" key={i}>
               <div className="wallet-history-top">
-                <b>{x.display_type || x.tx_type || x.type || "Record"}</b>
+                <b>{x.display_type || localTxTypeLabel(t, x.tx_type || x.type || "Record")}</b>
                 <strong className={positive ? "amount-plus" : "amount-minus"}>
                   {x.display_amount || x.amount_usdt || x.amount || "0"} USDT
                 </strong>
               </div>
-              <p>{x.display_remark || x.remark || x.note || "-"}</p>
+              <p>{x.display_remark ? localRemarkText(x.display_remark, lang, t) : localRemarkText(x.remark || x.note || "-", lang, t)}</p>
               <small>{x.display_time || x.created_at || ""}</small>
             </div>
           );
@@ -3498,7 +3628,7 @@ function AssetsPage({ t, tgUser, initData }) {
 }
 
 
-function MyBetsPage({ bets, t }) {
+function MyBetsPage({ bets, t, lang = 'en'}) {
   return (
     <div className="page">
       <div className="premium-panel">
@@ -3507,7 +3637,7 @@ function MyBetsPage({ bets, t }) {
         {(bets || []).map((b) => (
           <div key={b.id} className="bet-card premium-bet-card">
             <div className="bet-head">
-              <b>{b.flag} {b.team}</b>
+              <b>{b.flag} {localTeamName(b.team, lang, b.names)}</b>
               <span>{statusLabel(t, b.status)}</span>
             </div>
             <div className="bet-grid">
@@ -3924,11 +4054,11 @@ export default function App() {
         <AnnouncementBanners banners={banners} />
         {tab === "pool" && <PoolPage onBet={setBetTeam} setTab={setTab} me={me} teams={teams} prizePool={prizePool} festival={festival} loading={loading} error={apiError} t={t} lang={lang} />}
         {tab === "deposit" && <DepositPage t={t} festival={festival} deposits={deposits} withdraws={withdraws} myBets={myBets} walletHistory={walletHistory} createDeposit={createDeposit} cancelDeposit={cancelDeposit} submitReceipt={submitReceipt} btcDraw={btcDraw} depositMethods={depositMethods} tgUser={tgUser} initData={initData} lang={lang} />}
-        {tab === "bets" && <MyBetsPage bets={myBets} t={t} />}
+        {tab === "bets" && <MyBetsPage bets={myBets} t={t} lang={lang} />}
         {tab === "rewards" && <RewardsPage t={t} festival={festival} referral={referral} walletHistory={walletHistory} withdraws={withdraws} missions={missions} claimDepositMission={claimDepositMission} claimBetMission={claimBetMission} claimDailyLogin={claimDailyLogin} createWithdraw={createWithdraw} />}
         {tab === "rankings" && <RankingsPage t={t} tgUser={tgUser} initData={initData} lang={lang} />}
         {tab === "messages" && <MessagesPage t={t} tgUser={tgUser} initData={initData} />}
-        {tab === "assets" && <AssetsPage t={t} tgUser={tgUser} initData={initData} />}
+        {tab === "assets" && <AssetsPage t={t} tgUser={tgUser} initData={initData} lang={lang} />}
         <button type="button" className="v6-floating-ranking-button" onClick={() => setTab("rankings")}>🏆 {t("rankings") || "Rankings"}</button>
         <button type="button" className="v5-floating-assets-button" onClick={() => setTab("assets")}>💰 {t("assets") || "Assets"}</button>
         <BottomNav tab={tab} setTab={setTab} t={t} />

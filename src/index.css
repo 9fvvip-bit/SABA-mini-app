@@ -4669,3 +4669,17 @@ nav.bottom-nav button svg {
   overflow-wrap: anywhere !important;
   line-height: 1.45 !important;
 }
+
+
+/* Final translation cleanup: allow long localized text to wrap cleanly */
+.mission-card b,
+.mission-card p,
+.history-info b,
+.history-info small,
+.wallet-history-card p,
+.bet-card b,
+.bet-card small {
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  line-height: 1.35 !important;
+}
