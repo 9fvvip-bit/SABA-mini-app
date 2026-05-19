@@ -4611,3 +4611,61 @@ nav.bottom-nav button svg {
   white-space: normal !important;
   line-height: 1.35 !important;
 }
+
+
+/* FINAL OVERRIDE: rank text only, absolutely no badge/background */
+.top10-ranking-card .ordinal-rank,
+.ordinal-rank,
+.ordinal-rank.rank-1,
+.ordinal-rank.rank-2,
+.ordinal-rank.rank-3,
+.ordinal-rank.rank-4,
+.ordinal-rank.rank-5,
+.ordinal-rank.rank-6,
+.ordinal-rank.rank-7,
+.ordinal-rank.rank-8,
+.ordinal-rank.rank-9,
+.ordinal-rank.rank-10 {
+  background: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  height: auto !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  font-size: 22px !important;
+  line-height: 1 !important;
+  font-weight: 1000 !important;
+  color: #ffd85a !important;
+  text-shadow: 0 2px 10px rgba(255,216,90,.22) !important;
+}
+
+.ordinal-rank.rank-2 { color: #e0e8f5 !important; }
+.ordinal-rank.rank-3 { color: #ffbd7b !important; }
+
+.top10-ranking-card {
+  grid-template-columns: 52px 1fr !important;
+}
+
+.prize-card b,
+.pool-stat b,
+.pool-prize-value {
+  letter-spacing: .5px;
+}
+
+.team-odds {
+  white-space: normal !important;
+  line-height: 1.35 !important;
+}
+
+.ranking-main span {
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  line-height: 1.45 !important;
+}

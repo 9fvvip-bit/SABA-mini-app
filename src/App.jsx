@@ -63,7 +63,7 @@ const EXTRA_I18N = {
     liveTeamBetPool: "Live Team Bet Pool",
     btcLuckyDraw: "+ 3 BTC Lucky Draw",
     totalPrizeFormula: "Total Prize Formula",
-    formulaBase: "Base Pool 500K × Share",
+    formulaBase: "Base Pool 500,000 USD × Share",
     formulaLive: "Live Team Bet Pool × Share",
     formulaBtc: "BTC Draw",
     yourPoolShare: "Your Pool Share",
@@ -88,7 +88,7 @@ const EXTRA_I18N = {
     liveTeamBetPool: "实时球队下注池",
     btcLuckyDraw: "+ 3 BTC 幸运抽奖",
     totalPrizeFormula: "总奖金计算公式",
-    formulaBase: "基础奖池 500K × 分成",
+    formulaBase: "基础奖池 500,000 USD × 分成",
     formulaLive: "实时球队下注池 × 分成",
     formulaBtc: "BTC 抽奖",
     yourPoolShare: "你的奖池分成",
@@ -113,7 +113,7 @@ const EXTRA_I18N = {
     liveTeamBetPool: "Pool de Apuestas en Vivo",
     btcLuckyDraw: "+ Sorteo de 3 BTC",
     totalPrizeFormula: "Fórmula del Premio Total",
-    formulaBase: "Pool Base 500K × Share",
+    formulaBase: "Pool Base 500,000 USD × Share",
     formulaLive: "Pool de Apuestas × Share",
     formulaBtc: "Sorteo BTC",
     yourPoolShare: "Tu Share del Pool",
@@ -138,7 +138,7 @@ const EXTRA_I18N = {
     liveTeamBetPool: "लाइव टीम बेट पूल",
     btcLuckyDraw: "+ 3 BTC लकी ड्रॉ",
     totalPrizeFormula: "कुल पुरस्कार फॉर्मूला",
-    formulaBase: "बेस पूल 500K × शेयर",
+    formulaBase: "बेस पूल 500,000 USD × शेयर",
     formulaLive: "लाइव टीम बेट पूल × शेयर",
     formulaBtc: "BTC ड्रॉ",
     yourPoolShare: "आपका पूल शेयर",
@@ -163,7 +163,7 @@ const EXTRA_I18N = {
     liveTeamBetPool: "مجمع رهانات الفرق المباشر",
     btcLuckyDraw: "+ سحب حظ 3 BTC",
     totalPrizeFormula: "معادلة الجائزة الإجمالية",
-    formulaBase: "المجمع الأساسي 500K × الحصة",
+    formulaBase: "المجمع الأساسي 500,000 USD × الحصة",
     formulaLive: "مجمع الفرق المباشر × الحصة",
     formulaBtc: "سحب BTC",
     yourPoolShare: "حصتك في المجمع",
@@ -188,7 +188,7 @@ const EXTRA_I18N = {
     liveTeamBetPool: "Pool de Paris Équipe Live",
     btcLuckyDraw: "+ Tirage au Sort 3 BTC",
     totalPrizeFormula: "Formule du Prix Total",
-    formulaBase: "Pool de Base 500K × Part",
+    formulaBase: "Pool de Base 500,000 USD × Part",
     formulaLive: "Pool de Paris Live × Part",
     formulaBtc: "Tirage BTC",
     yourPoolShare: "Votre Part du Pool",
@@ -213,7 +213,7 @@ const EXTRA_I18N = {
     liveTeamBetPool: "ライブチームベットプール",
     btcLuckyDraw: "+ 3 BTC ラッキードロー",
     totalPrizeFormula: "総賞金計算式",
-    formulaBase: "基本プール 500K × シェア",
+    formulaBase: "基本プール 500,000 USD × シェア",
     formulaLive: "ライブチームベットプール × シェア",
     formulaBtc: "BTC ドロー",
     yourPoolShare: "あなたのプールシェア",
@@ -238,7 +238,7 @@ const EXTRA_I18N = {
     liveTeamBetPool: "라이브 팀 베팅 풀",
     btcLuckyDraw: "+ 3 BTC 럭키 드로우",
     totalPrizeFormula: "총상금 계산식",
-    formulaBase: "기본 풀 500K × 쉐어",
+    formulaBase: "기본 풀 500,000 USD × 쉐어",
     formulaLive: "라이브 팀 베팅 풀 × 쉐어",
     formulaBtc: "BTC 추첨",
     yourPoolShare: "내 풀 쉐어",
@@ -263,7 +263,7 @@ const EXTRA_I18N = {
     liveTeamBetPool: "Пул ставок команд",
     btcLuckyDraw: "+ Розыгрыш 3 BTC",
     totalPrizeFormula: "Формула общего приза",
-    formulaBase: "Базовый пул 500K × Доля",
+    formulaBase: "Базовый пул 500,000 USD × Доля",
     formulaLive: "Пул ставок команд × Доля",
     formulaBtc: "Розыгрыш BTC",
     yourPoolShare: "Ваша доля пула",
@@ -451,8 +451,8 @@ Object.keys(FINAL_EXTRA_I18N).forEach((code) => {
 });
 
 const STRICT_FINAL_I18N = {
-  en: { share:"Profit Unit", shares:"Profit Units", yourPoolShare:"Your Prize Unit", drawShare:"Draw Unit", extraShare:"Extra Bonus", formulaBase:"Base Pool 500K × Prize Unit", formulaLive:"Live Team Bet Pool × Prize Unit", teamSharePercent:"Team Unit %", betSuccess:"Bet success: {tickets} tickets / {shares} profit units", active:"Active", completed:"Completed", pending:"Pending", cancelled:"Cancelled", canceled:"Cancelled", rejected:"Rejected", estimatedWin:"Estimated Win", confirmBet:"Confirm Bet", betAmount:"Bet", championBet:"Champion Bet", amountMultiple:"Amount, multiple of 10", rateRealtime:"Binance realtime", rateLoading:"Binance realtime loading...", rateFailed:"Rate load failed", shareRateLabel:"Team unit multiplier", totalPrizeFormula:"Total Prize Formula", liveTeamBetPool:"Live Team Bet Pool", depositTarget:"Deposit {amount} USDT", needMore:"Need {amount} USDT more" },
-  zh: { share:"分成", shares:"分成", yourPoolShare:"你的奖池分成", drawShare:"抽奖分成", extraShare:"额外加成", formulaBase:"基础奖池 500K × 分成", formulaLive:"实时球队下注池 × 分成", teamSharePercent:"球队分成占比", betSuccess:"下注成功：{tickets} 注 / {shares} 分成", active:"进行中", completed:"已完成", pending:"待处理", cancelled:"已取消", canceled:"已取消", rejected:"已拒绝", estimatedWin:"预计可赢", confirmBet:"确认下注", betAmount:"下注", championBet:"冠军下注", amountMultiple:"金额，10 的倍数", rateRealtime:"Binance 实时汇率", rateLoading:"Binance 实时汇率加载中...", rateFailed:"汇率加载失败", shareRateLabel:"球队分成倍率", totalPrizeFormula:"总奖金计算公式", liveTeamBetPool:"实时球队下注池", depositTarget:"充值 {amount} USDT", needMore:"还需要 {amount} USDT" },
+  en: { share:"Profit Unit", shares:"Profit Units", yourPoolShare:"Your Prize Unit", drawShare:"Draw Unit", extraShare:"Extra Bonus", formulaBase:"Base Pool 500,000 USD × Prize Unit", formulaLive:"Live Team Bet Pool × Prize Unit", teamSharePercent:"Team Unit %", betSuccess:"Bet success: {tickets} tickets / {shares} profit units", active:"Active", completed:"Completed", pending:"Pending", cancelled:"Cancelled", canceled:"Cancelled", rejected:"Rejected", estimatedWin:"Estimated Win", confirmBet:"Confirm Bet", betAmount:"Bet", championBet:"Champion Bet", amountMultiple:"Amount, multiple of 10", rateRealtime:"Binance realtime", rateLoading:"Binance realtime loading...", rateFailed:"Rate load failed", shareRateLabel:"Team unit multiplier", totalPrizeFormula:"Total Prize Formula", liveTeamBetPool:"Live Team Bet Pool", depositTarget:"Deposit {amount} USDT", needMore:"Need {amount} USDT more" },
+  zh: { share:"分成", shares:"分成", yourPoolShare:"你的奖池分成", drawShare:"抽奖分成", extraShare:"额外加成", formulaBase:"基础奖池 500,000 USD × 分成", formulaLive:"实时球队下注池 × 分成", teamSharePercent:"球队分成占比", betSuccess:"下注成功：{tickets} 注 / {shares} 分成", active:"进行中", completed:"已完成", pending:"待处理", cancelled:"已取消", canceled:"已取消", rejected:"已拒绝", estimatedWin:"预计可赢", confirmBet:"确认下注", betAmount:"下注", championBet:"冠军下注", amountMultiple:"金额，10 的倍数", rateRealtime:"Binance 实时汇率", rateLoading:"Binance 实时汇率加载中...", rateFailed:"汇率加载失败", shareRateLabel:"球队分成倍率", totalPrizeFormula:"总奖金计算公式", liveTeamBetPool:"实时球队下注池", depositTarget:"充值 {amount} USDT", needMore:"还需要 {amount} USDT" },
   es: { share:"Unidad", shares:"Unidades", active:"Activo", completed:"Completado", pending:"Pendiente", cancelled:"Cancelado", canceled:"Cancelado", rejected:"Rechazado", rateRealtime:"Binance en tiempo real", rateLoading:"Cargando tasa Binance...", rateFailed:"Error de tasa" },
   hi: { share:"प्रॉफिट यूनिट", shares:"प्रॉफिट यूनिट", active:"सक्रिय", completed:"पूरा", pending:"लंबित", cancelled:"रद्द", canceled:"रद्द", rejected:"अस्वीकृत", rateRealtime:"Binance लाइव रेट", rateLoading:"Binance रेट लोड हो रहा है...", rateFailed:"रेट लोड विफल" },
   ar: { share:"وحدة ربح", shares:"وحدات ربح", active:"نشط", completed:"مكتمل", pending:"قيد الانتظار", cancelled:"ملغي", canceled:"ملغي", rejected:"مرفوض", rateRealtime:"سعر Binance مباشر", rateLoading:"جارٍ تحميل سعر Binance...", rateFailed:"فشل تحميل السعر" },
@@ -517,7 +517,7 @@ const V4_COMPLETE_I18N = {
     "fileLimit": "JPG, PNG up to 5MB",
     "firstDepositPack": "First Deposit Pack",
     "formula": "Formula",
-    "formulaBase": "Base Pool 500K × Share",
+    "formulaBase": "Base Pool 500,000 USD × Share",
     "formulaBtc": "BTC Draw",
     "formulaLive": "Live Team Bet Pool × Share",
     "inviteLink": "Invite Link",
@@ -642,7 +642,7 @@ const V4_COMPLETE_I18N = {
     "fileLimit": "JPG、PNG，最大 5MB",
     "firstDepositPack": "首充礼包",
     "formula": "公式",
-    "formulaBase": "基础奖池 500K × 分成",
+    "formulaBase": "基础奖池 500,000 USD × 分成",
     "formulaBtc": "BTC 抽奖",
     "formulaLive": "实时球队下注池 × 分成",
     "inviteLink": "邀请链接",
@@ -767,7 +767,7 @@ const V4_COMPLETE_I18N = {
     "fileLimit": "JPG, PNG up to 5MB",
     "firstDepositPack": "First Deposit Pack",
     "formula": "Formula",
-    "formulaBase": "Base Pool 500K × Share",
+    "formulaBase": "Base Pool 500,000 USD × Share",
     "formulaBtc": "BTC Draw",
     "formulaLive": "Live Team Bet Pool × Share",
     "inviteLink": "Invite Link",
@@ -898,7 +898,7 @@ const V4_COMPLETE_I18N = {
     "fileLimit": "JPG, PNG up to 5MB",
     "firstDepositPack": "First Deposit Pack",
     "formula": "Formula",
-    "formulaBase": "Base Pool 500K × Share",
+    "formulaBase": "Base Pool 500,000 USD × Share",
     "formulaBtc": "BTC Draw",
     "formulaLive": "Live Team Bet Pool × Share",
     "inviteLink": "Invite Link",
@@ -1029,7 +1029,7 @@ const V4_COMPLETE_I18N = {
     "fileLimit": "JPG, PNG up to 5MB",
     "firstDepositPack": "First Deposit Pack",
     "formula": "Formula",
-    "formulaBase": "Base Pool 500K × Share",
+    "formulaBase": "Base Pool 500,000 USD × Share",
     "formulaBtc": "BTC Draw",
     "formulaLive": "Live Team Bet Pool × Share",
     "inviteLink": "Invite Link",
@@ -1160,7 +1160,7 @@ const V4_COMPLETE_I18N = {
     "fileLimit": "JPG, PNG up to 5MB",
     "firstDepositPack": "First Deposit Pack",
     "formula": "Formula",
-    "formulaBase": "Base Pool 500K × Share",
+    "formulaBase": "Base Pool 500,000 USD × Share",
     "formulaBtc": "BTC Draw",
     "formulaLive": "Live Team Bet Pool × Share",
     "inviteLink": "Invite Link",
@@ -1291,7 +1291,7 @@ const V4_COMPLETE_I18N = {
     "fileLimit": "JPG, PNG up to 5MB",
     "firstDepositPack": "First Deposit Pack",
     "formula": "Formula",
-    "formulaBase": "Base Pool 500K × Share",
+    "formulaBase": "Base Pool 500,000 USD × Share",
     "formulaBtc": "BTC Draw",
     "formulaLive": "Live Team Bet Pool × Share",
     "inviteLink": "Invite Link",
@@ -1422,7 +1422,7 @@ const V4_COMPLETE_I18N = {
     "fileLimit": "JPG, PNG up to 5MB",
     "firstDepositPack": "First Deposit Pack",
     "formula": "Formula",
-    "formulaBase": "Base Pool 500K × Share",
+    "formulaBase": "Base Pool 500,000 USD × Share",
     "formulaBtc": "BTC Draw",
     "formulaLive": "Live Team Bet Pool × Share",
     "inviteLink": "Invite Link",
@@ -1553,7 +1553,7 @@ const V4_COMPLETE_I18N = {
     "fileLimit": "JPG, PNG up to 5MB",
     "firstDepositPack": "First Deposit Pack",
     "formula": "Formula",
-    "formulaBase": "Base Pool 500K × Share",
+    "formulaBase": "Base Pool 500,000 USD × Share",
     "formulaBtc": "BTC Draw",
     "formulaLive": "Live Team Bet Pool × Share",
     "inviteLink": "Invite Link",
@@ -1684,7 +1684,7 @@ const V4_COMPLETE_I18N = {
     "fileLimit": "JPG, PNG en fazla 5MB",
     "firstDepositPack": "İlk Yatırma Paketi",
     "formula": "Formül",
-    "formulaBase": "Temel Havuz 500K × Pay",
+    "formulaBase": "Temel Havuz 500,000 USD × Pay",
     "formulaBtc": "BTC Çekilişi",
     "formulaLive": "Canlı Takım Bahis Havuzu × Pay",
     "inviteLink": "Davet Linki",
@@ -1949,6 +1949,148 @@ Object.keys(V6_POLISHED_I18N).forEach((code) => {
   I18N[code] = { ...(I18N[code] || I18N.en), ...V6_POLISHED_I18N[code] };
 });
 
+
+
+const SABA_V6_FULL_UI_I18N = {
+  en: {
+    pool: "Pool", deposit: "Deposit", myBets: "My Bets", rewards: "Rewards", assets: "Assets",
+    rankings: "Rankings", teamRanking: "Team Ranking", btcRanking: "BTC Share Ranking", betRanking: "Bet Ranking",
+    poolPrizeTitle: "SABA World Cup Pool Prize", basePool: "Base Pool", liveTeamBetPool: "Live Team Bet Pool",
+    btcLuckyDraw: "+ 3 BTC Lucky Draw", totalPrizeFormula: "Total Prize Formula",
+    formulaBase: "Base Pool 500,000 USD × Share", formulaLive: "Live Team Bet Pool × Share", formulaBtc: "BTC Draw",
+    yourPoolShare: "Your Pool Share", drawShare: "Draw Share", extraShare: "Extra Share",
+    ticket: "Total Tickets", share: "Total Share", searchTeam: "Search team", championMarket: "Champion Market",
+    earlyBetMoreShare: "Early Bet = More Share", bet: "Bet", closed: "Closed",
+    availableBalance: "Available Balance", bonus: "Bonus", totalBetAmount: "Total Bet Amount", poolShare: "Pool Share", btcShare: "BTC Share",
+    contactSupport: "Contact Support", walletHistory: "Wallet History", orderDetail: "Order Detail",
+    missionCenter: "Mission Center", depositMission: "Deposit Mission", lockedTurnover: "Locked turnover before withdraw:",
+    platformPromotion: "Platform Promotion", claim: "Claim", claimed: "Claimed", liveSupport: "Live Support",
+    betAmount: "Bet Amount", totalShare: "Total Share", totalTickets: "Total Tickets", btcDrawShare: "BTC Share"
+  },
+  zh: {
+    pool: "奖池", deposit: "入金", myBets: "我的下注", rewards: "奖励", assets: "我的资产",
+    rankings: "排行榜", teamRanking: "球队排行榜", btcRanking: "BTC 分成榜", betRanking: "下注排行榜",
+    poolPrizeTitle: "SABA 世界杯奖池", basePool: "基础奖池", liveTeamBetPool: "实时球队下注池",
+    btcLuckyDraw: "+ 3 BTC 幸运抽奖", totalPrizeFormula: "总奖金公式",
+    formulaBase: "基础奖池 500,000 USD × 分成", formulaLive: "实时球队下注池 × 分成", formulaBtc: "BTC 抽奖",
+    yourPoolShare: "你的奖池分成", drawShare: "抽奖份额", extraShare: "额外分成",
+    ticket: "总票数", share: "总分成", searchTeam: "搜索球队", championMarket: "冠军市场",
+    earlyBetMoreShare: "越早下注，分成越高", bet: "下注", closed: "已关闭",
+    availableBalance: "可用余额", bonus: "已领奖金", totalBetAmount: "累计下注", poolShare: "奖池分成", btcShare: "BTC 分成",
+    contactSupport: "联系客服", walletHistory: "钱包记录", orderDetail: "订单详情",
+    missionCenter: "任务中心", depositMission: "充值任务", lockedTurnover: "提现前还需完成流水：",
+    platformPromotion: "平台活动", claim: "领取", claimed: "已领取", liveSupport: "在线客服",
+    betAmount: "下注金额", totalShare: "总分成", totalTickets: "总票数", btcDrawShare: "BTC 分成"
+  },
+  ja: {
+    pool: "プール", deposit: "入金", myBets: "マイベット", rewards: "報酬", assets: "資産",
+    rankings: "ランキング", teamRanking: "チームランキング", btcRanking: "BTCシェアランキング", betRanking: "ベットランキング",
+    poolPrizeTitle: "SABA ワールドカップ賞金プール", basePool: "基本プール", liveTeamBetPool: "ライブチームベットプール",
+    btcLuckyDraw: "+ 3 BTC ラッキードロー", totalPrizeFormula: "賞金計算式",
+    formulaBase: "基本プール 500,000 USD × シェア", formulaLive: "ライブチームベットプール × シェア", formulaBtc: "BTCドロー",
+    yourPoolShare: "あなたのプールシェア", drawShare: "ドローシェア", extraShare: "追加シェア",
+    ticket: "総チケット数", share: "総シェア", searchTeam: "チーム検索", championMarket: "優勝マーケット",
+    earlyBetMoreShare: "早くベットするほどシェア増加", bet: "ベット", closed: "終了",
+    availableBalance: "利用可能残高", bonus: "獲得ボーナス", totalBetAmount: "総ベット額", poolShare: "プールシェア", btcShare: "BTCシェア",
+    contactSupport: "サポート", walletHistory: "ウォレット履歴", orderDetail: "注文詳細",
+    missionCenter: "ミッションセンター", depositMission: "入金ミッション", lockedTurnover: "出金前に必要な賭け条件：",
+    platformPromotion: "プロモーション", claim: "受取", claimed: "受取済み", liveSupport: "ライブサポート",
+    betAmount: "ベット額", totalShare: "総シェア", totalTickets: "総チケット数", btcDrawShare: "BTCシェア"
+  },
+  ko: {
+    pool: "풀", deposit: "입금", myBets: "내 베팅", rewards: "보상", assets: "내 자산",
+    rankings: "랭킹", teamRanking: "팀 랭킹", btcRanking: "BTC 쉐어 랭킹", betRanking: "베팅 랭킹",
+    poolPrizeTitle: "SABA 월드컵 상금 풀", basePool: "기본 풀", liveTeamBetPool: "실시간 팀 베팅 풀",
+    btcLuckyDraw: "+ 3 BTC 럭키드로우", totalPrizeFormula: "총 상금 공식",
+    formulaBase: "기본 풀 500,000 USD × 쉐어", formulaLive: "실시간 팀 베팅 풀 × 쉐어", formulaBtc: "BTC 드로우",
+    yourPoolShare: "내 풀 쉐어", drawShare: "추첨 쉐어", extraShare: "추가 쉐어",
+    ticket: "총 티켓", share: "총 쉐어", searchTeam: "팀 검색", championMarket: "우승 마켓",
+    earlyBetMoreShare: "일찍 베팅할수록 쉐어 증가", bet: "베팅", closed: "마감",
+    availableBalance: "사용 가능 잔액", bonus: "수령 보너스", totalBetAmount: "총 베팅 금액", poolShare: "풀 쉐어", btcShare: "BTC 쉐어",
+    contactSupport: "고객지원", walletHistory: "지갑 내역", orderDetail: "주문 상세",
+    missionCenter: "미션 센터", depositMission: "입금 미션", lockedTurnover: "출금 전 필요한 롤오버:",
+    platformPromotion: "플랫폼 이벤트", claim: "받기", claimed: "수령 완료", liveSupport: "실시간 지원",
+    betAmount: "베팅 금액", totalShare: "총 쉐어", totalTickets: "총 티켓", btcDrawShare: "BTC 쉐어"
+  },
+  tr: {
+    pool: "Havuz", deposit: "Yatır", myBets: "Bahislerim", rewards: "Ödüller", assets: "Varlıklarım",
+    rankings: "Sıralamalar", teamRanking: "Takım Sıralaması", btcRanking: "BTC Payı Sıralaması", betRanking: "Bahis Sıralaması",
+    poolPrizeTitle: "SABA Dünya Kupası Ödül Havuzu", basePool: "Temel Havuz", liveTeamBetPool: "Canlı Takım Bahis Havuzu",
+    btcLuckyDraw: "+ 3 BTC Çekilişi", totalPrizeFormula: "Toplam Ödül Formülü",
+    formulaBase: "Temel Havuz 500,000 USD × Pay", formulaLive: "Canlı Takım Bahis Havuzu × Pay", formulaBtc: "BTC Çekilişi",
+    yourPoolShare: "Havuz Payın", drawShare: "Çekiliş Payı", extraShare: "Ek Pay",
+    ticket: "Toplam Bilet", share: "Toplam Pay", searchTeam: "Takım ara", championMarket: "Şampiyon Pazarı",
+    earlyBetMoreShare: "Erken bahis = daha fazla pay", bet: "Bahis", closed: "Kapalı",
+    availableBalance: "Kullanılabilir Bakiye", bonus: "Alınan Bonus", totalBetAmount: "Toplam Bahis", poolShare: "Havuz Payı", btcShare: "BTC Payı",
+    contactSupport: "Destek", walletHistory: "Cüzdan Geçmişi", orderDetail: "Emir Detayı",
+    missionCenter: "Görev Merkezi", depositMission: "Yatırım Görevi", lockedTurnover: "Çekimden önce gereken çevrim:",
+    platformPromotion: "Platform Kampanyası", claim: "Al", claimed: "Alındı", liveSupport: "Canlı Destek",
+    betAmount: "Bahis Tutarı", totalShare: "Toplam Pay", totalTickets: "Toplam Bilet", btcDrawShare: "BTC Payı"
+  },
+  es: {
+    pool: "Pool", deposit: "Depósito", myBets: "Mis Apuestas", rewards: "Recompensas", assets: "Activos",
+    rankings: "Clasificaciones", teamRanking: "Ranking de Equipos", btcRanking: "Ranking BTC Share", betRanking: "Ranking de Apuestas",
+    poolPrizeTitle: "Pozo SABA Copa Mundial", basePool: "Pozo Base", liveTeamBetPool: "Pozo Vivo de Equipos",
+    btcLuckyDraw: "+ Sorteo de 3 BTC", totalPrizeFormula: "Fórmula del Premio",
+    formulaBase: "Pozo Base 500,000 USD × Participación", formulaLive: "Pozo Vivo de Equipos × Participación", formulaBtc: "Sorteo BTC",
+    yourPoolShare: "Tu Participación", drawShare: "Participación del Sorteo", extraShare: "Participación Extra",
+    ticket: "Boletos Totales", share: "Participación Total", searchTeam: "Buscar equipo", championMarket: "Mercado Campeón",
+    earlyBetMoreShare: "Apuesta temprano = más participación", bet: "Apostar", closed: "Cerrado",
+    availableBalance: "Saldo Disponible", bonus: "Bonos Recibidos", totalBetAmount: "Total Apostado", poolShare: "Participación", btcShare: "BTC Share",
+    contactSupport: "Soporte", walletHistory: "Historial de Wallet", orderDetail: "Detalle de Orden",
+    missionCenter: "Centro de Misiones", depositMission: "Misión de Depósito", lockedTurnover: "Volumen requerido antes de retirar:",
+    platformPromotion: "Promoción", claim: "Cobrar", claimed: "Cobrado", liveSupport: "Soporte en Vivo",
+    betAmount: "Monto Apostado", totalShare: "Participación Total", totalTickets: "Boletos Totales", btcDrawShare: "BTC Share"
+  },
+  ru: {
+    pool: "Пул", deposit: "Пополнить", myBets: "Мои ставки", rewards: "Награды", assets: "Активы",
+    rankings: "Рейтинг", teamRanking: "Рейтинг команд", btcRanking: "Рейтинг BTC доли", betRanking: "Рейтинг ставок",
+    poolPrizeTitle: "Призовой пул SABA ЧМ", basePool: "Базовый пул", liveTeamBetPool: "Живой пул ставок команд",
+    btcLuckyDraw: "+ Розыгрыш 3 BTC", totalPrizeFormula: "Формула приза",
+    formulaBase: "Базовый пул 500,000 USD × Доля", formulaLive: "Живой пул ставок × Доля", formulaBtc: "BTC розыгрыш",
+    yourPoolShare: "Ваша доля пула", drawShare: "Доля розыгрыша", extraShare: "Доп. доля",
+    ticket: "Всего билетов", share: "Общая доля", searchTeam: "Поиск команды", championMarket: "Рынок чемпиона",
+    earlyBetMoreShare: "Ранняя ставка = больше доля", bet: "Ставка", closed: "Закрыто",
+    availableBalance: "Доступный баланс", bonus: "Полученные бонусы", totalBetAmount: "Сумма ставок", poolShare: "Доля пула", btcShare: "BTC доля",
+    contactSupport: "Поддержка", walletHistory: "История кошелька", orderDetail: "Детали заказа",
+    missionCenter: "Центр заданий", depositMission: "Задание пополнения", lockedTurnover: "Оборот до вывода:",
+    platformPromotion: "Акция", claim: "Получить", claimed: "Получено", liveSupport: "Онлайн поддержка",
+    betAmount: "Сумма ставки", totalShare: "Общая доля", totalTickets: "Всего билетов", btcDrawShare: "BTC доля"
+  },
+  ar: {
+    pool: "المجمع", deposit: "إيداع", myBets: "رهاناتي", rewards: "المكافآت", assets: "الأصول",
+    rankings: "التصنيفات", teamRanking: "ترتيب الفرق", btcRanking: "ترتيب حصة BTC", betRanking: "ترتيب الرهانات",
+    poolPrizeTitle: "مجمع جوائز SABA لكأس العالم", basePool: "المجمع الأساسي", liveTeamBetPool: "مجمع رهانات الفرق المباشر",
+    btcLuckyDraw: "+ سحب 3 BTC", totalPrizeFormula: "معادلة الجائزة",
+    formulaBase: "المجمع الأساسي 500,000 USD × الحصة", formulaLive: "مجمع رهانات الفرق × الحصة", formulaBtc: "سحب BTC",
+    yourPoolShare: "حصتك في المجمع", drawShare: "حصة السحب", extraShare: "حصة إضافية",
+    ticket: "إجمالي التذاكر", share: "إجمالي الحصة", searchTeam: "بحث عن فريق", championMarket: "سوق البطل",
+    earlyBetMoreShare: "الرهان المبكر = حصة أكبر", bet: "راهن", closed: "مغلق",
+    availableBalance: "الرصيد المتاح", bonus: "المكافآت المستلمة", totalBetAmount: "إجمالي الرهانات", poolShare: "حصة المجمع", btcShare: "حصة BTC",
+    contactSupport: "الدعم", walletHistory: "سجل المحفظة", orderDetail: "تفاصيل الطلب",
+    missionCenter: "مركز المهام", depositMission: "مهمة الإيداع", lockedTurnover: "الدوران المطلوب قبل السحب:",
+    platformPromotion: "عرض المنصة", claim: "استلام", claimed: "تم الاستلام", liveSupport: "دعم مباشر",
+    betAmount: "مبلغ الرهان", totalShare: "إجمالي الحصة", totalTickets: "إجمالي التذاكر", btcDrawShare: "حصة BTC"
+  },
+  hi: {
+    pool: "पूल", deposit: "जमा", myBets: "मेरे बेट", rewards: "रिवॉर्ड", assets: "एसेट्स",
+    rankings: "रैंकिंग", teamRanking: "टीम रैंकिंग", btcRanking: "BTC शेयर रैंकिंग", betRanking: "बेट रैंकिंग",
+    poolPrizeTitle: "SABA वर्ल्ड कप प्राइज पूल", basePool: "बेस पूल", liveTeamBetPool: "लाइव टीम बेट पूल",
+    btcLuckyDraw: "+ 3 BTC लकी ड्रॉ", totalPrizeFormula: "कुल प्राइज फॉर्मूला",
+    formulaBase: "बेस पूल 500,000 USD × शेयर", formulaLive: "लाइव टीम बेट पूल × शेयर", formulaBtc: "BTC ड्रॉ",
+    yourPoolShare: "आपका पूल शेयर", drawShare: "ड्रॉ शेयर", extraShare: "एक्स्ट्रा शेयर",
+    ticket: "कुल टिकट", share: "कुल शेयर", searchTeam: "टीम खोजें", championMarket: "चैंपियन मार्केट",
+    earlyBetMoreShare: "जल्दी बेट = ज्यादा शेयर", bet: "बेट", closed: "बंद",
+    availableBalance: "उपलब्ध बैलेंस", bonus: "प्राप्त बोनस", totalBetAmount: "कुल बेट राशि", poolShare: "पूल शेयर", btcShare: "BTC शेयर",
+    contactSupport: "सपोर्ट", walletHistory: "वॉलेट इतिहास", orderDetail: "ऑर्डर विवरण",
+    missionCenter: "मिशन सेंटर", depositMission: "डिपॉजिट मिशन", lockedTurnover: "निकासी से पहले जरूरी टर्नओवर:",
+    platformPromotion: "प्लेटफॉर्म प्रमोशन", claim: "क्लेम", claimed: "क्लेम हो गया", liveSupport: "लाइव सपोर्ट",
+    betAmount: "बेट राशि", totalShare: "कुल शेयर", totalTickets: "कुल टिकट", btcDrawShare: "BTC शेयर"
+  }
+};
+Object.keys(SABA_V6_FULL_UI_I18N).forEach((code) => {
+  I18N[code] = { ...(I18N[code] || I18N.en), ...SABA_V6_FULL_UI_I18N[code] };
+});
 
 function tr(lang, key, vars = {}) {
   const text = (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
@@ -2305,8 +2447,8 @@ function UserInfoCard({ user }) {
 }
 
 function HeroCard({ prizePool, festival, onDeposit, t }) {
-  const basePool = formatCompactUSDT(prizePool?.base_pool || 500000);
-  const liveBet = formatCompactUSDT(prizePool?.live_team_bet || prizePool?.live_team_bet_pool || prizePool?.total_pool || 0);
+  const basePool = formatUsdFull(prizePool?.base_pool || prizePool?.champion_base_pool, 500000);
+  const liveBet = formatUsdFull(prizePool?.live_team_bet || prizePool?.live_team_bet_pool || prizePool?.total_pool, 1800);
   const drawShare = festival?.btc_draw_share ?? 0;
   const extraShare = festival?.extra_share_boost || "0%";
 
@@ -2943,6 +3085,14 @@ function normalizeTeamKey(team) {
   const raw = String(team || "").trim();
   return TEAM_CODE_ALIAS[raw] || TEAM_CODE_ALIAS[raw.replace(/\s+/g, "")] || raw;
 }
+
+
+function formatUsdFull(value, fallback = 0) {
+  const n = Number(value ?? fallback ?? 0);
+  if (!Number.isFinite(n)) return `${Number(fallback || 0).toLocaleString("en-US")} USD`;
+  return `${Math.round(n).toLocaleString("en-US")} USD`;
+}
+
 
 function localTeamName(team, lang, names) {
   const code = lang || "en";
