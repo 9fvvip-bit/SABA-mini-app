@@ -3382,6 +3382,23 @@ Object.keys(SABA_V6_REWARDS_DEPOSIT_I18N).forEach((code) => {
   I18N[code] = { ...(I18N[code] || I18N.en), ...SABA_V6_REWARDS_DEPOSIT_I18N[code] };
 });
 
+
+const SABA_V6_WITHDRAW_MULTI_COIN_I18N = {
+  en: { withdraw:"Withdraw", withdrawAmount:"Withdraw Amount", withdrawAddress:"Withdraw Address", withdrawMethod:"Withdraw Coin", createWithdraw:"Create Withdraw", receiveEstimate:"Estimated Receive", withdrawRate:"Realtime Rate", afterFee:"After Fee", selectWithdrawCoin:"Select withdraw coin" },
+  zh: { withdraw:"提现", withdrawAmount:"提现金额", withdrawAddress:"提现地址", withdrawMethod:"提现币种", createWithdraw:"创建提现", receiveEstimate:"预计到账", withdrawRate:"实时汇率", afterFee:"扣费后", selectWithdrawCoin:"选择提现币种" },
+  ja: { withdraw:"出金", withdrawAmount:"出金額", withdrawAddress:"出金アドレス", withdrawMethod:"出金币種", createWithdraw:"出金申請", receiveEstimate:"受取予定", withdrawRate:"リアルタイムレート", afterFee:"手数料後", selectWithdrawCoin:"出金币種を選択" },
+  ko: { withdraw:"출금", withdrawAmount:"출금 금액", withdrawAddress:"출금 주소", withdrawMethod:"출금 코인", createWithdraw:"출금 신청", receiveEstimate:"예상 수령", withdrawRate:"실시간 환율", afterFee:"수수료 후", selectWithdrawCoin:"출금 코인 선택" },
+  tr: { withdraw:"Çekim", withdrawAmount:"Çekim Tutarı", withdrawAddress:"Çekim Adresi", withdrawMethod:"Çekim Coini", createWithdraw:"Çekim Oluştur", receiveEstimate:"Tahmini Alım", withdrawRate:"Canlı Kur", afterFee:"Ücret Sonrası", selectWithdrawCoin:"Çekim coinini seç" },
+  es: { withdraw:"Retiro", withdrawAmount:"Monto de Retiro", withdrawAddress:"Dirección de Retiro", withdrawMethod:"Moneda de Retiro", createWithdraw:"Crear Retiro", receiveEstimate:"Recibo Estimado", withdrawRate:"Tasa en Vivo", afterFee:"Después de Comisión", selectWithdrawCoin:"Seleccionar moneda" },
+  ru: { withdraw:"Вывод", withdrawAmount:"Сумма вывода", withdrawAddress:"Адрес вывода", withdrawMethod:"Монета вывода", createWithdraw:"Создать вывод", receiveEstimate:"Ожидаемое получение", withdrawRate:"Курс в реальном времени", afterFee:"После комиссии", selectWithdrawCoin:"Выберите монету" },
+  ar: { withdraw:"سحب", withdrawAmount:"مبلغ السحب", withdrawAddress:"عنوان السحب", withdrawMethod:"عملة السحب", createWithdraw:"إنشاء طلب سحب", receiveEstimate:"المبلغ المتوقع", withdrawRate:"السعر المباشر", afterFee:"بعد الرسوم", selectWithdrawCoin:"اختر عملة السحب" },
+  hi: { withdraw:"निकासी", withdrawAmount:"निकासी राशि", withdrawAddress:"निकासी पता", withdrawMethod:"निकासी कॉइन", createWithdraw:"निकासी बनाएं", receiveEstimate:"अनुमानित प्राप्ति", withdrawRate:"लाइव रेट", afterFee:"फीस के बाद", selectWithdrawCoin:"निकासी कॉइन चुनें" }
+};
+Object.keys(SABA_V6_WITHDRAW_MULTI_COIN_I18N).forEach((code) => {
+  I18N[code] = { ...(I18N[code] || I18N.en), ...SABA_V6_WITHDRAW_MULTI_COIN_I18N[code] };
+});
+
+
 function localStatusLabel(t, status) {
   const key = String(status || "").toLowerCase();
   if (key === "confirmed") return t("confirmed");
@@ -3550,6 +3567,12 @@ function AssetsPage({ t, tgUser, initData, lang = 'en'}) {
   const [support, setSupport] = useState({ support_url: "https://t.me/SabaCs_Reena", button_text: "Live Support" });
   const [detail, setDetail] = useState(null);
   const [detailInput, setDetailInput] = useState({ type: "deposit", no: "" });
+  const [withdrawAmount, setWithdrawAmount] = useState("20");
+  const [withdrawAddress, setWithdrawAddress] = useState("");
+  const [withdrawMethod, setWithdrawMethod] = useState("USDT_TRC20");
+  const [withdrawMethods, setWithdrawMethods] = useState([]);
+  const [withdrawLoading, setWithdrawLoading] = useState(false);
+  const [withdrawRateLoading, setWithdrawRateLoading] = useState(false);
 
   async function loadAssets() {
     try {
@@ -3567,6 +3590,56 @@ function AssetsPage({ t, tgUser, initData, lang = 'en'}) {
       setSupport({ support_url: "https://t.me/SabaCs_Reena", button_text: "Live Support", text: "Contact official support if you need help with deposit, withdraw, or bets." });
     }
   }
+
+
+  async function loadWithdrawMethods(amountValue = withdrawAmount) {
+    const n = Number(amountValue || 0);
+    if (!n || n <= 0) {
+      setWithdrawMethods([]);
+      return;
+    }
+    setWithdrawRateLoading(true);
+    try {
+      const res = await api(`/api/withdraw/methods?amount=${encodeURIComponent(n)}`, { tgUser, initData });
+      setWithdrawMethods(res.methods || []);
+    } catch (err) {
+      console.warn("Withdraw methods load failed:", err);
+      try {
+        const res = await api(`/api/deposit/methods?amount=${encodeURIComponent(n)}`, { tgUser, initData });
+        setWithdrawMethods(res.methods || []);
+      } catch (e) {
+        setWithdrawMethods([]);
+      }
+    } finally {
+      setWithdrawRateLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => loadWithdrawMethods(withdrawAmount), 300);
+    return () => clearTimeout(timer);
+  }, [withdrawAmount, tgUser?.id, initData]);
+
+  async function createWithdrawOrder() {
+    const amount = Number(withdrawAmount || 0);
+    if (!amount || amount <= 0) return alert(t("withdrawAmount"));
+    if (!withdrawAddress.trim()) return alert(t("withdrawAddress"));
+    setWithdrawLoading(true);
+    try {
+      const res = await api("/api/withdraw/create", {
+        method: "POST",
+        body: { amount, address: withdrawAddress.trim(), method: withdrawMethod },
+        tgUser,
+        initData,
+      });
+      alert(`${t("createWithdraw")}: ${res.order_no}\\n${t("receiveEstimate")}: ${res.pay_amount || res.receive} ${res.coin_symbol || "USDT"}`);
+      setWithdrawAddress("");
+      await loadAssets();
+    } finally {
+      setWithdrawLoading(false);
+    }
+  }
+
 
   async function loadOrderDetail() {
     if (!detailInput.no) return alert("Enter order no / bet id");
@@ -3604,6 +3677,43 @@ function AssetsPage({ t, tgUser, initData, lang = 'en'}) {
         <div><small>{t("poolShare") || "Pool Share"}</small><b>{s.pool_share || "0.00"}</b></div>
         <div><small>{t("btcShare") || "BTC Share"}</small><b>{s.btc_share || "0.000000"}</b><em>{s.btc_share_rule || "1 ticket = 1 BTC draw share"}</em></div>
       </div>
+
+
+      <div className="support-card withdraw-card">
+        <h3><Wallet size={20} /> {t("withdraw")}</h3>
+        <label className="field-label">{t("withdrawMethod")}</label>
+        <select className="dark-input" value={withdrawMethod} onChange={(e) => setWithdrawMethod(e.target.value)}>
+          {(withdrawMethods.length ? withdrawMethods : [
+            { key:"USDT_TRC20", label:"USDT", coin:"USDT", network:"TRC20", rate_usdt:"1", pay_amount: withdrawAmount },
+            { key:"USDC_ERC20", label:"USDC", coin:"USDC", network:"ERC20", rate_usdt:"1", pay_amount: withdrawAmount },
+            { key:"TRX_TRC20", label:"TRX", coin:"TRX", network:"TRC20", rate_usdt:"—", pay_amount:"—" },
+            { key:"TON", label:"TON", coin:"TON", network:"TON", rate_usdt:"—", pay_amount:"—" },
+            { key:"BNB_BEP20", label:"BNB", coin:"BNB", network:"BEP20 / BSC", rate_usdt:"—", pay_amount:"—" },
+            { key:"ETH_ERC20", label:"ETH", coin:"ETH", network:"ERC20", rate_usdt:"—", pay_amount:"—" },
+            { key:"BTC", label:"BTC", coin:"BTC", network:"Bitcoin", rate_usdt:"—", pay_amount:"—" },
+          ]).map((m) => (
+            <option key={m.key} value={m.key}>{m.coin} · {m.network}</option>
+          ))}
+        </select>
+        <input className="dark-input" value={withdrawAmount} onChange={(e) => setWithdrawAmount(e.target.value)} placeholder={t("withdrawAmount")} />
+        <input className="dark-input" value={withdrawAddress} onChange={(e) => setWithdrawAddress(e.target.value)} placeholder={t("withdrawAddress")} />
+        {(() => {
+          const m = (withdrawMethods || []).find((x) => x.key === withdrawMethod);
+          if (!m) return <p className="muted">{withdrawRateLoading ? "Loading rate..." : t("withdrawRate")}</p>;
+          const afterFee = Number(withdrawAmount || 0) > 0 ? (Number(withdrawAmount) * 0.98).toFixed(2) : "0.00";
+          return (
+            <div className="withdraw-preview-box">
+              <div><b>{t("withdrawRate")}:</b> 1 {m.coin} ≈ {Number(m.rate_usdt || 0).toLocaleString(undefined, { maximumFractionDigits: 8 })} USDT</div>
+              <div><b>{t("afterFee")}:</b> {afterFee} USDT</div>
+              <div><b>{t("receiveEstimate")}:</b> {m.pay_amount || "—"} {m.coin}</div>
+            </div>
+          );
+        })()}
+        <button className="red-button wide-red-button" disabled={withdrawLoading} onClick={createWithdrawOrder}>
+          {withdrawLoading ? "..." : t("createWithdraw")}
+        </button>
+      </div>
+
 
       <div className="support-card">
         <h3>{t("contactSupport") || "Contact Support"}</h3>

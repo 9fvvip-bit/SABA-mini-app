@@ -4698,3 +4698,35 @@ nav.bottom-nav button svg {
   border-radius: 0 !important;
   padding: 0 !important;
 }
+
+/* Withdraw multi-coin realtime rate UI */
+.withdraw-card .field-label {
+  display: block;
+  margin: 10px 0 6px;
+  color: #9fb0c8;
+  font-weight: 800;
+}
+.withdraw-card .dark-input,
+.withdraw-card select.dark-input {
+  width: 100%;
+  min-height: 54px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.055);
+  color: #fff;
+  padding: 0 16px;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+.withdraw-preview-box {
+  margin: 10px 0 14px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  color: #c6d1e3;
+  line-height: 1.55;
+}
+.withdraw-preview-box b {
+  color: #ffd85a;
+}
