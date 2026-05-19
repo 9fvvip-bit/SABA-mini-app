@@ -1924,6 +1924,15 @@ const V5_SUPPORT_FIX_I18N = {
 Object.keys(V5_SUPPORT_FIX_I18N).forEach((code) => { I18N[code] = { ...(I18N[code] || I18N.en), ...V5_SUPPORT_FIX_I18N[code] }; });
 
 
+
+const V6_EXTRA_I18N = {
+  en: { rankings: "Rankings", messages: "Messages", teamDetail: "Team Detail", teamTotalBet: "Team Total Bet", supporters: "Supporters", currentShareRate: "Current Share Rate", teamRanking: "Team Ranking", btcRanking: "BTC Share Ranking", betRanking: "Bet Ranking", maintenance: "Maintenance" },
+  zh: { rankings: "排行榜", messages: "消息", teamDetail: "球队详情", teamTotalBet: "球队总下注", supporters: "支持人数", currentShareRate: "当前分成倍率", teamRanking: "球队排行榜", btcRanking: "BTC 分成榜", betRanking: "下注排行榜", maintenance: "维护中" },
+  tr: { rankings: "Sıralama", messages: "Mesajlar", teamDetail: "Takım Detayı", teamTotalBet: "Takım Toplam Bahis", supporters: "Destekçiler", currentShareRate: "Mevcut Pay Çarpanı", teamRanking: "Takım Sıralaması", btcRanking: "BTC Pay Sıralaması", betRanking: "Bahis Sıralaması", maintenance: "Bakım" }
+};
+Object.keys(V6_EXTRA_I18N).forEach((code) => { I18N[code] = { ...(I18N[code] || I18N.en), ...V6_EXTRA_I18N[code] }; });
+
+
 function tr(lang, key, vars = {}) {
   const text = (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
   return Object.entries(vars).reduce((s, [k, v]) => s.replaceAll(`{${k}}`, String(v)), text);
@@ -2875,6 +2884,107 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
 
 
 
+
+function RankingsPage({ t, tgUser, initData }) {
+  const [kind, setKind] = useState("teams");
+  const [data, setData] = useState({ items: [] });
+
+  async function load(k = kind) {
+    try {
+      setData(await api(`/api/rankings?kind=${encodeURIComponent(k)}`, { tgUser, initData }));
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  useEffect(() => { load(kind); }, [kind]);
+
+  return (
+    <section className="page-section rankings-page">
+      <h2>{t("rankings") || "Rankings"}</h2>
+      <div className="ranking-tabs">
+        <button className={kind==="teams" ? "active" : ""} onClick={() => setKind("teams")}>{t("teamRanking") || "Team Ranking"}</button>
+        <button className={kind==="btc" ? "active" : ""} onClick={() => setKind("btc")}>{t("btcRanking") || "BTC Share Ranking"}</button>
+        <button className={kind==="bettors" ? "active" : ""} onClick={() => setKind("bettors")}>{t("betRanking") || "Bet Ranking"}</button>
+      </div>
+      <div className="ranking-list">
+        {(data.items || []).map((x, i) => (
+          <div className="ranking-card" key={i}>
+            <strong>#{i + 1}</strong>
+            <div>
+              <b>{x.team || x.telegram_id}</b>
+              <span>{x.amount ? `${Number(x.amount).toFixed(2)} USDT` : ""} {x.btc_share ? ` · BTC Share ${x.btc_share}` : ""} {x.supporters ? ` · ${x.supporters} supporters` : ""}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MessagesPage({ t, tgUser, initData }) {
+  const [items, setItems] = useState([]);
+  async function load() {
+    try {
+      const d = await api("/api/messages", { tgUser, initData });
+      setItems(d.items || []);
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+  useEffect(() => { load(); }, []);
+  return (
+    <section className="page-section messages-page">
+      <h2>{t("messages") || "Messages"}</h2>
+      <div className="message-list">
+        {items.length === 0 && <div className="empty-history">No messages.</div>}
+        {items.map((m) => (
+          <div className={`message-card ${m.is_read ? "" : "unread"}`} key={m.id}>
+            <b>{m.title}</b>
+            <p>{m.body}</p>
+            <small>{m.created_at}</small>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function TeamDetailModal({ t, team, tgUser, initData, onClose, onBet }) {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    if (!team?.name) return;
+    api(`/api/team_detail?team=${encodeURIComponent(team.name)}`, { tgUser, initData }).then(setData).catch((e) => alert(e.message));
+  }, [team?.name]);
+  if (!team) return null;
+  const closed = data?.status && data.status !== "open";
+  return (
+    <div className="team-detail-bg" onClick={onClose}>
+      <div className="team-detail-card" onClick={(e) => e.stopPropagation()}>
+        <button className="activity-close" onClick={onClose}>×</button>
+        <h2>{team.flag} {team.name}</h2>
+        <div className={`team-status ${closed ? "closed" : "open"}`}>{data?.status || "open"}</div>
+        <div className="team-detail-grid">
+          <div><small>{t("teamTotalBet") || "Team Total Bet"}</small><b>{data?.total_bet_amount || "0.00"} USDT</b></div>
+          <div><small>{t("supporters") || "Supporters"}</small><b>{data?.supporters || 0}</b></div>
+          <div><small>{t("currentShareRate") || "Current Share Rate"}</small><b>{data?.share_rate || team.share_rate || "1"}x</b></div>
+          <div><small>My Tickets</small><b>{data?.my_tickets || "0.00"}</b></div>
+        </div>
+        <h3>Top Supporters</h3>
+        <div className="supporter-list">
+          {(data?.top_supporters || []).map((x, i) => (
+            <div key={i}><span>#{i+1} {x.telegram_id}</span><b>{Number(x.amount).toFixed(2)} USDT</b></div>
+          ))}
+        </div>
+        <button className="red-button wide-red-button" disabled={closed} onClick={() => { onClose(); onBet(team); }}>
+          {closed ? "Betting Closed" : (t("bet") || "Bet")}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
 function AssetsPage({ t, tgUser, initData }) {
   const [data, setData] = useState(null);
   const [support, setSupport] = useState({ support_url: "https://t.me/SabaCs_Reena", button_text: "Live Support" });
@@ -3199,25 +3309,22 @@ function BetModal({ team, prizePool, onClose, placeBet, t }) {
 
 
 
+
 function BottomNav({ tab, setTab, t }) {
   const items = [
     ["pool", Trophy, t("pool") || "Pool"],
     ["deposit", Wallet, t("deposit") || "Deposit"],
     ["bets", Ticket, t("myBets") || "My Bets"],
+    ["rankings", Trophy, t("rankings") || "Rankings"],
+    ["messages", Send, t("messages") || "Messages"],
     ["rewards", Gift, t("rewards") || "Rewards"],
     ["assets", Coins, t("assets") || "Assets"],
   ];
 
   return (
-    <nav className="bottom-nav premium-bottom-nav v5-bottom-nav" aria-label="Main navigation">
+    <nav className="bottom-nav premium-bottom-nav v6-bottom-nav" aria-label="Main navigation">
       {items.map(([key, Icon, label]) => (
-        <button
-          type="button"
-          key={key}
-          onClick={() => setTab(key)}
-          className={tab === key ? "active" : ""}
-          aria-label={label}
-        >
+        <button type="button" key={key} onClick={() => setTab(key)} className={tab === key ? "active" : ""} aria-label={label}>
           <Icon size={20} />
           <span>{label}</span>
         </button>
@@ -3232,6 +3339,7 @@ export default function App() {
   const t = (key, vars = {}) => tr(lang, key, vars);
   const langDir = (LANGUAGES.find((x) => x.code === lang) || LANGUAGES[0]).dir;
   const [betTeam, setBetTeam] = useState(null);
+  const [teamDetail, setTeamDetail] = useState(null);
   const [confirmBetData, setConfirmBetData] = useState(null);
   const { tgUser, initData } = useTelegramUser();
   const [me, setMe] = useState(null);
@@ -3412,9 +3520,12 @@ export default function App() {
         {tab === "deposit" && <DepositPage t={t} festival={festival} deposits={deposits} withdraws={withdraws} myBets={myBets} walletHistory={walletHistory} createDeposit={createDeposit} cancelDeposit={cancelDeposit} submitReceipt={submitReceipt} btcDraw={btcDraw} depositMethods={depositMethods} tgUser={tgUser} initData={initData} />}
         {tab === "bets" && <MyBetsPage bets={myBets} t={t} />}
         {tab === "rewards" && <RewardsPage t={t} festival={festival} referral={referral} walletHistory={walletHistory} withdraws={withdraws} missions={missions} claimDepositMission={claimDepositMission} claimBetMission={claimBetMission} claimDailyLogin={claimDailyLogin} createWithdraw={createWithdraw} />}
+        {tab === "rankings" && <RankingsPage t={t} tgUser={tgUser} initData={initData} />}
+        {tab === "messages" && <MessagesPage t={t} tgUser={tgUser} initData={initData} />}
         {tab === "assets" && <AssetsPage t={t} tgUser={tgUser} initData={initData} />}
         <button type="button" className="v5-floating-assets-button" onClick={() => setTab("assets")}>💰 {t("assets") || "Assets"}</button>
         <BottomNav tab={tab} setTab={setTab} t={t} />
+        <TeamDetailModal t={t} team={teamDetail} tgUser={tgUser} initData={initData} onClose={() => setTeamDetail(null)} onBet={(team) => setBetTeam(team)} />
         <BetModal team={betTeam} prizePool={prizePool} onClose={() => setBetTeam(null)} placeBet={(team, amount) => setConfirmBetData({ team, amount })} t={t} />
         {confirmBetData && (
           <div className="confirm-bet-bg">

@@ -3770,3 +3770,112 @@ nav.bottom-nav button svg {
 .support-username {
   display: none !important;
 }
+
+
+/* V6 finance/ranking/team/messages */
+.v6-bottom-nav {
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  overflow-x: auto !important;
+  scrollbar-width: none;
+}
+.v6-bottom-nav::-webkit-scrollbar { display: none; }
+.v6-bottom-nav button span { font-size: 9px !important; }
+
+.ranking-tabs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin: 12px 0;
+}
+.ranking-tabs button {
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  border-radius: 14px;
+  padding: 12px;
+  font-weight: 900;
+}
+.ranking-tabs button.active { background: #e20b2f; }
+.ranking-list, .message-list, .supporter-list {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 120px;
+}
+.ranking-card, .message-card, .team-detail-grid div, .supporter-list div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+  border-radius: 16px;
+  padding: 13px;
+  background: rgba(255,255,255,.065);
+  border: 1px solid rgba(255,255,255,.11);
+  color: #fff;
+}
+.ranking-card strong {
+  color: #ffd34d;
+  font-size: 18px;
+}
+.ranking-card b, .message-card b {
+  display: block;
+  color: #fff;
+}
+.ranking-card span, .message-card p, .message-card small {
+  color: #aebbd0;
+}
+.message-card.unread {
+  border-color: rgba(42,171,238,.48);
+  box-shadow: 0 0 0 2px rgba(42,171,238,.12);
+}
+.team-detail-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 13000;
+  background: rgba(0,0,0,.72);
+  display: grid;
+  place-items: end center;
+  padding: 16px;
+}
+.team-detail-card {
+  width: min(100%, 520px);
+  max-height: 88vh;
+  overflow-y: auto;
+  border-radius: 26px;
+  background: #0b1220;
+  border: 1px solid rgba(255,255,255,.13);
+  color: #fff;
+  padding: 20px;
+  position: relative;
+}
+.team-status {
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+.team-status.open { background: rgba(66,255,159,.16); color: #62ffae; }
+.team-status.closed { background: rgba(255,80,100,.16); color: #ff8c9a; }
+.team-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.team-detail-grid div {
+  display: block;
+}
+.team-detail-grid small {
+  color: #9aa6b9;
+  display: block;
+  margin-bottom: 5px;
+}
+.team-detail-grid b {
+  color: #fff;
+}
+@media (max-width: 520px) {
+  .v6-bottom-nav {
+    grid-template-columns: repeat(7, 72px) !important;
+    justify-content: start !important;
+  }
+  .team-detail-grid { grid-template-columns: 1fr; }
+}
