@@ -2317,6 +2317,7 @@ async function api(path, { method = "GET", body, tgUser, initData } = {}) {
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
+    cache: "no-store",
   });
   const text = await res.text();
   let data;
@@ -2557,7 +2558,7 @@ function TeamRow({ team, onBet, onDetail, rank, t, lang = 'en' }) {
   const isHot = Boolean(meta.hotRank);
   const code = meta.code || countryCodeMap?.[team.name] || team.name.slice(0, 2).toUpperCase();
   const flagSrc = meta.flag;
-  const shareRate = team.share_rate || meta.rate || "7.00"; // SABA_V8_FRONT_SHARE_ODD_SYNC_FIX
+  const shareRate = team.live_share_rate || team.current_share_rate || team.share_rate || meta.rate || "7.00"; // SABA_V9_STRICT_LIVE_ODD_SYNC
 
   return (
     <div className={`team-row premium-team-card ${isHot ? "hot-team-card" : ""}`}>
@@ -4198,6 +4199,7 @@ export default function App() {
     const tasks = [
       ["me", api("/api/me", { tgUser, initData })],
       ["teams", api("/api/teams", { tgUser, initData })],
+      ["teamOdds", api("/api/team_odds", { tgUser, initData }).catch(() => ({ odds: {} }))],
       ["pool", api("/api/prize_pool", { tgUser, initData })],
       ["bets", api("/api/my_bets", { tgUser, initData })],
       ["festival", api("/api/deposit_festival", { tgUser, initData })],
@@ -4213,6 +4215,7 @@ export default function App() {
 
     const results = await Promise.allSettled(tasks.map(([, promise]) => promise));
     const failed = [];
+    let latestOdds = {};
 
     results.forEach((result, index) => {
       const name = tasks[index][0];
@@ -4228,7 +4231,14 @@ export default function App() {
       const data = result.value;
 
       if (name === "me") setMe(data);
-      if (name === "teams") setTeams(data.teams || fallbackTeams);
+      if (name === "teamOdds") latestOdds = data.odds || {};
+      if (name === "teams") {
+        const serverTeams = data.teams || fallbackTeams;
+        setTeams(serverTeams.map((tm) => {
+          const live = latestOdds[tm.name] || tm.live_share_rate || tm.current_share_rate || tm.share_rate;
+          return { ...tm, share_rate: live || tm.share_rate };
+        }));
+      }
       if (name === "pool") setPrizePool(data);
       if (name === "bets") setMyBets(data.bets || []);
       if (name === "festival") setFestival(data);
@@ -4241,6 +4251,10 @@ export default function App() {
       if (name === "depositMethods") setDepositMethods(data.methods || []);
       if (name === "banners") setBanners(data || { announcement: "", items: [] });
     });
+
+    if (Object.keys(latestOdds || {}).length > 0) {
+      setTeams((prev) => (prev || fallbackTeams).map((tm) => ({ ...tm, share_rate: latestOdds[tm.name] || tm.share_rate })));
+    }
 
     if (failed.length > 0) {
       setApiError(`Some data failed: ${failed.join(" | ")}`);
