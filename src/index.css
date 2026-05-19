@@ -3879,3 +3879,191 @@ nav.bottom-nav button svg {
   }
   .team-detail-grid { grid-template-columns: 1fr; }
 }
+
+
+/* V6 hotfix: restore Rewards in the bottom nav */
+.v6-core-bottom-nav,
+.bottom-nav.v6-core-bottom-nav,
+.premium-bottom-nav.v6-core-bottom-nav {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: 0 !important;
+  transform: translateX(-50%) !important;
+  width: min(100vw, 720px) !important;
+  max-width: 720px !important;
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 5px !important;
+  padding: 8px 7px calc(8px + env(safe-area-inset-bottom)) !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  z-index: 9998 !important;
+}
+
+.v6-core-bottom-nav button {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 74px !important;
+  padding: 7px 2px !important;
+  border-radius: 18px !important;
+}
+
+.v6-core-bottom-nav button span {
+  display: block !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.v6-quick-actions {
+  position: fixed !important;
+  left: 50% !important;
+  bottom: calc(84px + env(safe-area-inset-bottom)) !important;
+  transform: translateX(-50%) !important;
+  width: min(100vw - 18px, 700px) !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 8px !important;
+  z-index: 9997 !important;
+  pointer-events: auto !important;
+}
+
+.v6-quick-actions button {
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 999px !important;
+  background: rgba(12,18,32,.92) !important;
+  color: #dbe7ff !important;
+  font-weight: 950 !important;
+  height: 40px !important;
+  box-shadow: 0 10px 28px rgba(0,0,0,.25) !important;
+}
+
+.v6-quick-actions button.active {
+  background: linear-gradient(135deg, #e20b2f, #7d1230) !important;
+  color: #fff !important;
+}
+
+.v6-floating-rewards-button {
+  position: fixed !important;
+  left: 12px !important;
+  bottom: calc(132px + env(safe-area-inset-bottom)) !important;
+  z-index: 9999 !important;
+  height: 42px !important;
+  padding: 0 14px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  color: #fff !important;
+  font-weight: 900 !important;
+  background: linear-gradient(135deg, #e20b2f, #7d1230) !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,.35) !important;
+}
+
+.v5-floating-assets-button {
+  right: 12px !important;
+  bottom: calc(132px + env(safe-area-inset-bottom)) !important;
+}
+
+.phone-shell,
+.premium-phone-shell {
+  padding-bottom: 148px !important;
+}
+
+@media (max-width: 430px) {
+  .v6-core-bottom-nav {
+    gap: 3px !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+  .v6-core-bottom-nav button {
+    height: 68px !important;
+    border-radius: 15px !important;
+  }
+  .v6-core-bottom-nav button span {
+    font-size: 9px !important;
+  }
+  .v6-quick-actions {
+    bottom: calc(78px + env(safe-area-inset-bottom)) !important;
+  }
+  .v6-floating-rewards-button,
+  .v5-floating-assets-button {
+    bottom: calc(123px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+
+/* V6 nav clean hotfix:
+   Main bottom: Pool / Deposit / My Bets / Rewards / Rankings.
+   Remove left Rewards floating and old quick actions.
+*/
+.v6-quick-actions,
+.v6-floating-rewards-button {
+  display: none !important;
+}
+
+.v6-main-bottom-nav,
+.bottom-nav.v6-main-bottom-nav,
+.premium-bottom-nav.v6-main-bottom-nav {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: 0 !important;
+  transform: translateX(-50%) !important;
+  width: min(100vw, 720px) !important;
+  max-width: 720px !important;
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 5px !important;
+  padding: 8px 7px calc(8px + env(safe-area-inset-bottom)) !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  z-index: 9998 !important;
+}
+
+.v6-main-bottom-nav button {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 74px !important;
+  padding: 7px 2px !important;
+  border-radius: 18px !important;
+}
+
+.v6-main-bottom-nav button span {
+  display: block !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.v5-floating-assets-button {
+  right: 12px !important;
+  left: auto !important;
+  bottom: calc(88px + env(safe-area-inset-bottom)) !important;
+}
+
+.phone-shell,
+.premium-phone-shell {
+  padding-bottom: 118px !important;
+}
+
+@media (max-width: 430px) {
+  .v6-main-bottom-nav {
+    gap: 3px !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+  .v6-main-bottom-nav button {
+    height: 68px !important;
+    border-radius: 15px !important;
+  }
+  .v6-main-bottom-nav button span {
+    font-size: 9px !important;
+  }
+  .v5-floating-assets-button {
+    bottom: calc(82px + env(safe-area-inset-bottom)) !important;
+  }
+}

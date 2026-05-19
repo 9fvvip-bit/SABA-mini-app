@@ -3310,19 +3310,19 @@ function BetModal({ team, prizePool, onClose, placeBet, t }) {
 
 
 
+
+
 function BottomNav({ tab, setTab, t }) {
   const items = [
     ["pool", Trophy, t("pool") || "Pool"],
     ["deposit", Wallet, t("deposit") || "Deposit"],
     ["bets", Ticket, t("myBets") || "My Bets"],
-    ["rankings", Trophy, t("rankings") || "Rankings"],
-    ["messages", Send, t("messages") || "Messages"],
     ["rewards", Gift, t("rewards") || "Rewards"],
-    ["assets", Coins, t("assets") || "Assets"],
+    ["rankings", Trophy, t("rankings") || "Rankings"],
   ];
 
   return (
-    <nav className="bottom-nav premium-bottom-nav v6-bottom-nav" aria-label="Main navigation">
+    <nav className="bottom-nav premium-bottom-nav v6-main-bottom-nav" aria-label="Main navigation">
       {items.map(([key, Icon, label]) => (
         <button type="button" key={key} onClick={() => setTab(key)} className={tab === key ? "active" : ""} aria-label={label}>
           <Icon size={20} />
