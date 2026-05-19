@@ -1761,6 +1761,160 @@ const V4_COMPLETE_I18N = {
 };
 Object.keys(V4_COMPLETE_I18N).forEach((code) => { I18N[code] = { ...(I18N[code] || I18N.en), ...V4_COMPLETE_I18N[code] }; });
 
+const V5_EXTRA_I18N = {
+  "en": {
+    "assets": "Assets",
+    "contactSupport": "Contact Support",
+    "availableBalance": "Available Balance",
+    "bonus": "Bonus",
+    "totalBetAmount": "Total Bet Amount",
+    "poolShare": "Pool Share",
+    "btcShare": "BTC Share",
+    "orderDetail": "Order Detail",
+    "confirmBetTitle": "Confirm Bet",
+    "confirmBetDesc": "Please check your team and amount before confirming.",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "activityPopup": "Activity"
+  },
+  "zh": {
+    "assets": "我的资产",
+    "contactSupport": "联系客服",
+    "availableBalance": "可用余额",
+    "bonus": "奖励余额",
+    "totalBetAmount": "总下注金额",
+    "poolShare": "奖池分成",
+    "btcShare": "BTC 分成",
+    "orderDetail": "订单详情",
+    "confirmBetTitle": "确认下注",
+    "confirmBetDesc": "扣款前请确认球队和金额。",
+    "confirm": "确认",
+    "cancel": "取消",
+    "activityPopup": "活动公告"
+  },
+  "tr": {
+    "assets": "Varlıklarım",
+    "contactSupport": "Destek ile İletişim",
+    "availableBalance": "Kullanılabilir Bakiye",
+    "bonus": "Bonus",
+    "totalBetAmount": "Toplam Bahis Tutarı",
+    "poolShare": "Havuz Payı",
+    "btcShare": "BTC Payı",
+    "orderDetail": "Emir Detayı",
+    "confirmBetTitle": "Bahsi Onayla",
+    "confirmBetDesc": "Onaylamadan önce takım ve tutarı kontrol edin.",
+    "confirm": "Onayla",
+    "cancel": "İptal",
+    "activityPopup": "Etkinlik"
+  },
+  "es": {
+    "assets": "Assets",
+    "contactSupport": "Contact Support",
+    "availableBalance": "Available Balance",
+    "bonus": "Bonus",
+    "totalBetAmount": "Total Bet Amount",
+    "poolShare": "Pool Share",
+    "btcShare": "BTC Share",
+    "orderDetail": "Order Detail",
+    "confirmBetTitle": "Confirm Bet",
+    "confirmBetDesc": "Please check your team and amount before confirming.",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "activityPopup": "Activity"
+  },
+  "hi": {
+    "assets": "Assets",
+    "contactSupport": "Contact Support",
+    "availableBalance": "Available Balance",
+    "bonus": "Bonus",
+    "totalBetAmount": "Total Bet Amount",
+    "poolShare": "Pool Share",
+    "btcShare": "BTC Share",
+    "orderDetail": "Order Detail",
+    "confirmBetTitle": "Confirm Bet",
+    "confirmBetDesc": "Please check your team and amount before confirming.",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "activityPopup": "Activity"
+  },
+  "ar": {
+    "assets": "Assets",
+    "contactSupport": "Contact Support",
+    "availableBalance": "Available Balance",
+    "bonus": "Bonus",
+    "totalBetAmount": "Total Bet Amount",
+    "poolShare": "Pool Share",
+    "btcShare": "BTC Share",
+    "orderDetail": "Order Detail",
+    "confirmBetTitle": "Confirm Bet",
+    "confirmBetDesc": "Please check your team and amount before confirming.",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "activityPopup": "Activity"
+  },
+  "fr": {
+    "assets": "Assets",
+    "contactSupport": "Contact Support",
+    "availableBalance": "Available Balance",
+    "bonus": "Bonus",
+    "totalBetAmount": "Total Bet Amount",
+    "poolShare": "Pool Share",
+    "btcShare": "BTC Share",
+    "orderDetail": "Order Detail",
+    "confirmBetTitle": "Confirm Bet",
+    "confirmBetDesc": "Please check your team and amount before confirming.",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "activityPopup": "Activity"
+  },
+  "ja": {
+    "assets": "Assets",
+    "contactSupport": "Contact Support",
+    "availableBalance": "Available Balance",
+    "bonus": "Bonus",
+    "totalBetAmount": "Total Bet Amount",
+    "poolShare": "Pool Share",
+    "btcShare": "BTC Share",
+    "orderDetail": "Order Detail",
+    "confirmBetTitle": "Confirm Bet",
+    "confirmBetDesc": "Please check your team and amount before confirming.",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "activityPopup": "Activity"
+  },
+  "ko": {
+    "assets": "Assets",
+    "contactSupport": "Contact Support",
+    "availableBalance": "Available Balance",
+    "bonus": "Bonus",
+    "totalBetAmount": "Total Bet Amount",
+    "poolShare": "Pool Share",
+    "btcShare": "BTC Share",
+    "orderDetail": "Order Detail",
+    "confirmBetTitle": "Confirm Bet",
+    "confirmBetDesc": "Please check your team and amount before confirming.",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "activityPopup": "Activity"
+  },
+  "ru": {
+    "assets": "Assets",
+    "contactSupport": "Contact Support",
+    "availableBalance": "Available Balance",
+    "bonus": "Bonus",
+    "totalBetAmount": "Total Bet Amount",
+    "poolShare": "Pool Share",
+    "btcShare": "BTC Share",
+    "orderDetail": "Order Detail",
+    "confirmBetTitle": "Confirm Bet",
+    "confirmBetDesc": "Please check your team and amount before confirming.",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "activityPopup": "Activity"
+  }
+};
+Object.keys(V5_EXTRA_I18N).forEach((code) => { I18N[code] = { ...(I18N[code] || I18N.en), ...V5_EXTRA_I18N[code] }; });
+
 function tr(lang, key, vars = {}) {
   const text = (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
   return Object.entries(vars).reduce((s, [k, v]) => s.replaceAll(`{${k}}`, String(v)), text);
@@ -2068,9 +2222,20 @@ function AppHeader({ user }) {
 function AnnouncementBanners({ banners }) {
   const items = banners?.items || [];
   const ann = banners?.announcement || "";
+  const [showPopup, setShowPopup] = useState(() => !sessionStorage.getItem("saba_activity_popup_seen"));
   if (!ann && items.length === 0) return null;
   return (
     <div className="announcement-wrap">
+      {showPopup && (ann || items[0]) && (
+        <div className="activity-popup-bg" onClick={() => { sessionStorage.setItem("saba_activity_popup_seen", "1"); setShowPopup(false); }}>
+          <div className="activity-popup" onClick={(e) => e.stopPropagation()}>
+            <button className="activity-close" onClick={() => { sessionStorage.setItem("saba_activity_popup_seen", "1"); setShowPopup(false); }}>×</button>
+            <h3>🎉 {items[0]?.title || "Activity"}</h3>
+            <p>{items[0]?.subtitle || ann}</p>
+            {items[0]?.image_url && <img src={items[0].image_url} alt="activity" />}
+          </div>
+        </div>
+      )}
       {ann && <div className="announcement-bar">📢 {ann}</div>}
       {items.map((b, i) => (
         <a className="banner-card" href={b.link_url || "#"} key={i}>
@@ -2700,6 +2865,83 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
 }
 
 
+
+function AssetsPage({ t, tgUser, initData }) {
+  const [data, setData] = useState(null);
+  const [support, setSupport] = useState(null);
+  const [detail, setDetail] = useState(null);
+  const [detailInput, setDetailInput] = useState({ type: "deposit", no: "" });
+
+  async function loadAssets() {
+    try {
+      const a = await api("/api/assets", { tgUser, initData });
+      const s = await api("/api/contact_support", { tgUser, initData });
+      setData(a);
+      setSupport(s);
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  async function loadOrderDetail() {
+    if (!detailInput.no) return alert("Enter order no / bet id");
+    try {
+      const d = await api(`/api/order_detail?order_type=${encodeURIComponent(detailInput.type)}&order_no=${encodeURIComponent(detailInput.no)}`, { tgUser, initData });
+      setDetail(d);
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  useEffect(() => { loadAssets(); }, []);
+
+  const s = data?.summary || {};
+  return (
+    <section className="page-section assets-page">
+      <h2>{t("assets")}</h2>
+      <div className="asset-grid">
+        <div><small>{t("availableBalance")}</small><b>{s.available_balance || "0.00"} USDT</b></div>
+        <div><small>{t("bonus")}</small><b>{s.bonus || "0.00"} USDT</b></div>
+        <div><small>{t("totalBetAmount")}</small><b>{s.total_bet_amount || "0.00"} USDT</b></div>
+        <div><small>{t("poolShare")}</small><b>{s.pool_share || "0.00"}</b></div>
+        <div><small>{t("btcShare")}</small><b>{s.btc_share || "0.000000"}</b></div>
+      </div>
+
+      <div className="support-card">
+        <h3>{t("contactSupport")}</h3>
+        <p>{support?.text || "Contact official support if you need help."}</p>
+        <a className="red-button support-button" href={support?.support_url || "https://t.me/SabaWorldCup2026PoolBot"}>Telegram Support</a>
+      </div>
+
+      <div className="order-detail-card">
+        <h3>{t("orderDetail")}</h3>
+        <div className="order-detail-row">
+          <select value={detailInput.type} onChange={(e)=>setDetailInput({...detailInput, type:e.target.value})}>
+            <option value="deposit">Deposit</option>
+            <option value="withdraw">Withdraw</option>
+            <option value="bet">Bet ID</option>
+          </select>
+          <input value={detailInput.no} onChange={(e)=>setDetailInput({...detailInput, no:e.target.value})} placeholder="Order No / Bet ID" />
+          <button onClick={loadOrderDetail}>Search</button>
+        </div>
+        {detail && <pre className="detail-pre">{JSON.stringify(detail, null, 2)}</pre>}
+      </div>
+
+      <h3>{t("walletHistory")}</h3>
+      <div className="history-list">
+        {(data?.wallet_history || []).map((x, i) => (
+          <div className="history-row" key={i}>
+            <b>{x.type}</b>
+            <span>{x.amount}</span>
+            <small>{x.created_at}</small>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+
 function MyBetsPage({ bets, t }) {
   return (
     <div className="page">
@@ -2915,16 +3157,18 @@ function BetModal({ team, prizePool, onClose, placeBet, t }) {
 
 
 
+
 function BottomNav({ tab, setTab, t }) {
   const items = [
     ["pool", Trophy, t("pool") || "Pool"],
     ["deposit", Wallet, t("deposit") || "Deposit"],
     ["bets", Ticket, t("myBets") || "My Bets"],
     ["rewards", Gift, t("rewards") || "Rewards"],
+    ["assets", Coins, t("assets") || "Assets"],
   ];
 
   return (
-    <nav className="bottom-nav premium-bottom-nav" aria-label="Main navigation">
+    <nav className="bottom-nav premium-bottom-nav v5-bottom-nav" aria-label="Main navigation">
       {items.map(([key, Icon, label]) => (
         <button
           type="button"
@@ -2933,7 +3177,7 @@ function BottomNav({ tab, setTab, t }) {
           className={tab === key ? "active" : ""}
           aria-label={label}
         >
-          <Icon size={22} />
+          <Icon size={20} />
           <span>{label}</span>
         </button>
       ))}
@@ -2947,6 +3191,7 @@ export default function App() {
   const t = (key, vars = {}) => tr(lang, key, vars);
   const langDir = (LANGUAGES.find((x) => x.code === lang) || LANGUAGES[0]).dir;
   const [betTeam, setBetTeam] = useState(null);
+  const [confirmBetData, setConfirmBetData] = useState(null);
   const { tgUser, initData } = useTelegramUser();
   const [me, setMe] = useState(null);
   const [teams, setTeams] = useState(fallbackTeams);
@@ -3126,8 +3371,24 @@ export default function App() {
         {tab === "deposit" && <DepositPage t={t} festival={festival} deposits={deposits} withdraws={withdraws} myBets={myBets} walletHistory={walletHistory} createDeposit={createDeposit} cancelDeposit={cancelDeposit} submitReceipt={submitReceipt} btcDraw={btcDraw} depositMethods={depositMethods} tgUser={tgUser} initData={initData} />}
         {tab === "bets" && <MyBetsPage bets={myBets} t={t} />}
         {tab === "rewards" && <RewardsPage t={t} festival={festival} referral={referral} walletHistory={walletHistory} withdraws={withdraws} missions={missions} claimDepositMission={claimDepositMission} claimBetMission={claimBetMission} claimDailyLogin={claimDailyLogin} createWithdraw={createWithdraw} />}
+        {tab === "assets" && <AssetsPage t={t} tgUser={tgUser} initData={initData} />}
+        <button type="button" className="v5-floating-assets-button" onClick={() => setTab("assets")}>💰 {t("assets") || "Assets"}</button>
         <BottomNav tab={tab} setTab={setTab} t={t} />
-        <BetModal team={betTeam} prizePool={prizePool} onClose={() => setBetTeam(null)} placeBet={placeBet} t={t} />
+        <BetModal team={betTeam} prizePool={prizePool} onClose={() => setBetTeam(null)} placeBet={(team, amount) => setConfirmBetData({ team, amount })} t={t} />
+        {confirmBetData && (
+          <div className="confirm-bet-bg">
+            <div className="confirm-bet-card">
+              <h3>{t("confirmBetTitle")}</h3>
+              <p>{t("confirmBetDesc")}</p>
+              <div className="confirm-line"><span>Team</span><b>{confirmBetData.team?.name}</b></div>
+              <div className="confirm-line"><span>Amount</span><b>{confirmBetData.amount} USDT</b></div>
+              <div className="confirm-actions">
+                <button onClick={() => setConfirmBetData(null)}>{t("cancel")}</button>
+                <button className="red-button" onClick={async () => { const d = confirmBetData; setConfirmBetData(null); await placeBet(d.team, d.amount); }}>{t("confirm")}</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
