@@ -3562,6 +3562,30 @@ function TeamDetailModal({ t, team, tgUser, initData, onClose, onBet, lang = 'en
 }
 
 
+
+const SABA_WITHDRAW_ORDER_I18N_FINAL = {
+  en: { withdrawCreated:"Withdraw Created", withdrawCompleted:"Withdraw Completed", withdrawPending:"Withdraw Pending", withdrawRejected:"Withdraw Rejected", selectWithdrawCoin:"Select withdraw coin / network", chooseCoinFirst:"Choose coin / network first" },
+  zh: { withdrawCreated:"提现创建", withdrawCompleted:"提现完成", withdrawPending:"提现审核中", withdrawRejected:"提现已拒绝", selectWithdrawCoin:"选择提现币种 / 网络", chooseCoinFirst:"请先选择币种 / 网络" },
+  ja: { withdrawCreated:"出金申請済み", withdrawCompleted:"出金完了", withdrawPending:"出金審査中", withdrawRejected:"出金拒否", selectWithdrawCoin:"出金币種 / ネットワークを選択", chooseCoinFirst:"先に币種 / ネットワークを選択してください" },
+  ko: { withdrawCreated:"출금 생성됨", withdrawCompleted:"출금 완료", withdrawPending:"출금 심사 중", withdrawRejected:"출금 거절됨", selectWithdrawCoin:"출금 코인 / 네트워크 선택", chooseCoinFirst:"코인 / 네트워크를 먼저 선택하세요" },
+  tr: { withdrawCreated:"Çekim Oluşturuldu", withdrawCompleted:"Çekim Tamamlandı", withdrawPending:"Çekim Beklemede", withdrawRejected:"Çekim Reddedildi", selectWithdrawCoin:"Çekim coin / ağ seç", chooseCoinFirst:"Önce coin / ağ seçin" },
+  es: { withdrawCreated:"Retiro Creado", withdrawCompleted:"Retiro Completado", withdrawPending:"Retiro Pendiente", withdrawRejected:"Retiro Rechazado", selectWithdrawCoin:"Seleccionar moneda / red", chooseCoinFirst:"Elige moneda / red primero" },
+  ru: { withdrawCreated:"Вывод создан", withdrawCompleted:"Вывод завершен", withdrawPending:"Вывод ожидает", withdrawRejected:"Вывод отклонен", selectWithdrawCoin:"Выберите монету / сеть", chooseCoinFirst:"Сначала выберите монету / сеть" },
+  ar: { withdrawCreated:"تم إنشاء السحب", withdrawCompleted:"اكتمل السحب", withdrawPending:"السحب قيد المراجعة", withdrawRejected:"تم رفض السحب", selectWithdrawCoin:"اختر عملة / شبكة السحب", chooseCoinFirst:"اختر العملة / الشبكة أولاً" },
+  hi: { withdrawCreated:"निकासी बनाई गई", withdrawCompleted:"निकासी पूरी हुई", withdrawPending:"निकासी लंबित", withdrawRejected:"निकासी अस्वीकृत", selectWithdrawCoin:"निकासी कॉइन / नेटवर्क चुनें", chooseCoinFirst:"पहले कॉइन / नेटवर्क चुनें" }
+};
+Object.keys(SABA_WITHDRAW_ORDER_I18N_FINAL).forEach((code) => {
+  I18N[code] = { ...(I18N[code] || I18N.en), ...SABA_WITHDRAW_ORDER_I18N_FINAL[code] };
+});
+
+function localWithdrawStatusText(t, status) {
+  const s = String(status || "").toLowerCase();
+  if (s === "completed" || s === "confirmed" || s === "approved") return t("withdrawCompleted");
+  if (s === "pending") return t("withdrawPending");
+  if (s === "rejected" || s === "cancelled" || s === "canceled") return t("withdrawRejected");
+  return localStatusLabel ? localStatusLabel(t, status) : (status || "");
+}
+
 function AssetsPage({ t, tgUser, initData, lang = 'en'}) {
   const [data, setData] = useState(null);
   const [support, setSupport] = useState({ support_url: "https://t.me/SabaCs_Reena", button_text: "Live Support" });
@@ -3632,7 +3656,7 @@ function AssetsPage({ t, tgUser, initData, lang = 'en'}) {
         tgUser,
         initData,
       });
-      alert(`${t("createWithdraw")}: ${res.order_no}\\n${t("receiveEstimate")}: ${res.pay_amount || res.receive} ${res.coin_symbol || "USDT"}`);
+      alert(`${t("withdrawCreated")}: ${res.order_no}\\n${t("receiveEstimate")}: ${res.pay_amount || res.receive} ${res.coin_symbol || "USDT"}`);
       setWithdrawAddress("");
       await loadAssets();
     } finally {
@@ -3679,22 +3703,28 @@ function AssetsPage({ t, tgUser, initData, lang = 'en'}) {
       </div>
 
 
+      
       <div className="support-card withdraw-card">
         <h3><Wallet size={20} /> {t("withdraw")}</h3>
-        <label className="field-label">{t("withdrawMethod")}</label>
-        <select className="dark-input" value={withdrawMethod} onChange={(e) => setWithdrawMethod(e.target.value)}>
+        <label className="field-label">{t("selectWithdrawCoin") || t("withdrawMethod")}</label>
+        <div className="withdraw-method-grid">
           {(withdrawMethods.length ? withdrawMethods : [
-            { key:"USDT_TRC20", label:"USDT", coin:"USDT", network:"TRC20", rate_usdt:"1", pay_amount: withdrawAmount },
-            { key:"USDC_ERC20", label:"USDC", coin:"USDC", network:"ERC20", rate_usdt:"1", pay_amount: withdrawAmount },
-            { key:"TRX_TRC20", label:"TRX", coin:"TRX", network:"TRC20", rate_usdt:"—", pay_amount:"—" },
-            { key:"TON", label:"TON", coin:"TON", network:"TON", rate_usdt:"—", pay_amount:"—" },
-            { key:"BNB_BEP20", label:"BNB", coin:"BNB", network:"BEP20 / BSC", rate_usdt:"—", pay_amount:"—" },
-            { key:"ETH_ERC20", label:"ETH", coin:"ETH", network:"ERC20", rate_usdt:"—", pay_amount:"—" },
-            { key:"BTC", label:"BTC", coin:"BTC", network:"Bitcoin", rate_usdt:"—", pay_amount:"—" },
+            { key:"USDT_TRC20", label:"USDT", coin:"USDT", network:"TRC20", rate_usdt:"1", pay_amount: withdrawAmount, tag:"Stable / Low fee" },
+            { key:"USDC_ERC20", label:"USDC", coin:"USDC", network:"ERC20", rate_usdt:"1", pay_amount: withdrawAmount, tag:"Stable / ERC20" },
+            { key:"TRX_TRC20", label:"TRX", coin:"TRX", network:"TRC20", rate_usdt:"—", pay_amount:"—", tag:"Low fee" },
+            { key:"TON", label:"TON", coin:"TON", network:"TON", rate_usdt:"—", pay_amount:"—", tag:"Fast" },
+            { key:"BNB_BEP20", label:"BNB", coin:"BNB", network:"BEP20 / BSC", rate_usdt:"—", pay_amount:"—", tag:"BSC" },
+            { key:"ETH_ERC20", label:"ETH", coin:"ETH", network:"ERC20", rate_usdt:"—", pay_amount:"—", tag:"ERC20" },
+            { key:"BTC", label:"BTC", coin:"BTC", network:"Bitcoin", rate_usdt:"—", pay_amount:"—", tag:"Bitcoin" },
           ]).map((m) => (
-            <option key={m.key} value={m.key}>{m.coin} · {m.network}</option>
+            <button type="button" key={m.key} className={`withdraw-method-card ${withdrawMethod === m.key ? "active" : ""}`} onClick={() => setWithdrawMethod(m.key)}>
+              <b>{m.coin}</b>
+              <small>{m.network}</small>
+              <em>{m.tag || m.network}</em>
+              <span>1 {m.coin}≈{m.rate_usdt && m.rate_usdt !== "—" ? Number(m.rate_usdt).toLocaleString(undefined, { maximumFractionDigits: 8 }) : "—"} USDT</span>
+            </button>
           ))}
-        </select>
+        </div>
         <input className="dark-input" value={withdrawAmount} onChange={(e) => setWithdrawAmount(e.target.value)} placeholder={t("withdrawAmount")} />
         <input className="dark-input" value={withdrawAddress} onChange={(e) => setWithdrawAddress(e.target.value)} placeholder={t("withdrawAddress")} />
         {(() => {
@@ -3747,13 +3777,13 @@ function AssetsPage({ t, tgUser, initData, lang = 'en'}) {
           return (
             <div className="wallet-history-card" key={i}>
               <div className="wallet-history-top">
-                <b>{localTxTypeLabel(t, x.tx_type || x.type || x.display_type || "Record")}</b>
+                <b>{String(x.tx_type || x.type || x.display_type || "").toLowerCase().includes("withdraw") ? localWithdrawStatusText(t, x.status || x.display_status || x.tx_type) : localTxTypeLabel(t, x.tx_type || x.type || x.display_type || "Record")}</b>
                 <strong className={positive ? "amount-plus" : "amount-minus"}>
                   {x.display_amount || x.amount_usdt || x.amount || "0"} USDT
                 </strong>
               </div>
               <p>{localRemarkText(x.remark || x.note || x.display_remark || "-", lang, t)}</p>
-              <small>{x.display_time || x.created_at || ""}</small>
+              <small>{x.order_no || x.display_order_no || ""}{(x.order_no || x.display_order_no) ? " · " : ""}{x.display_time || x.created_at || ""}</small>
             </div>
           );
         })}

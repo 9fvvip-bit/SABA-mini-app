@@ -4730,3 +4730,51 @@ nav.bottom-nav button svg {
 .withdraw-preview-box b {
   color: #ffd85a;
 }
+
+/* Withdraw coin cards like deposit methods */
+.withdraw-method-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 8px 0 14px;
+}
+.withdraw-method-card {
+  text-align: left;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.045);
+  color: #fff;
+  border-radius: 16px;
+  padding: 12px;
+  min-height: 112px;
+}
+.withdraw-method-card.active {
+  border-color: #ff2751;
+  background: linear-gradient(135deg, rgba(255,39,81,.45), rgba(255,255,255,.045));
+  box-shadow: 0 0 0 1px rgba(255,39,81,.25) inset;
+}
+.withdraw-method-card b {
+  display: block;
+  font-size: 22px;
+  font-weight: 1000;
+  margin-bottom: 4px;
+}
+.withdraw-method-card small {
+  display: block;
+  color: #aebbd0;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+.withdraw-method-card em {
+  display: block;
+  color: #ffd85a;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.withdraw-method-card span {
+  display: block;
+  color: #c8d2e2;
+  font-size: 13px;
+  font-weight: 800;
+}
