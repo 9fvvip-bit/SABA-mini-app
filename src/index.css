@@ -4568,3 +4568,46 @@ nav.bottom-nav button svg {
   .flag-en:after { top:12px !important; height:8px !important; }
   .flag-br:after { left:18px !important; top:9px !important; }
 }
+
+
+/* V6 final i18n ranking polish: text-only rank, localized metrics, clean wrapping */
+.ordinal-rank {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  height: auto !important;
+  color: #ffd85a !important;
+  font-size: 21px !important;
+  font-weight: 1000 !important;
+  text-shadow: 0 2px 10px rgba(255,216,90,.25) !important;
+}
+
+.ordinal-rank.rank-2 {
+  color: #d7e0ee !important;
+  background: transparent !important;
+}
+
+.ordinal-rank.rank-3 {
+  color: #ffbd7b !important;
+  background: transparent !important;
+}
+
+.top10-ranking-card {
+  grid-template-columns: 54px 1fr !important;
+  min-height: 92px !important;
+  padding: 13px 14px !important;
+}
+
+.ranking-main span {
+  display: block !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  line-height: 1.45 !important;
+}
+
+.team-odds {
+  white-space: normal !important;
+  line-height: 1.35 !important;
+}

@@ -1933,6 +1933,23 @@ const V6_EXTRA_I18N = {
 Object.keys(V6_EXTRA_I18N).forEach((code) => { I18N[code] = { ...(I18N[code] || I18N.en), ...V6_EXTRA_I18N[code] }; });
 
 
+
+const V6_POLISHED_I18N = {
+  en: { rankings: "Rankings", teamRanking: "Team Ranking", btcRanking: "BTC Share Ranking", betRanking: "Bet Ranking" },
+  zh: { rankings: "排行榜", teamRanking: "球队排行榜", btcRanking: "BTC 分成榜", betRanking: "下注排行榜" },
+  ja: { rankings: "ランキング", teamRanking: "チームランキング", btcRanking: "BTCシェアランキング", betRanking: "ベットランキング" },
+  ko: { rankings: "랭킹", teamRanking: "팀 랭킹", btcRanking: "BTC 쉐어 랭킹", betRanking: "베팅 랭킹" },
+  tr: { rankings: "Sıralamalar", teamRanking: "Takım Sıralaması", btcRanking: "BTC Pay Sıralaması", betRanking: "Bahis Sıralaması" },
+  es: { rankings: "Clasificaciones", teamRanking: "Ranking de Equipos", btcRanking: "Ranking BTC Share", betRanking: "Ranking de Apuestas" },
+  ru: { rankings: "Рейтинг", teamRanking: "Рейтинг команд", btcRanking: "Рейтинг BTC доли", betRanking: "Рейтинг ставок" },
+  ar: { rankings: "التصنيفات", teamRanking: "ترتيب الفرق", btcRanking: "ترتيب حصة BTC", betRanking: "ترتيب الرهانات" },
+  hi: { rankings: "रैंकिंग", teamRanking: "टीम रैंकिंग", btcRanking: "BTC शेयर रैंकिंग", betRanking: "बेट रैंकिंग" }
+};
+Object.keys(V6_POLISHED_I18N).forEach((code) => {
+  I18N[code] = { ...(I18N[code] || I18N.en), ...V6_POLISHED_I18N[code] };
+});
+
+
 function tr(lang, key, vars = {}) {
   const text = (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
   return Object.entries(vars).reduce((s, [k, v]) => s.replaceAll(`{${k}}`, String(v)), text);
@@ -2406,7 +2423,7 @@ function TeamRow({ team, onBet, rank, t, lang = 'en' }) {
           </div>
 
           <div className="team-odds">
-            {t("ticket")} {team.total_ticket || 0} / {t("share")} {team.total_share || "0.00"}
+            {localMetricLabel("totalTickets", lang)} {team.total_ticket || 0} / {localMetricLabel("totalShare", lang)} {team.total_share || "0.00"}
           </div>
         </div>
       </div>
@@ -2886,30 +2903,62 @@ function DepositPage({ t, festival, deposits, withdraws, myBets, walletHistory, 
 
 
 
+
 const TEAM_NAME_I18N_FRONT = {
-  France: { zh: "法国", tr: "Fransa", es: "Francia", ja: "フランス", ko: "프랑스", ru: "Франция", ar: "فرنسا", hi: "फ्रांस" },
-  Brazil: { zh: "巴西", tr: "Brezilya", es: "Brasil", ja: "ブラジル", ko: "브라질", ru: "Бразилия", ar: "البرازيل", hi: "ब्राजील" },
-  Portugal: { zh: "葡萄牙", tr: "Portekiz", es: "Portugal", ja: "ポルトガル", ko: "포르투갈", ru: "Португалия", ar: "البرتغال", hi: "पुर्तगाल" },
-  Spain: { zh: "西班牙", tr: "İspanya", es: "España", ja: "スペイン", ko: "스페인", ru: "Испания", ar: "إسبانيا", hi: "स्पेन" },
-  England: { zh: "英格兰", tr: "İngiltere", es: "Inglaterra", ja: "イングランド", ko: "잉글랜드", ru: "Англия", ar: "إنجلترا", hi: "इंग्लैंड" },
-  Argentina: { zh: "阿根廷", tr: "Arjantin", es: "Argentina", ja: "アルゼンチン", ko: "아르헨티나", ru: "Аргентина", ar: "الأرجنتين", hi: "अर्जेंटीना" },
-  Germany: { zh: "德国", tr: "Almanya", es: "Alemania", ja: "ドイツ", ko: "독일", ru: "Германия", ar: "ألمانيا", hi: "जर्मनी" },
-  Italy: { zh: "意大利", tr: "İtalya", es: "Italia", ja: "イタリア", ko: "이탈리아", ru: "Италия", ar: "إيطاليا", hi: "इटली" },
-  Japan: { zh: "日本", tr: "Japonya", es: "Japón", ja: "日本", ko: "일본", ru: "Япония", ar: "اليابان", hi: "जापान" },
-  USA: { zh: "美国", tr: "ABD", es: "Estados Unidos", ja: "アメリカ", ko: "미국", ru: "США", ar: "الولايات المتحدة", hi: "अमेरिका" },
-  Canada: { zh: "加拿大", tr: "Kanada", es: "Canadá", ja: "カナダ", ko: "캐나다", ru: "Канада", ar: "كندا", hi: "कनाडा" },
-  Netherlands: { zh: "荷兰", tr: "Hollanda", es: "Países Bajos", ja: "オランダ", ko: "네덜란드", ru: "Нидерланды", ar: "هولندا", hi: "नीदरलैंड" },
-  Mexico: { zh: "墨西哥", tr: "Meksika", es: "México", ja: "メキシコ", ko: "멕시코", ru: "Мексика", ar: "المكسيك", hi: "मेक्सिको" },
-  Morocco: { zh: "摩洛哥", tr: "Fas", es: "Marruecos", ja: "モロッコ", ko: "모로코", ru: "Марокко", ar: "المغرب", hi: "मोरक्को" },
-  Croatia: { zh: "克罗地亚", tr: "Hırvatistan", es: "Croacia", ja: "クロアチア", ko: "크로아티아", ru: "Хорватия", ar: "كرواتيا", hi: "क्रोएशिया" },
-  Uruguay: { zh: "乌拉圭", tr: "Uruguay", es: "Uruguay", ja: "ウルグアイ", ko: "우루과이", ru: "Уругвай", ar: "أوروغواي", hi: "उरुग्वे" },
-  Belgium: { zh: "比利时", tr: "Belçika", es: "Bélgica", ja: "ベルギー", ko: "벨기에", ru: "Бельгия", ar: "بلجيكا", hi: "बेल्जियम" }
+  France: { en: "France", zh: "法国", tr: "Fransa", ja: "フランス", ko: "프랑스", es: "Francia", ru: "Франция", ar: "فرنسا", hi: "फ्रांस" },
+  Brazil: { en: "Brazil", zh: "巴西", tr: "Brezilya", ja: "ブラジル", ko: "브라질", es: "Brasil", ru: "Бразилия", ar: "البرازيل", hi: "ब्राजील" },
+  Portugal: { en: "Portugal", zh: "葡萄牙", tr: "Portekiz", ja: "ポルトガル", ko: "포르투갈", es: "Portugal", ru: "Португалия", ar: "البرتغال", hi: "पुर्तगाल" },
+  Spain: { en: "Spain", zh: "西班牙", tr: "İspanya", ja: "スペイン", ko: "스페인", es: "España", ru: "Испания", ar: "إسبانيا", hi: "स्पेन" },
+  England: { en: "England", zh: "英格兰", tr: "İngiltere", ja: "イングランド", ko: "잉글랜드", es: "Inglaterra", ru: "Англия", ar: "إنجلترا", hi: "इंग्लैंड" },
+  Argentina: { en: "Argentina", zh: "阿根廷", tr: "Arjantin", ja: "アルゼンチン", ko: "아르헨티나", es: "Argentina", ru: "Аргентина", ar: "الأرجنتين", hi: "अर्जेंटीना" },
+  Germany: { en: "Germany", zh: "德国", tr: "Almanya", ja: "ドイツ", ko: "독일", es: "Alemania", ru: "Германия", ar: "ألمانيا", hi: "जर्मनी" },
+  Italy: { en: "Italy", zh: "意大利", tr: "İtalya", ja: "イタリア", ko: "이탈리아", es: "Italia", ru: "Италия", ar: "إيطاليا", hi: "इटली" },
+  Japan: { en: "Japan", zh: "日本", tr: "Japonya", ja: "日本", ko: "일본", es: "Japón", ru: "Япония", ar: "اليابان", hi: "जापान" },
+  USA: { en: "USA", zh: "美国", tr: "ABD", ja: "アメリカ", ko: "미국", es: "Estados Unidos", ru: "США", ar: "الولايات المتحدة", hi: "अमेरिका" },
+  Canada: { en: "Canada", zh: "加拿大", tr: "Kanada", ja: "カナダ", ko: "캐나다", es: "Canadá", ru: "Канада", ar: "كندا", hi: "कनाडा" },
+  Netherlands: { en: "Netherlands", zh: "荷兰", tr: "Hollanda", ja: "オランダ", ko: "네덜란드", es: "Países Bajos", ru: "Нидерланды", ar: "هولندا", hi: "नीदरलैंड" },
+  Mexico: { en: "Mexico", zh: "墨西哥", tr: "Meksika", ja: "メキシコ", ko: "멕시코", es: "México", ru: "Мексика", ar: "المكسيك", hi: "मेक्सिको" },
+  Morocco: { en: "Morocco", zh: "摩洛哥", tr: "Fas", ja: "モロッコ", ko: "모로코", es: "Marruecos", ru: "Марокко", ar: "المغرب", hi: "मोरक्को" },
+  Croatia: { en: "Croatia", zh: "克罗地亚", tr: "Hırvatistan", ja: "クロアチア", ko: "크로아티아", es: "Croacia", ru: "Хорватия", ar: "كرواتيا", hi: "क्रोएशिया" },
+  Uruguay: { en: "Uruguay", zh: "乌拉圭", tr: "Uruguay", ja: "ウルグアイ", ko: "우루과이", es: "Uruguay", ru: "Уругвай", ar: "أوروغواي", hi: "उरुग्वे" },
+  Belgium: { en: "Belgium", zh: "比利时", tr: "Belçika", ja: "ベルギー", ko: "벨기에", es: "Bélgica", ru: "Бельгия", ar: "بلجيكا", hi: "बेल्जियम" },
+  Switzerland: { en: "Switzerland", zh: "瑞士", tr: "İsviçre", ja: "スイス", ko: "스위스", es: "Suiza", ru: "Швейцария", ar: "سويسرا", hi: "स्विट्ज़रलैंड" },
+  Turkey: { en: "Turkey", zh: "土耳其", tr: "Türkiye", ja: "トルコ", ko: "튀르키예", es: "Turquía", ru: "Турция", ar: "تركيا", hi: "तुर्की" },
+  Poland: { en: "Poland", zh: "波兰", tr: "Polonya", ja: "ポーランド", ko: "폴란드", es: "Polonia", ru: "Польша", ar: "بولندا", hi: "पोलैंड" },
+  Denmark: { en: "Denmark", zh: "丹麦", tr: "Danimarka", ja: "デンマーク", ko: "덴마크", es: "Dinamarca", ru: "Дания", ar: "الدنمارك", hi: "डेनमार्क" },
+  Senegal: { en: "Senegal", zh: "塞内加尔", tr: "Senegal", ja: "セネガル", ko: "세네갈", es: "Senegal", ru: "Сенегал", ar: "السنغال", hi: "सेनेगल" },
+  Serbia: { en: "Serbia", zh: "塞尔维亚", tr: "Sırbistan", ja: "セルビア", ko: "세르비아", es: "Serbia", ru: "Сербия", ar: "صربيا", hi: "सर्बिया" },
+  Qatar: { en: "Qatar", zh: "卡塔尔", tr: "Katar", ja: "カタール", ko: "카타르", es: "Catar", ru: "Катар", ar: "قطر", hi: "क़तर" },
+  "Saudi Arabia": { en: "Saudi Arabia", zh: "沙特阿拉伯", tr: "Suudi Arabistan", ja: "サウジアラビア", ko: "사우디아라비아", es: "Arabia Saudita", ru: "Саудовская Аравия", ar: "السعودية", hi: "सऊदी अरब" },
 };
+
+const TEAM_CODE_ALIAS = {
+  UnitedStates: "USA",
+  "United States": "USA",
+  SouthKorea: "South Korea",
+  Korea: "South Korea"
+};
+
+function normalizeTeamKey(team) {
+  const raw = String(team || "").trim();
+  return TEAM_CODE_ALIAS[raw] || TEAM_CODE_ALIAS[raw.replace(/\s+/g, "")] || raw;
+}
 
 function localTeamName(team, lang, names) {
   const code = lang || "en";
-  if (!team) return "";
-  return names?.[code] || TEAM_NAME_I18N_FRONT?.[team]?.[code] || TEAM_NAME_I18N_FRONT?.[String(team).trim()]?.[code] || team;
+  const key = normalizeTeamKey(team);
+  if (!key) return "";
+  return names?.[code] || TEAM_NAME_I18N_FRONT?.[key]?.[code] || TEAM_NAME_I18N_FRONT?.[key]?.en || key;
+}
+
+function localMetricLabel(key, lang) {
+  const dict = {
+    totalTickets: { en: "Total Tickets", zh: "总票数", ja: "総チケット数", ko: "총 티켓", tr: "Toplam Bilet", es: "Boletos Totales", ru: "Всего билетов", ar: "إجمالي التذاكر", hi: "कुल टिकट" },
+    totalShare: { en: "Total Share", zh: "总分成", ja: "総シェア", ko: "총 쉐어", tr: "Toplam Pay", es: "Participación Total", ru: "Общая доля", ar: "إجمالي الحصة", hi: "कुल शेयर" },
+    betAmount: { en: "Bet Amount", zh: "下注金额", ja: "ベット額", ko: "베팅 금액", tr: "Bahis Tutarı", es: "Monto Apostado", ru: "Сумма ставки", ar: "مبلغ الرهان", hi: "दांव राशि" },
+    btcShare: { en: "BTC Share", zh: "BTC 分成", ja: "BTCシェア", ko: "BTC 쉐어", tr: "BTC Payı", es: "Participación BTC", ru: "BTC доля", ar: "حصة BTC", hi: "BTC शेयर" },
+  };
+  return dict[key]?.[lang] || dict[key]?.en || key;
 }
 
 
@@ -2963,17 +3012,17 @@ function RankingsPage({ t, tgUser, initData, lang = 'en' }) {
               {kind === "teams" ? (
                 <>
                   <b className="team-rank-title"><span className={`flag flag-${x.flag_code || "xx"}`}></span><span className="team-rank-name">{localTeamName(x.team, lang, x.names)}</span></b>
-                  <span>Bet Amount: <span className="metric">{x.amount || "0.00"} USDT</span> · Share: <span className="metric">{x.share || x.shares || "0.00"}</span></span>
+                  <span>{localMetricLabel("betAmount", lang)}: <span className="metric">{x.amount || "0.00"} USDT</span> · {localMetricLabel("totalShare", lang)}: <span className="metric">{x.share || x.shares || "0.00"}</span></span>
                 </>
               ) : kind === "btc" ? (
                 <>
                   <b className="player-rank-title">{x.player || "Player"}</b>
-                  <span>BTC Share: <span className="metric">{x.btc_share || "0.000000"}</span> · Bet Amount: <span className="metric">{x.amount || "0.00"} USDT</span> · Share: <span className="metric">{x.share || x.shares || "0.00"}</span></span>
+                  <span>{localMetricLabel("btcShare", lang)}: <span className="metric">{x.btc_share || "0.000000"}</span> · {localMetricLabel("betAmount", lang)}: <span className="metric">{x.amount || "0.00"} USDT</span> · {localMetricLabel("totalShare", lang)}: <span className="metric">{x.share || x.shares || "0.00"}</span></span>
                 </>
               ) : (
                 <>
                   <b className="player-rank-title">{x.player || "Player"}</b>
-                  <span>Bet Amount: <span className="metric">{x.amount || "0.00"} USDT</span> · Share: <span className="metric">{x.share || x.shares || "0.00"}</span> · BTC Share: <span className="metric">{x.btc_share || "0.000000"}</span></span>
+                  <span>{localMetricLabel("betAmount", lang)}: <span className="metric">{x.amount || "0.00"} USDT</span> · {localMetricLabel("totalShare", lang)}: <span className="metric">{x.share || x.shares || "0.00"}</span> · {localMetricLabel("btcShare", lang)}: <span className="metric">{x.btc_share || "0.000000"}</span></span>
                 </>
               )}
             </div>
