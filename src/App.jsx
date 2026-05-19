@@ -2929,7 +2929,7 @@ function AssetsPage({ t, tgUser, initData }) {
       <h2>{t("assets") || "Assets"}</h2>
       <div className="asset-grid">
         <div><small>{t("availableBalance") || "Available Balance"}</small><b>{s.available_balance || "0.00"} USDT</b></div>
-        <div><small>{t("bonus") || "Bonus"}</small><b>{s.bonus || "0.00"} USDT</b></div>
+        <div><small>{t("bonus") || "Bonus"}</small><b>{s.bonus || "0.00"} USDT</b><em>{s.bonus_rule || "Claimed bonuses"}</em></div>
         <div><small>{t("totalBetAmount") || "Total Bet Amount"}</small><b>{s.total_bet_amount || "0.00"} USDT</b></div>
         <div><small>{t("poolShare") || "Pool Share"}</small><b>{s.pool_share || "0.00"}</b></div>
         <div><small>{t("btcShare") || "BTC Share"}</small><b>{s.btc_share || "0.000000"}</b><em>{s.btc_share_rule || "1 ticket = 1 BTC draw share"}</em></div>
