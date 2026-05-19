@@ -4322,3 +4322,47 @@ nav.bottom-nav button svg {
   .v6-floating-ranking-button { bottom: calc(130px + env(safe-area-inset-bottom)) !important; }
   .v5-floating-assets-button { bottom: calc(82px + env(safe-area-inset-bottom)) !important; }
 }
+
+
+/* Ranking beauty/privacy hotfix */
+.ordinal-rank {
+  min-width: 54px !important;
+  height: 36px !important;
+  border-radius: 999px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 15px !important;
+  font-weight: 950 !important;
+  color: #0b1220 !important;
+  background: linear-gradient(135deg, #ffe884, #f0b33a) !important;
+  box-shadow: 0 8px 18px rgba(240,179,58,.22) !important;
+}
+
+.ordinal-rank.rank-1 {
+  background: linear-gradient(135deg, #fff2a8, #f6c74a) !important;
+}
+
+.ordinal-rank.rank-2 {
+  background: linear-gradient(135deg, #eef2f7, #aeb7c5) !important;
+}
+
+.ordinal-rank.rank-3 {
+  background: linear-gradient(135deg, #ffd2a6, #cf7a31) !important;
+}
+
+.top10-ranking-card {
+  gap: 12px !important;
+  border-radius: 20px !important;
+  padding: 14px !important;
+}
+
+.ranking-main b {
+  font-size: 17px !important;
+  letter-spacing: .2px !important;
+}
+
+.ranking-main span {
+  font-size: 13px !important;
+  color: #b8c4d8 !important;
+}

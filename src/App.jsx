@@ -2890,6 +2890,15 @@ function RankingsPage({ t, tgUser, initData }) {
   const [data, setData] = useState({ items: [] });
   const [loading, setLoading] = useState(false);
 
+  function ordinal(n) {
+    const num = Number(n);
+    if (num % 100 >= 11 && num % 100 <= 13) return `${num}th`;
+    if (num % 10 === 1) return `${num}st`;
+    if (num % 10 === 2) return `${num}nd`;
+    if (num % 10 === 3) return `${num}rd`;
+    return `${num}th`;
+  }
+
   async function load(k = kind) {
     setLoading(true);
     try {
@@ -2906,7 +2915,7 @@ function RankingsPage({ t, tgUser, initData }) {
   useEffect(() => { load(kind); }, [kind]);
 
   function rowTitle(x) {
-    if (kind === "teams") return x.team || "-";
+    if (kind === "teams") return `${x.flag || "🏳️"} ${x.team || "-"}`;
     return x.player || "Player";
   }
 
@@ -2926,11 +2935,11 @@ function RankingsPage({ t, tgUser, initData }) {
         {!loading && !data?.error && (data.items || []).length === 0 && <div className="empty-history">No ranking data yet.</div>}
         {(data.items || []).slice(0, 10).map((x, i) => (
           <div className="ranking-card top10-ranking-card" key={i}>
-            <strong>#{i + 1}</strong>
+            <strong className={`ordinal-rank rank-${i+1}`}>{ordinal(i + 1)}</strong>
             <div className="ranking-main">
               <b>{rowTitle(x)}</b>
               {kind === "teams" ? (
-                <span>Bet Amount: {x.amount || "0.00"} USDT · Share: {x.share || x.shares || "0.00"} · Supporters: {x.supporters || 0}</span>
+                <span>Bet Amount: {x.amount || "0.00"} USDT · Share: {x.share || x.shares || "0.00"}</span>
               ) : kind === "btc" ? (
                 <span>BTC Share: {x.btc_share || "0.000000"} · Bet Amount: {x.amount || "0.00"} USDT · Share: {x.share || x.shares || "0.00"}</span>
               ) : (
