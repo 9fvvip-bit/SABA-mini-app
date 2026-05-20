@@ -2113,6 +2113,12 @@ function detectDefaultLang() {
   return "en";
 }
 
+
+// SABA_LANG_UNDEFINED_FINAL_HOTFIX
+// Safe fallback for any legacy component that accidentally references `lang` outside App() scope.
+// App() still uses its own state lang and all normal pages receive lang by props.
+const lang = detectDefaultLang();
+
 function LanguageSwitcher({ lang, setLang, t }) {
   const [open, setOpen] = useState(false);
   const current = LANGUAGES.find((x) => x.code === lang) || LANGUAGES[0];
@@ -3518,7 +3524,7 @@ function RankingsPage({ t, tgUser, initData, lang = 'en' }) {
 }
 
 
-function MessagesPage({ t, tgUser, initData }) {
+function MessagesPage({ t, lang = "en", tgUser, initData }) {
   const [items, setItems] = useState([]);
   async function load() {
     try {
@@ -3960,7 +3966,7 @@ function MyBetsPage({ bets, t, lang = 'en'}) {
   );
 }
 
-function RewardsPage({ t, festival, referral, walletHistory, missions, claimDepositMission, claimBetMission, claimDailyLogin }) {
+function RewardsPage({ t, lang = "en", festival, referral, walletHistory, missions, claimDepositMission, claimBetMission, claimDailyLogin }) {
   const copy = (text) => navigator.clipboard?.writeText(text);
   const confirmed = Number(festival?.total_deposit || 0);
   const progress = Math.min(100, Math.round(((confirmed % 100) / 100) * 100 || (confirmed >= 100 ? 100 : 0)));
@@ -4366,9 +4372,9 @@ export default function App() {
         {tab === "pool" && <PoolPage onBet={setBetTeam} onDetail={setTeamDetail} setTab={setTab} me={me} teams={teams} prizePool={prizePool} festival={festival} loading={loading} error={apiError} t={t} lang={lang} />}
         {tab === "deposit" && <DepositPage t={t} festival={festival} deposits={deposits} withdraws={withdraws} myBets={myBets} walletHistory={walletHistory} createDeposit={createDeposit} cancelDeposit={cancelDeposit} submitReceipt={submitReceipt} btcDraw={btcDraw} depositMethods={depositMethods} tgUser={tgUser} initData={initData} lang={lang} />}
         {tab === "bets" && <MyBetsPage bets={myBets} t={t} lang={lang} />}
-        {tab === "rewards" && <RewardsPage t={t} festival={festival} referral={referral} walletHistory={walletHistory} missions={missions} claimDepositMission={claimDepositMission} claimBetMission={claimBetMission} claimDailyLogin={claimDailyLogin} />}
+        {tab === "rewards" && <RewardsPage t={t} lang={lang} festival={festival} referral={referral} walletHistory={walletHistory} missions={missions} claimDepositMission={claimDepositMission} claimBetMission={claimBetMission} claimDailyLogin={claimDailyLogin} />}
         {tab === "rankings" && <RankingsPage t={t} tgUser={tgUser} initData={initData} lang={lang} />}
-        {tab === "messages" && <MessagesPage t={t} tgUser={tgUser} initData={initData} />}
+        {tab === "messages" && <MessagesPage t={t} lang={lang} tgUser={tgUser} initData={initData} />}
         {tab === "assets" && <AssetsPage t={t} tgUser={tgUser} initData={initData} lang={lang} deposits={deposits} withdraws={withdraws} myBets={myBets} />}
         <button type="button" className="v6-floating-ranking-button" onClick={() => setTab("rankings")}>🏆 {t("rankings") || "Rankings"}</button>
         <button type="button" className="v5-floating-assets-button" onClick={() => setTab("assets")}>💰 {t("assets") || "Assets"}</button>
