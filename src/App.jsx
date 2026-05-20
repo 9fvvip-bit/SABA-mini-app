@@ -26,7 +26,7 @@ import {
 } from "lucide-react";
 import "./index.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || "https://api.c158129.com").replace(/\/$/, "");
 const DEPOSIT_ADDRESS = "TVk3UDQnBrT8vgUbR3dy9Eb1ogBwvNx4G";
 
 const LANGUAGES = [
@@ -2322,6 +2322,7 @@ async function api(path, { method = "GET", body, tgUser, initData } = {}) {
   const res = await fetch(authUrl(path, tgUser, initData), {
     method,
     headers,
+    headers: { "Content-Type": "application/json" },
     body: body ? JSON.stringify(body) : undefined,
     cache: "no-store",
   });
@@ -4276,7 +4277,17 @@ export default function App() {
 
   async function placeBet(team, amount) {
     try {
-      const res = await api("/api/place_bet", { method: "POST", body: { team: team.name, amount }, tgUser, initData });
+      const res = await api("/api/place_bet", {
+      method: "POST",
+      body: {
+        team: team?.code || team?.name,
+        team_name: team?.name,
+        amount_usdt: Number(amount),
+        amount: Number(amount),
+      },
+      tgUser,
+      initData,
+    });
       alert(t("betSuccess", { tickets: res.tickets, shares: res.shares }));
       setBetTeam(null);
       await loadData();
@@ -4399,3 +4410,4 @@ export default function App() {
     </div>
   );
 }
+// SABA_PLACE_BET_API_HOTFIX
