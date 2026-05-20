@@ -2310,7 +2310,8 @@ function useTelegramUser() {
 
 function authUrl(path, tgUser, initData) {
   const url = new URL(`${API_BASE}${path}`);
-  if (!initData && tgUser?.id) url.searchParams.set("telegram_id", tgUser.id);
+  // Always pass telegram_id as fallback. Telegram initData is still sent in header when available.
+  if (tgUser?.id) url.searchParams.set("telegram_id", tgUser.id);
   return url.toString();
 }
 
@@ -2322,7 +2323,6 @@ async function api(path, { method = "GET", body, tgUser, initData } = {}) {
   const res = await fetch(authUrl(path, tgUser, initData), {
     method,
     headers,
-    headers: { "Content-Type": "application/json" },
     body: body ? JSON.stringify(body) : undefined,
     cache: "no-store",
   });
@@ -4411,3 +4411,5 @@ export default function App() {
   );
 }
 // SABA_PLACE_BET_API_HOTFIX
+
+// SABA_AUTH_HEADER_FINAL_FIX
