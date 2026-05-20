@@ -2311,21 +2311,29 @@ function useTelegramUser() {
 function authUrl(path, tgUser, initData) {
   const url = new URL(`${API_BASE}${path}`);
   // Always pass telegram_id as fallback. Telegram initData is still sent in header when available.
-  if (tgUser?.id) url.searchParams.set("telegram_id", tgUser.id);
+  if (tgUser?.id) url.searchParams.set("telegram_id", String(tgUser.id));
   return url.toString();
 }
 
 async function api(path, { method = "GET", body, tgUser, initData } = {}) {
   const headers = { "ngrok-skip-browser-warning": "true" };
   if (initData) headers["X-Telegram-Init-Data"] = initData;
-  if (body) headers["Content-Type"] = "application/json";
+  if (body !== undefined && body !== null) headers["Content-Type"] = "application/json";
 
-  const res = await fetch(authUrl(path, tgUser, initData), {
-    method,
-    headers,
-    body: body ? JSON.stringify(body) : undefined,
-    cache: "no-store",
-  });
+  const url = authUrl(path, tgUser, initData);
+
+  let res;
+  try {
+    res = await fetch(url, {
+      method,
+      headers,
+      body: body !== undefined && body !== null ? JSON.stringify(body) : undefined,
+      cache: "no-store",
+    });
+  } catch (err) {
+    throw new Error(`Network error: ${err?.message || "Failed to fetch"} | API: ${url}`);
+  }
+
   const text = await res.text();
   let data;
   try {
@@ -2333,7 +2341,10 @@ async function api(path, { method = "GET", body, tgUser, initData } = {}) {
   } catch {
     data = { detail: text };
   }
-  if (!res.ok) throw new Error(typeof data.detail === "string" ? data.detail : JSON.stringify(data.detail));
+  if (!res.ok) {
+    const msg = typeof data.detail === "string" ? data.detail : JSON.stringify(data.detail || data);
+    throw new Error(`${res.status} ${res.statusText}: ${msg}`);
+  }
   return data;
 }
 
@@ -4277,17 +4288,22 @@ export default function App() {
 
   async function placeBet(team, amount) {
     try {
+      const cleanAmount = Number(String(amount ?? "").replace(/[^\d.]/g, ""));
+      if (!Number.isFinite(cleanAmount) || cleanAmount <= 0) throw new Error(t("amountUsdt") || "Invalid amount");
+      const teamName = team?.name || team?.team || String(team || "");
+      if (!teamName) throw new Error("Invalid team");
+
       const res = await api("/api/place_bet", {
-      method: "POST",
-      body: {
-        team: team?.code || team?.name,
-        team_name: team?.name,
-        amount_usdt: Number(amount),
-        amount: Number(amount),
-      },
-      tgUser,
-      initData,
-    });
+        method: "POST",
+        body: {
+          team: teamName,
+          amount: cleanAmount,
+          amount_usdt: cleanAmount,
+          bet_type: "champion",
+        },
+        tgUser,
+        initData,
+      });
       alert(t("betSuccess", { tickets: res.tickets, shares: res.shares }));
       setBetTeam(null);
       await loadData();
@@ -4413,3 +4429,5 @@ export default function App() {
 // SABA_PLACE_BET_API_HOTFIX
 
 // SABA_AUTH_HEADER_FINAL_FIX
+
+// SABA_FINAL_BET_FETCH_ONE_TIME_FIX
