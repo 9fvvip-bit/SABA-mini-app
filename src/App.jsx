@@ -3481,11 +3481,13 @@ function RankingsPage({ t, tgUser, initData, lang = 'en' }) {
   async function load(k = kind) {
     setLoading(true);
     try {
-      const d = await api(`/api/rankings?kind=${encodeURIComponent(k)}`, { tgUser, initData });
-      setData(d || { items: [] });
+      const apiKind = k === "bettors" ? "bet" : k;
+      const d = await api(`/api/rankings?kind=${encodeURIComponent(apiKind)}&limit=10`, { tgUser, initData });
+      const items = d?.items || d?.rankings || d?.teams || d?.btc_share_ranking || d?.bet_ranking || d?.bets || d?.bettors || [];
+      setData({ ...(d || {}), items });
     } catch (err) {
       console.warn("Ranking load failed:", err);
-      setData({ kind: k, items: [], error: "Ranking data is not ready. Please update the backend API." });
+      setData({ kind: k, items: [], error: err?.message || "Ranking data is not ready. Please update the backend API." });
     } finally {
       setLoading(false);
     }
@@ -3513,18 +3515,18 @@ function RankingsPage({ t, tgUser, initData, lang = 'en' }) {
             <div className="ranking-main">
               {kind === "teams" ? (
                 <>
-                  <b className="team-rank-title"><span className={`flag flag-${x.flag_code || "xx"}`}></span><span className="team-rank-name">{localTeamName(x.team, lang, x.names)}</span></b>
-                  <span>{localMetricLabel("betAmount", lang)}: <span className="metric">{x.amount || "0.00"} USDT</span> · {localMetricLabel("totalShare", lang)}: <span className="metric">{x.share || x.shares || "0.00"}</span></span>
+                  <b className="team-rank-title"><span className="team-rank-emoji">{x.flag || x.flag_emoji || ""}</span><span className="team-rank-name">{localTeamName(x.team || x.name, lang, x.names)}</span></b>
+                  <span>{localMetricLabel("betAmount", lang)}: <span className="metric">{x.amount || x.amount_usdt || x.total_bet || "0.00"} USDT</span> · {localMetricLabel("totalShare", lang)}: <span className="metric">{x.share || x.shares || x.total_share || "0.00"}</span></span>
                 </>
               ) : kind === "btc" ? (
                 <>
-                  <b className="player-rank-title">{x.player || "Player"}</b>
-                  <span>{localMetricLabel("btcShare", lang)}: <span className="metric">{x.btc_share || "0.000000"}</span> · {localMetricLabel("betAmount", lang)}: <span className="metric">{x.amount || "0.00"} USDT</span> · {localMetricLabel("totalShare", lang)}: <span className="metric">{x.share || x.shares || "0.00"}</span></span>
+                  <b className="player-rank-title">{x.player || x.display_name || x.name || "Player"}</b>
+                  <span>{localMetricLabel("btcShare", lang)}: <span className="metric">{x.btc_share || "0.000000"}</span> · {localMetricLabel("betAmount", lang)}: <span className="metric">{x.amount || x.amount_usdt || x.total_bet || "0.00"} USDT</span> · {localMetricLabel("totalShare", lang)}: <span className="metric">{x.share || x.shares || x.total_share || "0.00"}</span></span>
                 </>
               ) : (
                 <>
-                  <b className="player-rank-title">{x.player || "Player"}</b>
-                  <span>{localMetricLabel("betAmount", lang)}: <span className="metric">{x.amount || "0.00"} USDT</span> · {localMetricLabel("totalShare", lang)}: <span className="metric">{x.share || x.shares || "0.00"}</span> · {localMetricLabel("btcShare", lang)}: <span className="metric">{x.btc_share || "0.000000"}</span></span>
+                  <b className="player-rank-title">{x.player || x.display_name || x.name || "Player"}</b>
+                  <span>{localMetricLabel("betAmount", lang)}: <span className="metric">{x.amount || x.amount_usdt || x.total_bet || "0.00"} USDT</span> · {localMetricLabel("totalShare", lang)}: <span className="metric">{x.share || x.shares || x.total_share || "0.00"}</span> · {localMetricLabel("btcShare", lang)}: <span className="metric">{x.btc_share || "0.000000"}</span></span>
                 </>
               )}
             </div>
@@ -4433,3 +4435,5 @@ export default function App() {
 // SABA_FINAL_BET_FETCH_ONE_TIME_FIX
 
 // SABA_PUBLIC_RANKINGS_FRONTEND_ALIAS_FIX
+
+// SABA_PUBLIC_RANKINGS_FRONTEND_V3_ROBUST_FIX
